@@ -1,23 +1,25 @@
 <%= ERB.new(File.read(CURRENT_PATH + "/templates/_license.erb"), trim_mode: '-').result(binding)%>
 
 module Elastic
-  module WorkplaceSearch
-    module <%= @module_name %>
-      <%= @doc -%>
-      def <%= @method_name %>(<%= method_signature_params %>)
-        <% required_params.map do |required|
-            name = required['name'] -%>
-          raise ArgumentError, "Required parameter '<%= name %>' missing" unless <%= name %>
-        <% end -%>
+  module EnterpriseSearch
+    module WorkplaceSearch
+      module Actions
+        <%= @doc -%>
+        def <%= @method_name %>(<%= method_signature_params %>)
+          <% required_params.map do |required|
+              name = required['name'] -%>
+            raise ArgumentError, "Required parameter '<%= name %>' missing" unless <%= name %>
+          <% end -%>
 
-        request(
-          :<%= @http_method %>,
-          "<%= @path %>",
-          parameters
-        )
+          request(
+            :<%= @http_method %>,
+            "<%= @path %>",
+            parameters
+          )
+        end
+
+        <%= aliases %>
       end
-
-      <%= aliases %>
     end
   end
 end
