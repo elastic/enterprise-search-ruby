@@ -2,24 +2,22 @@
 
 module Elastic
   module WorkplaceSearch
-    class Client
-      module <%= @module_name %>
-        <%= @doc -%>
-        def <%= @method_name %>(<%= method_signature_params %>)
-          <% required_params.map do |required|
-              name = required['name'] -%>
-            raise ArgumentError, "Required parameter '<%= name %>' missing" unless <%= name %>
-          <% end -%>
+    module <%= @module_name %>
+      <%= @doc -%>
+      def <%= @method_name %>(<%= method_signature_params %>)
+        <% required_params.map do |required|
+            name = required['name'] -%>
+          raise ArgumentError, "Required parameter '<%= name %>' missing" unless <%= name %>
+        <% end -%>
 
-          request(
-            :<%= @http_method %>,
-            "<%= @path %>",
-            parameters
-          )
-        end
-
-        <%= aliases %>
+        request(
+          :<%= @http_method %>,
+          "<%= @path %>",
+          parameters
+        )
       end
+
+      <%= aliases %>
     end
   end
 end
