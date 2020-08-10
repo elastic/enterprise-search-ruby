@@ -1,0 +1,2161 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Workplace Search API",
+    "version": "v1",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "{schemes}://{host}:{port}",
+      "variables": {
+        "schemes": {
+          "enum": [
+            "http",
+            "https"
+          ],
+          "default": "http"
+        },
+        "host": {
+          "default": "localhost",
+          "description": "The hostname running the server"
+        },
+        "port": {
+          "default": "3002"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer_auth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "schemas": {
+      "external_id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 800
+      },
+      "errors": {
+        "type": "array",
+        "minItems": 0,
+        "items": {
+          "type": "string"
+        }
+      },
+      "errors_response": {
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "$ref": "#/components/schemas/errors"
+          }
+        }
+      },
+      "meta_page": {
+        "type": "object",
+        "required": [
+          "page"
+        ],
+        "properties": {
+          "page": {
+            "type": "object",
+            "required": [
+              "current",
+              "total_pages",
+              "total_results",
+              "size"
+            ],
+            "properties": {
+              "current": {
+                "type": "integer"
+              },
+              "total_pages": {
+                "type": "integer"
+              },
+              "total_results": {
+                "type": "integer"
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "permission": {
+        "type": "string",
+        "maxItems": 256,
+        "externalDocs": {
+          "url": "https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions.html",
+          "description": "Document level security restricts which documents a user is able to return in search results"
+        }
+      },
+      "permissions": {
+        "type": "array",
+        "maxItems": 1024,
+        "description": "List of permissions",
+        "items": {
+          "$ref": "#/components/schemas/permission"
+        }
+      },
+      "permissions_user": {
+        "type": "object",
+        "required": [
+          "user",
+          "permissions"
+        ],
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/permissions"
+          }
+        }
+      },
+      "document": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/external_id"
+          },
+          "_allow_permissions": {
+            "$ref": "#/components/schemas/permissions"
+          },
+          "_deny_permissions": {
+            "$ref": "#/components/schemas/permissions"
+          }
+        },
+        "additionalProperties": true
+      },
+      "document_bulk_create_response": {
+        "type": "object",
+        "required": [
+          "results"
+        ],
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "errors"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/components/schemas/external_id"
+                },
+                "errors": {
+                  "$ref": "#/components/schemas/errors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "document_bulk_delete_response": {
+        "type": "object",
+        "required": [
+          "results"
+        ],
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "success"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/components/schemas/external_id"
+                },
+                "success": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "external_identity": {
+        "type": "object",
+        "required": [
+          "source_user_id",
+          "user"
+        ],
+        "properties": {
+          "source_user_id": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        }
+      },
+      "list_all_external_identities_response": {
+        "type": "object",
+        "required": [
+          "meta",
+          "results"
+        ],
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta_page"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/external_identity"
+            }
+          }
+        }
+      },
+      "delete_external_identities_response": {
+        "type": "string",
+        "enum": [
+          "ok"
+        ]
+      },
+      "list_all_permissions_response": {
+        "type": "object",
+        "required": [
+          "meta",
+          "results"
+        ],
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/meta_page"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/permissions_user"
+            }
+          }
+        }
+      },
+      "document_ids": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "$ref": "#/components/schemas/external_id"
+        }
+      },
+      "bulk_documents": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "$ref": "#/components/schemas/document"
+        }
+      },
+      "filter_value": {
+        "description": "a value to filter on",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "array_or_singular_filter_value": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/filter_value"
+          },
+          {
+            "type": "array",
+            "maxItems": 1024,
+            "items": {
+              "$ref": "#/components/schemas/filter_value"
+            }
+          }
+        ]
+      },
+      "range_filter": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "description": "the start of the range, inclusive",
+            "$ref": "#/components/schemas/filter_value"
+          },
+          "to": {
+            "description": "the end of the range, exclusive",
+            "$ref": "#/components/schemas/filter_value"
+          }
+        }
+      },
+      "geo_range_filter": {
+        "type": "object",
+        "description": "a range filter with a geographic center",
+        "minProperties": 3,
+        "additionalProperties": false,
+        "required": [
+          "unit",
+          "center"
+        ],
+        "properties": {
+          "unit": {
+            "description": "the base unit of measurement [mm, cm, m (meters), km, in, ft, yd, or mi (miles)]",
+            "$ref": "#/components/schemas/geo_unit_enum"
+          },
+          "center": {
+            "description": "The mode of the distribution as a string in \"[latitude], [longitude]\" format",
+            "$ref": "#/components/schemas/filter_value"
+          },
+          "from": {
+            "description": "Inclusive lower bound of the range. Is required if to is not provided",
+            "$ref": "#/components/schemas/filter_value"
+          },
+          "to": {
+            "description": "Exclusive upper bound of the range. Is required if from is not provided",
+            "$ref": "#/components/schemas/filter_value"
+          }
+        }
+      },
+      "geo_distance_filter": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "unit",
+          "center",
+          "distance"
+        ],
+        "properties": {
+          "unit": {
+            "description": "the base unit of measurement [mm, cm, m (meters), km, in, ft, yd, or mi (miles)]",
+            "$ref": "#/components/schemas/geo_unit_enum"
+          },
+          "center": {
+            "description": "The mode of the distribution as a string in \"[latitude], [longitude]\" format",
+            "$ref": "#/components/schemas/filter_value"
+          },
+          "distance": {
+            "description": "A number representing the distance unit",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1.7976931348623157e+308
+          }
+        }
+      },
+      "filter": {
+        "type": "object",
+        "minProperties": 0,
+        "maxProperties": 1,
+        "not": {
+          "minProperties": 1,
+          "additionalProperties": false,
+          "properties": {
+            "any": {
+
+            },
+            "all": {
+
+            },
+            "none": {
+
+            }
+          }
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/array_or_singular_filter_value"
+            },
+            {
+              "$ref": "#/components/schemas/range_filter"
+            },
+            {
+              "$ref": "#/components/schemas/geo_range_filter"
+            },
+            {
+              "$ref": "#/components/schemas/geo_distance_filter"
+            }
+          ]
+        }
+      },
+      "filter_clauses": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": false,
+        "properties": {
+          "any": {
+            "$ref": "#/components/schemas/array_or_singular_filter_clauses_or_filter"
+          },
+          "all": {
+            "$ref": "#/components/schemas/array_or_singular_filter_clauses_or_filter"
+          },
+          "none": {
+            "$ref": "#/components/schemas/array_or_singular_filter_clauses_or_filter"
+          }
+        }
+      },
+      "array_or_singular_filter_clauses_or_filter": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/filter_clauses_or_filter"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/filter_clauses_or_filter"
+            }
+          }
+        ]
+      },
+      "filter_clauses_or_filter": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/filter_clauses"
+          },
+          {
+            "$ref": "#/components/schemas/filter"
+          }
+        ]
+      },
+      "geo_unit_enum": {
+        "enum": [
+          "m",
+          "mi",
+          "in",
+          "ft",
+          "yd",
+          "km",
+          "cm",
+          "mm"
+        ]
+      },
+      "sort": {
+        "type": "object",
+        "description": "field and direction to sort on",
+        "minProperties": 1,
+        "maxProperties": 1,
+        "additionalProperties": {
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        }
+      },
+      "facet_sort": {
+        "type": "object",
+        "description": "facet field to sort on and sort by count and/or value",
+        "minProperties": 1,
+        "maxProperties": 1,
+        "properties": {
+          "count": {
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "value": {
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "facet_value": {
+        "type": "object",
+        "description": "facet by a field value",
+        "properties": {
+          "type": {
+            "enum": [
+              "value"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 250,
+            "default": 10
+          },
+          "sort": {
+            "$ref": "#/components/schemas/facet_sort"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type"
+        ]
+      },
+      "facet_range_item": {
+        "type": "object",
+        "description": "the range for a facet's bucket",
+        "properties": {
+          "from": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "to": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "from"
+            ]
+          },
+          {
+            "required": [
+              "to"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      },
+      "facet_range": {
+        "type": "object",
+        "description": "faceting into buckets by a range of values",
+        "properties": {
+          "type": {
+            "enum": [
+              "range"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "ranges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/facet_range_item"
+            },
+            "minItems": 1
+          },
+          "center": {
+            "type": "string",
+            "pattern": "(\\A(?<lat>\\-?(0|[1-9]\\d*)(\\.\\d+)?), ?(?<lon>\\-?(0|[1-9]\\d*)(\\.\\d+)?)\\z)"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/geo_unit_enum"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "ranges"
+        ]
+      },
+      "facet_item": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/facet_range"
+          },
+          {
+            "$ref": "#/components/schemas/facet_value"
+          }
+        ]
+      },
+      "boost_value_itemtype": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/filter_value"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/filter_value"
+            }
+          }
+        ]
+      },
+      "boost_is_value_type": {
+        "properties": {
+          "type": {
+            "enum": [
+              "value"
+            ]
+          }
+        }
+      },
+      "boost_is_functional_type": {
+        "properties": {
+          "type": {
+            "enum": [
+              "functional"
+            ]
+          }
+        }
+      },
+      "boost_is_proximity_type": {
+        "properties": {
+          "type": {
+            "enum": [
+              "proximity"
+            ]
+          }
+        }
+      },
+      "boost_value_requirements": {
+        "anyOf": [
+          {
+            "not": {
+              "$ref": "#/components/schemas/boost_is_value_type"
+            }
+          },
+          {
+            "required": [
+              "value"
+            ],
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "function"
+                  ]
+                },
+                {
+                  "required": [
+                    "center"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "boost_functional_requirements": {
+        "anyOf": [
+          {
+            "not": {
+              "$ref": "#/components/schemas/boost_is_functional_type"
+            }
+          },
+          {
+            "required": [
+              "function"
+            ],
+            "properties": {
+              "function": {
+                "enum": [
+                  "linear",
+                  "exponential",
+                  "logarithmic"
+                ]
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "value"
+                  ]
+                },
+                {
+                  "required": [
+                    "center"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "boost_proximity_requirements": {
+        "anyOf": [
+          {
+            "not": {
+              "$ref": "#/components/schemas/boost_is_proximity_type"
+            }
+          },
+          {
+            "required": [
+              "center",
+              "function"
+            ],
+            "properties": {
+              "center": {
+                "$ref": "#/components/schemas/filter_value"
+              },
+              "function": {
+                "enum": [
+                  "linear",
+                  "exponential",
+                  "gaussian"
+                ]
+              }
+            },
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "boost_item": {
+        "type": "object",
+        "description": "field and type of boost with tuning parameters",
+        "properties": {
+          "type": {
+            "enum": [
+              "value",
+              "functional",
+              "proximity"
+            ]
+          },
+          "value": {
+            "$ref": "#/components/schemas/boost_value_itemtype"
+          },
+          "function": {
+            "enum": [
+              "linear",
+              "exponential",
+              "logarithmic",
+              "gaussian"
+            ]
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "add",
+              "multiply"
+            ],
+            "default": "add"
+          },
+          "factor": {
+            "type": "number",
+            "default": 1.0,
+            "minimum": 0.0,
+            "maximum": 10.0
+          },
+          "center": {
+            "$ref": "#/components/schemas/filter_value"
+          }
+        },
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/boost_proximity_requirements"
+          },
+          {
+            "$ref": "#/components/schemas/boost_functional_requirements"
+          },
+          {
+            "$ref": "#/components/schemas/boost_value_requirements"
+          }
+        ],
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "search_api_query": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 128,
+            "default": "",
+            "description": "A string or number used to find related documents"
+          },
+          "automatic_query_refinement": {
+            "type": "boolean",
+            "default": true,
+            "description": "set to false to not automatically refine the query by keywords"
+          },
+          "page": {
+            "type": "object",
+            "description": "paging controls for the result set",
+            "additionalProperties": false,
+            "default": {
+
+            },
+            "properties": {
+              "size": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 10
+              },
+              "current": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 1
+              }
+            }
+          },
+          "search_fields": {
+            "type": "object",
+            "description": "restrict the fulltext search to only specific fields",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "weight": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000
+                }
+              }
+            }
+          },
+          "result_fields": {
+            "type": "object",
+            "description": "restrict the result fields for each item to the specified fields",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": false,
+              "properties": {
+                "raw": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "size": {
+                      "type": "integer",
+                      "minimum": 20,
+                      "maximum": 1000
+                    }
+                  }
+                },
+                "snippet": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "size": {
+                      "type": "integer",
+                      "default": 100,
+                      "minimum": 20,
+                      "maximum": 1000
+                    },
+                    "fallback": {
+                      "type": "boolean",
+                      "default": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "filters": {
+            "$ref": "#/components/schemas/filter_clauses_or_filter"
+          },
+          "sort": {
+            "default": {
+              "_score": "desc"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/sort"
+              },
+              {
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                  "$ref": "#/components/schemas/sort"
+                }
+              }
+            ]
+          },
+          "facets": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/facet_item"
+                  }
+                },
+                {
+                  "$ref": "#/components/schemas/facet_item"
+                }
+              ]
+            }
+          },
+          "boosts": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/boost_item"
+                  }
+                },
+                {
+                  "$ref": "#/components/schemas/boost_item"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "query_refinement_item": {
+        "type": "object",
+        "description": "specifics regarding how this part of the query was refined",
+        "properties": {
+          "term": {
+            "type": "string",
+            "description": "the term(s) used for the trigger"
+          },
+          "position": {
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "items": {
+              "type": "number"
+            },
+            "description": "the start and end position the term(s) exist in the original query"
+          },
+          "trigger_type": {
+            "type": "string",
+            "description": "the type of trigger created"
+          },
+          "trigger_filter_type": {
+            "type": "string",
+            "description": "the type of filter created from this trigger"
+          },
+          "filter": {
+            "$ref": "#/components/schemas/filter"
+          }
+        }
+      },
+      "search_api_result_item": {
+        "type": "object",
+        "description": "a single search result item",
+        "properties": {
+          "_meta": {
+            "type": "object",
+            "description": "metadata about this specific result item",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "last_updated": {
+                "type": "string"
+              },
+              "content_source_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "raw": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "snippet": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "search_api_query_refinement": {
+        "type": "object",
+        "description": "metadata regarding automatic refinements made to the query",
+        "properties": {
+          "submitted_query": {
+            "type": "string"
+          },
+          "decorated_query_html": {
+            "type": "string"
+          },
+          "refinements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/query_refinement_item"
+            }
+          }
+        },
+        "required": [
+          "submitted_query",
+          "decorated_query_html",
+          "refinements"
+        ]
+      },
+      "search_facets_response": {
+        "type": "object",
+        "description": "facets returned from the query",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "value",
+                "range"
+              ]
+            },
+            "data": {
+              "type": "array",
+              "description": "array of facets and counts for this field",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "from": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "to": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "count"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "search_api_endpoint_response": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "object",
+                "required": [
+                  "current",
+                  "total_pages",
+                  "total_results",
+                  "size"
+                ],
+                "properties": {
+                  "current": {
+                    "type": "integer"
+                  },
+                  "total_pages": {
+                    "type": "integer"
+                  },
+                  "total_results": {
+                    "type": "integer"
+                  },
+                  "size": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "request_id": {
+                "type": "string",
+                "description": "internal request id for this query instance"
+              },
+              "warnings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "any warnings that the query generated"
+              },
+              "query_refinements": {
+                "$ref": "#/components/schemas/search_api_query_refinement"
+              }
+            },
+            "required": [
+              "page",
+              "request_id"
+            ]
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/search_api_result_item"
+            }
+          },
+          "facets": {
+            "$ref": "#/components/schemas/search_facets_response"
+          }
+        },
+        "required": [
+          "meta",
+          "results"
+        ]
+      }
+    },
+    "parameters": {
+      "content_source_key": {
+        "name": "content_source_key",
+        "schema": {
+          "type": "string"
+        },
+        "in": "path",
+        "required": true,
+        "description": "Unique key for a Custom API source, provided upon creation of a Custom API Source"
+      },
+      "current_page": {
+        "name": "current_page",
+        "in": "query",
+        "schema": {
+          "type": "integer"
+        },
+        "required": false,
+        "x-codegen-param-name": "currentPage",
+        "description": "Which page of results to request"
+      },
+      "page_size": {
+        "name": "page_size",
+        "in": "query",
+        "schema": {
+          "type": "integer"
+        },
+        "required": false,
+        "x-codegen-param-name": "pageSize",
+        "description": "The number of results to return in a page"
+      },
+      "user": {
+        "name": "user",
+        "schema": {
+          "type": "string"
+        },
+        "in": "path",
+        "required": true,
+        "description": "The username in context"
+      }
+    }
+  },
+  "paths": {
+    "/api/ws/v1/sources/{content_source_key}/documents/bulk_create": {
+      "post": {
+        "summary": "Indexes one or more new documents into a custom content source, or updates one or more existing documents",
+        "tags": [
+          "Documents API"
+        ],
+        "description": "[Indexes one or more new documents into a custom content source, or updates one or more existing documents](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#index-and-update)",
+        "operationId": "indexDocuments",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "payload too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/document_bulk_create_response"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bulk_documents"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/documents/bulk_destroy": {
+      "post": {
+        "summary": "Deletes a list of documents from a custom content source",
+        "tags": [
+          "Documents API"
+        ],
+        "description": "[Remove documents from a Custom API Source](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#destroy)",
+        "operationId": "deleteDocuments",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "payload too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/document_bulk_delete_response"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/document_ids"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/external_identities": {
+      "get": {
+        "summary": "Retrieves all external identities",
+        "tags": [
+          "External Identities API"
+        ],
+        "description": "[Retrieves all external identities](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#list-external-identities)",
+        "operationId": "listAllExternalIdentities",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "page[current]",
+            "in": "query",
+            "$ref": "#/components/parameters/current_page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page[size]",
+            "in": "query",
+            "$ref": "#/components/parameters/page_size",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_all_external_identities_response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adds a new external identity",
+        "tags": [
+          "External Identities API"
+        ],
+        "description": "[Adds a new external identity](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#add-external-identity)",
+        "operationId": "createExternalIdentity",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/external_identity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/external_identity"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/external_identities/{user}": {
+      "get": {
+        "summary": "Retrieves an external identity",
+        "tags": [
+          "External Identities API"
+        ],
+        "description": "[Retrieves an external identity](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#show-external-identity)",
+        "operationId": "getExternalIdentity",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/external_identity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates an external identity",
+        "tags": [
+          "External Identities API"
+        ],
+        "description": "[Updates an external identity](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#update-external-identity)",
+        "operationId": "putExternalIdentity",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/external_identity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/external_identity"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes an external identity",
+        "tags": [
+          "External Identities API"
+        ],
+        "description": "[Deletes an external identity](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#remove-external-identity)",
+        "operationId": "deleteExternalIdentity",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/delete_external_identities_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/permissions": {
+      "get": {
+        "summary": "Lists all permissions for all users",
+        "tags": [
+          "Permissions API"
+        ],
+        "description": "[List all permissions for all users](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list)",
+        "operationId": "listAllPermissions",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "page[current]",
+            "in": "query",
+            "required": false,
+            "$ref": "#/components/parameters/current_page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page[size]",
+            "in": "query",
+            "required": false,
+            "$ref": "#/components/parameters/page_size",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "402": {
+            "description": "payment required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list_all_permissions_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/permissions/{user}": {
+      "get": {
+        "summary": "Lists all permissions for one user",
+        "tags": [
+          "Permissions API"
+        ],
+        "description": "[List permissions for a user](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list-one)",
+        "operationId": "getUserPermissions",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "402": {
+            "description": "payment required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/permissions_user"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Creates a new set of permissions or over-writes all existing permissions",
+        "tags": [
+          "Permissions API"
+        ],
+        "description": "[Create a set of permissions or overwrite existing permissions](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#add-all)",
+        "operationId": "putUserPermissions",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "402": {
+            "description": "payment required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/permissions_user"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/permissions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/permissions/{user}/add": {
+      "post": {
+        "summary": "Adds one or more new permissions atop existing permissions",
+        "tags": [
+          "Permissions API"
+        ],
+        "description": "[Add one or more permission for a given user. Permissions are added atop the existing](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#add-one)",
+        "operationId": "addUserPermissions",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "402": {
+            "description": "payment required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/permissions_user"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/permissions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/sources/{content_source_key}/permissions/{user}/remove": {
+      "post": {
+        "summary": "Removes one or more permissions from an existing set of permissions",
+        "tags": [
+          "Permissions API"
+        ],
+        "description": "[Remove one or more permission for a given user](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#remove-one)",
+        "operationId": "removeUserPermissions",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "content_source_key",
+            "in": "path",
+            "$ref": "#/components/parameters/content_source_key",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "$ref": "#/components/parameters/user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+
+            }
+          },
+          "402": {
+            "description": "payment required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/permissions_user"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/permissions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/v1/search": {
+      "post": {
+        "summary": "search across available sources with various query tuning options",
+        "tags": [
+          "Search API"
+        ],
+        "description": "[Issue a Search Query](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html)",
+        "operationId": "search",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+
+            }
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/search_api_endpoint_response"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/search_api_query"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Documents API",
+      "description": "Index, update, and destroy documents from a Custom API Source",
+      "externalDocs": {
+        "url": "https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html"
+      }
+    },
+    {
+      "name": "Search API",
+      "description": "Comprehensive endpoint to issue search queries and retrieve results",
+      "externalDocs": {
+        "url": "https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html"
+      }
+    },
+    {
+      "name": "Permissions API",
+      "description": "Add, remove, and list Custom API Source document level permissions for a user",
+      "externalDocs": {
+        "url": "https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions.html"
+      }
+    },
+    {
+      "name": "External Identities API",
+      "description": "Add, remove, and list mappings between External Source Identities and Internal Users",
+      "externalDocs": {
+        "url": "https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html"
+      }
+    }
+  ]
+}
