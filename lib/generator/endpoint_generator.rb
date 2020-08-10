@@ -126,7 +126,7 @@ module Elastic
       def aliases
         return unless ALIASES[@method_name.to_sym]
 
-        "alias_method :#{@method_name}, :#{ALIASES[@method_name.to_sym]}"
+        "alias_method :#{ALIASES[@method_name.to_sym]}, :#{@method_name}"
       end
     end
   end
