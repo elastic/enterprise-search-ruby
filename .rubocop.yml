@@ -1,0 +1,4 @@
+Layout/EndAlignment:
+  AutoCorrect: true
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
