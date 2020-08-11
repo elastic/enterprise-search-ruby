@@ -55,8 +55,8 @@ module Elastic
         #        end
         # http.open_timeout = open_timeout
         # http.read_timeout = overall_timeout
-        # setup_ssl(http) if uri.scheme == 'https'
         http = Net::HTTP.new(uri.host, uri.port)
+        setup_ssl(http) if uri.scheme == 'https'
         http
       end
 
