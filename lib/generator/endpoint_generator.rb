@@ -76,8 +76,6 @@ module Elastic
       def setup_values!(endpoint)
         @module_name = Utils.module_name(endpoint['tags'])
         @method_name = Utils.to_ruby_name(endpoint['operationId'])
-        @required_params = []
-
         setup_parameters!(endpoint['parameters']) if endpoint.dig('parameters')
         @doc = setup_documentation(endpoint)
       end
@@ -89,9 +87,11 @@ module Elastic
       def parameter_name_and_description(param)
         param['name'] = 'current_page' if param['name'] == 'page[current]'
         param['name'] = 'page_size' if param['name'] == 'page[size]'
-        param['name'] = 'included_stats' if param['name'] == 'include' && @method_name == 'stats'
 
-        param_info = @spec.dig('components', 'parameters', param['name'])
+        # Check the spec for parameters with a given name and retrieve info
+        param_info = @spec.dig('components', 'parameters').select do |_, p|
+          p['name'] == param['name']
+        end.values.first
 
         {
           'name' => param['name'],
@@ -140,19 +140,21 @@ module Elastic
         docs << "# #{@module_name} - #{endpoint['summary']}"
         docs << "# #{description}"
         docs << '#'
-        docs << parameters_doc if @params
-        docs << '#'
+        docs << parameters_documentation if @params && !@params.empty?
         docs << "# @see #{url}"
         docs << "#\n"
         docs.join("\n")
       end
 
-      def parameters_doc
-        return unless @params
-
-        @params.map do |param|
-          "# @option #{param['name']} - #{param['description']}" + ' (*Required*)' if param['required']
-        end.join("\n")
+      def parameters_documentation
+        doc = []
+        @params.each do |param|
+          info = "# @option #{param['name']} - #{param['description']}"
+          info += ' (*Required*)' if param['required']
+          doc << info
+        end
+        doc << '#'
+        doc.join("\n")
       end
 
       def aliases
