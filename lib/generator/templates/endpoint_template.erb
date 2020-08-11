@@ -2,7 +2,9 @@
 
 module Elastic
   module EnterpriseSearch
-    module WorkplaceSearch
+    <% if @name != :enterprise -%>
+      module <%= namespace %>
+    <% end -%>
       module Actions
         <%= @doc -%>
         def <%= @method_name %><%= method_signature_params %>
@@ -12,9 +14,7 @@ module Elastic
           <% end -%>
 
           request(
-            :<%= @http_method %>,
-            "<%= @path %>",
-            parameters
+            <%= request_method_params %>
           )
         end
 
@@ -22,4 +22,6 @@ module Elastic
       end
     end
   end
-end
+<% if @name != :enterprise -%>
+  end
+<% end -%>

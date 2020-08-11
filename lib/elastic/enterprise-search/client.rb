@@ -12,6 +12,7 @@ module Elastic
       DEFAULT_TIMEOUT = 15
 
       include Elastic::EnterpriseSearch::Request
+      include Elastic::EnterpriseSearch::Actions
 
       # TODO: Options
       def workplace_search(access_token = nil)
@@ -52,6 +53,10 @@ module Elastic
 
       def http_auth
         @options[:http_auth] || { user: 'elastic', password: 'changeme' }
+      end
+
+      def endpoint
+        @options[:endpoint] || DEFAULT_ENDPOINT
       end
     end
   end
