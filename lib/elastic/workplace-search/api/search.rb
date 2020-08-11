@@ -22,8 +22,6 @@ module Elastic
         # Search - search across available sources with various query tuning options
         # Issue a Search Query
         #
-
-        #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html
         #
         def search(parameters = {})
