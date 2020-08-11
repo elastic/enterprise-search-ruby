@@ -34,7 +34,7 @@ module Elastic
       def request(method, path, params = {})
         # TODO: Timeout.timeout(overall_timeout) do
         # TODO: Set up endpoint per service:
-        uri = URI.parse("#{Elastic::EnterpriseSearch::WorkplaceSearch::Client::DEFAULT_ENDPOINT}#{path}")
+        uri = URI.parse("#{endpoint}#{path}")
         request = build_request(method, uri, params)
         http = build_http(uri)
 
