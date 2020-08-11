@@ -24,9 +24,8 @@ module Elastic
       end
 
       def self.write_file(file_name, content)
-        # file_name = "#{TARGET_DIR}#{@method_name}.rb"
         File.open(file_name, 'w') { |f| f.puts content }
-        puts colorize(:green, "\nSuccessfully generated #{file_name}.rb\n\n")
+        puts colorize(:green, "\nSuccessfully generated #{file_name}\n\n")
       end
 
       def self.run_rubocop(dir)
@@ -37,8 +36,11 @@ module Elastic
         tag.first.gsub(/\s{1}API/, '').gsub(/\s/, '')
       end
 
-      def self.to_snakecase(camel_case)
-        camel_case.gsub(/([a-z])([A-Z])+/, '\1_\2').downcase
+      def self.to_ruby_name(camel_case)
+        camel_case
+          .gsub(/([a-z])([A-Z])+/, '\1_\2') # to camel_case
+          .gsub(/get_/, '') # remove prepended 'get' in method names
+          .downcase
       end
 
       def self.colorize(color, message)

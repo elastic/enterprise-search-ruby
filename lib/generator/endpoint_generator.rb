@@ -14,29 +14,40 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+
+require 'json'
+require 'erb'
+require_relative './utils.rb'
+
 module Elastic
   module Generator
     # Generates code for REST API Endpoints
     class EndpointGenerator
-      TARGET_DIR = File.expand_path(__dir__ + '../../elastic/workplace-search/api').freeze
       ALIASES = {
         put_user_permissions: :update_user_permissions,
         delete_documents: :destroy_documents
       }.freeze
 
-      def initialize(spec)
-        @spec = spec
+      def initialize(name)
+        @name = name
+        @spec = load_spec(name)
+        @target_dir = File.expand_path(__dir__ + "../../elastic/#{@name}-search/api").freeze
+      end
+
+      def load_spec(name)
+        file = Generator::CURRENT_PATH + "/json/#{name}-search.json"
+        JSON.parse(File.read(file))
       end
 
       def generate
-        Dir.mkdir(TARGET_DIR) unless File.directory?(TARGET_DIR)
-        Utils.empty_directory(TARGET_DIR)
+        Dir.mkdir(@target_dir) unless File.directory?(@target_dir)
+        Utils.empty_directory(@target_dir)
 
         # for each endpoint in the spec generate the code
         @spec['paths'].each do |endpoints|
           generate_classes(endpoints)
         end
-        Utils.run_rubocop(TARGET_DIR)
+        Utils.run_rubocop(@target_dir)
       end
 
       private
@@ -47,7 +58,7 @@ module Elastic
         endpoints[1].each do |method, endpoint|
           @http_method = method
           setup_values!(endpoint)
-          file_name = "#{TARGET_DIR}/#{@method_name}.rb"
+          file_name = "#{@target_dir}/#{@method_name}.rb"
           Utils.write_file(file_name, generate_method_code)
         end
       end
@@ -58,9 +69,10 @@ module Elastic
 
       def setup_values!(endpoint)
         @module_name = Utils.module_name(endpoint['tags'])
-        @method_name = Utils.to_snakecase(endpoint['operationId'])
+        @method_name = Utils.to_ruby_name(endpoint['operationId'])
         @required_params = []
-        setup_parameters!(endpoint['parameters'])
+
+        setup_parameters!(endpoint['parameters']) if endpoint.dig('parameters')
         @doc = setup_documentation(endpoint)
       end
 
@@ -71,6 +83,7 @@ module Elastic
       def parameter_name_and_description(param)
         param['name'] = 'current_page' if param['name'] == 'page[current]'
         param['name'] = 'page_size' if param['name'] == 'page[size]'
+        param['name'] = 'included_stats' if param['name'] == 'include' && @method_name == 'stats'
 
         param_info = @spec.dig('components', 'parameters', param['name'])
 
@@ -83,15 +96,19 @@ module Elastic
       end
 
       def required_params
+        return [] unless @params
+
         @params.select { |p| p['required'] }
       end
 
       def method_signature_params
+        return unless @params
+
         params = required_params.map do |param|
           param['name']
         end
         params << 'parameters = {}'
-        params.join(', ')
+        "(#{params.join(', ')})"
       end
 
       def generate_method_code
@@ -106,18 +123,20 @@ module Elastic
         matches = endpoint['description'].match(/\[(.+)\]\((.+)\)/)
         description = matches[1]
         url = matches[2]
-        <<~DOC
-          # #{@module_name} - #{endpoint['summary']}
-          # #{description}
-          #
-          #{parameters_doc}
-          #
-          # @see #{url}
-          #
-        DOC
+        docs = []
+        docs << "# #{@module_name} - #{endpoint['summary']}"
+        docs << "# #{description}"
+        docs << "#"
+        docs << parameters_doc if @params
+        docs << "#"
+        docs << "# @see #{url}"
+        docs << "#\n"
+        docs.join("\n")
       end
 
       def parameters_doc
+        return unless @params
+
         @params.map do |param|
           "# @option #{param['name']} - #{param['description']}" + ' (*Required*)' if param['required']
         end.join("\n")
