@@ -52,6 +52,12 @@ module Elastic
 
       private
 
+      def namespace
+        return 'EnterpriseSearch' if @name == :enterprise
+
+        "#{@name.capitalize}Search"
+      end
+
       def generate_classes(endpoints)
         @path = replace_path_variables(endpoints[0])
 
@@ -111,6 +117,13 @@ module Elastic
         "(#{params.join(', ')})"
       end
 
+      def request_method_params
+        params = []
+        params += [":#{@http_method}", "\"#{@path}\""]
+        params << 'parameters' if @params
+        params.join(",\n")
+      end
+
       def generate_method_code
         template = "#{Generator::CURRENT_PATH}/templates/endpoint_template.erb"
         code = ERB.new(File.read(template), nil, '-')
@@ -126,9 +139,9 @@ module Elastic
         docs = []
         docs << "# #{@module_name} - #{endpoint['summary']}"
         docs << "# #{description}"
-        docs << "#"
+        docs << '#'
         docs << parameters_doc if @params
-        docs << "#"
+        docs << '#'
         docs << "# @see #{url}"
         docs << "#\n"
         docs.join("\n")

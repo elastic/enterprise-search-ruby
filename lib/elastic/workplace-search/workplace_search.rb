@@ -17,10 +17,6 @@ module Elastic
         # access token.
         DEFAULT_ENDPOINT = 'http://localhost:8080/'.freeze
 
-        LOAD_PATH = File.dirname(__FILE__) + '/api/*.rb'
-        Dir[LOAD_PATH].sort.each do |file|
-          require file
-        end
         include Elastic::EnterpriseSearch::WorkplaceSearch::Actions
         include Elastic::EnterpriseSearch::WorkplaceSearch::Request
 

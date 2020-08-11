@@ -115,7 +115,7 @@ module Elastic
       # TODO: Test Basic Auth
       # This method needs to be defined in each child client
       def setup_authentication_header(request)
-        request.basic_auth "#{http_auth[:user]} #{http_auth[:password]}"
+        request.basic_auth http_auth[:user], http_auth[:password]
         request
       end
 
