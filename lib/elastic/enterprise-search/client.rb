@@ -15,7 +15,9 @@ module Elastic
 
       # TODO: Options
       def workplace_search(access_token = nil)
-        @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(access_token)
+        @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
+          access_token: access_token
+        )
       end
 
       # TODO: CONFIG and initializer revamp for Ent search and the rest and pass

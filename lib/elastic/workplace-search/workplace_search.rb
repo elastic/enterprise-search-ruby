@@ -26,16 +26,25 @@ module Elastic
 
         # TODO: Refactor this into Utils
         def endpoint=(endpoint)
-          @endpoint = if endpoint.end_with?('/')
-                        endpoint
-                      else
-                        "#{endpoint}/"
-                      end
+          @options[:endpoint] = if endpoint.end_with?('/')
+                                  endpoint
+                                else
+                                  "#{endpoint}/"
+                                end
         end
 
-        def initialize(access_token = nil, endpoint = nil)
-          @access_token = access_token
-          @endpoint = endpoint || DEFAULT_ENDPOINT
+        # Crete a new Elastic::EnterpriseSearch::WorkplaceSearch::Client client
+        #
+        # @param options [Hash] a hash of configuration options
+        # @option options [String] :access_token the access token for workplace search
+        # @option options [String] :endpoint the endpoint Workplace Search
+        def initialize(options = {})
+          @options = options
+          @access_token = options.dig(:access_token)
+        end
+
+        def endpoint
+          @options[:endpoint] || DEFAULT_ENDPOINT
         end
 
         attr_accessor :access_token
