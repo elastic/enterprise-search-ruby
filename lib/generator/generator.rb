@@ -15,10 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-require 'json'
-require 'erb'
 require_relative './endpoint_generator.rb'
-require_relative './utils.rb'
 
 module Elastic
   # Generates endpoint Ruby code for the EnterpriseSearch API specs.
@@ -26,17 +23,11 @@ module Elastic
     CURRENT_PATH = File.dirname(__FILE__).freeze
 
     def self.generate
-      workplace_spec = load_spec(:workplace)
-
       # Generate Workplace Search endpoint code:
-      EndpointGenerator.new(workplace_spec).generate
+      EndpointGenerator.new(:workplace).generate
+      EndpointGenerator.new(:enterprise).generate
       # Generate specs:
       # generate specs(endpoints)
-    end
-
-    def self.load_spec(name)
-      file = CURRENT_PATH + "/json/#{name}-search.json"
-      JSON.parse(File.read(file))
     end
   end
 end
