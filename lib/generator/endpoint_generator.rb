@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -73,7 +75,9 @@ module Elastic
       end
 
       def replace_path_variables(path)
+        # rubocop:disable Lint/InterpolationCheck
         path.gsub(/{([a-z_]+)}/, '#{\1}')
+        # rubocop:enable Lint/InterpolationCheck
       end
 
       def setup_values!(endpoint)
@@ -87,6 +91,7 @@ module Elastic
         @params = params.map { |param| parameter_name_and_description(param) }
       end
 
+      # rubocop:disable Metrics/MethodLength
       def parameter_name_and_description(param)
         param['name'] = 'current_page' if param['name'] == 'page[current]'
         param['name'] = 'page_size' if param['name'] == 'page[size]'
@@ -103,6 +108,7 @@ module Elastic
           'required' => param_info['required']
         }
       end
+      # rubocop:enable Metrics/MethodLength
 
       def required_params
         return [] unless @params
