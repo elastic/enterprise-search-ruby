@@ -15,9 +15,9 @@ module Elastic
       include Elastic::EnterpriseSearch::Actions
 
       # TODO: Options
-      def workplace_search(access_token = nil)
+      def workplace_search
         @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
-          access_token: access_token
+          endpoint: endpoint
         )
       end
 
