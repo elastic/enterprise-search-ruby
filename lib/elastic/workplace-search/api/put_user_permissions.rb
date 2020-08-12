@@ -39,8 +39,6 @@ module Elastic
             parameters
           )
         end
-
-        alias update_user_permissions put_user_permissions
       end
     end
   end

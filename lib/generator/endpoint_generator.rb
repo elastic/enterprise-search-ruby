@@ -28,11 +28,6 @@ module Elastic
     class EndpointGenerator
       include DocumentationHelper
 
-      ALIASES = {
-        put_user_permissions: :update_user_permissions,
-        delete_documents: :destroy_documents
-      }.freeze
-
       def initialize(name)
         @name = name
         @spec = load_spec(name)
@@ -137,12 +132,6 @@ module Elastic
         template = "#{Generator::CURRENT_PATH}/templates/endpoint_template.erb"
         code = ERB.new(File.read(template), nil, '-')
         code.result(binding)
-      end
-
-      def aliases
-        return unless ALIASES[@method_name.to_sym]
-
-        "alias #{ALIASES[@method_name.to_sym]} #{@method_name}"
       end
     end
   end
