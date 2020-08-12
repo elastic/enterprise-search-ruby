@@ -24,8 +24,8 @@ module Elastic
         # Permissions - Adds one or more new permissions atop existing permissions
         # Add one or more permission for a given user. Permissions are added atop the existing
         #
-        # @option content_source_key - Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @option user - The username in context (*Required*)
+        # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param user [String] The username in context (*Required*)
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#add-one
         #

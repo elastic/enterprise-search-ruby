@@ -24,8 +24,8 @@ module Elastic
         # ExternalIdentities - Deletes an external identity
         # Deletes an external identity
         #
-        # @option content_source_key - Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @option user - The username in context (*Required*)
+        # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param user [String] The username in context (*Required*)
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#remove-external-identity
         #
