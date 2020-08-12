@@ -38,7 +38,7 @@ module Elastic
       def parameters_documentation
         doc = []
         @params.each do |param|
-          info = "# @option #{param['name']} - #{param['description']}"
+          info = "# @param #{param['name']} [#{param['type'].capitalize}] #{param['description']}"
           info += ' (*Required*)' if param['required']
           doc << info
         end

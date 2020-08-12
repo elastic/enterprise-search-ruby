@@ -23,7 +23,7 @@ module Elastic
       # Version - Get version information for this server
       # Get version information for this server
       #
-      # @option include - Comma-separated list of stats to return
+      # @param include [Array] Comma-separated list of stats to return
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/management-apis.html
       #
