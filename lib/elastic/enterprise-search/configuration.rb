@@ -10,10 +10,7 @@ module Elastic
       # TODO: Endpoint for EE
       # DEFAULT_ENDPOINT = 'http://localhost:3002/api/ws/v1/'
 
-      VALID_OPTIONS_KEYS = [
-        :access_token,
-        :endpoint
-      ].freeze
+      VALID_OPTIONS_KEYS = [:access_token, :endpoint].freeze
 
       attr_accessor(*VALID_OPTIONS_KEYS)
 

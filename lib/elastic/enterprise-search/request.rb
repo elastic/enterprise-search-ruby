@@ -41,7 +41,7 @@ module Elastic
         response = http.request(request)
         handle_errors(response)
         JSON.parse(response.body) if response.body && response.body.strip != ''
-        #end
+        # end
       end
 
       private

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -26,7 +28,7 @@ module Elastic
       def put_read_only(parameters = {})
         request(
           :put,
-          "/api/ent/v1/internal/read_only_mode",
+          '/api/ent/v1/internal/read_only_mode',
           parameters
         )
       end

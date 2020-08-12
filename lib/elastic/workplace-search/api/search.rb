@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -27,7 +29,7 @@ module Elastic
         def search(parameters = {})
           request(
             :post,
-            "/api/ws/v1/search",
+            '/api/ws/v1/search',
             parameters
           )
         end
