@@ -37,8 +37,6 @@ module Elastic
             parameters
           )
         end
-
-        alias destroy_documents delete_documents
       end
     end
   end
