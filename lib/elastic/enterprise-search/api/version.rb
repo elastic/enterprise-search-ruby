@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -28,7 +30,7 @@ module Elastic
       def version(parameters = {})
         request(
           :get,
-          "/api/ent/v1/internal/version",
+          '/api/ent/v1/internal/version',
           parameters
         )
       end
