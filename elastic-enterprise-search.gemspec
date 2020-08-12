@@ -4,6 +4,7 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'elastic/enterprise-search/version'
 
 Gem::Specification.new do |s|
+  s.required_ruby_version = '>= 2.5'
   s.name        = 'elastic-enterprise-search'
   s.version     = Elastic::EnterpriseSearch::VERSION
   s.authors     = ['Fernando Briano']
