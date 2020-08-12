@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -18,11 +20,14 @@
 require 'json'
 require 'erb'
 require_relative './utils.rb'
+require_relative './documentation_helper.rb'
 
 module Elastic
   module Generator
     # Generates code for REST API Endpoints
     class EndpointGenerator
+      include DocumentationHelper
+
       ALIASES = {
         put_user_permissions: :update_user_permissions,
         delete_documents: :destroy_documents
@@ -32,11 +37,6 @@ module Elastic
         @name = name
         @spec = load_spec(name)
         @target_dir = File.expand_path(__dir__ + "../../elastic/#{@name}-search/api").freeze
-      end
-
-      def load_spec(name)
-        file = Generator::CURRENT_PATH + "/json/#{name}-search.json"
-        JSON.parse(File.read(file))
       end
 
       def generate
@@ -58,6 +58,11 @@ module Elastic
         "#{@name.capitalize}Search"
       end
 
+      def load_spec(name)
+        file = Generator::CURRENT_PATH + "/json/#{name}-search.json"
+        JSON.parse(File.read(file))
+      end
+
       def generate_classes(endpoints)
         @path = replace_path_variables(endpoints[0])
 
@@ -70,7 +75,9 @@ module Elastic
       end
 
       def replace_path_variables(path)
+        # rubocop:disable Lint/InterpolationCheck
         path.gsub(/{([a-z_]+)}/, '#{\1}')
+        # rubocop:enable Lint/InterpolationCheck
       end
 
       def setup_values!(endpoint)
@@ -84,6 +91,7 @@ module Elastic
         @params = params.map { |param| parameter_name_and_description(param) }
       end
 
+      # rubocop:disable Metrics/MethodLength
       def parameter_name_and_description(param)
         param['name'] = 'current_page' if param['name'] == 'page[current]'
         param['name'] = 'page_size' if param['name'] == 'page[size]'
@@ -100,6 +108,7 @@ module Elastic
           'required' => param_info['required']
         }
       end
+      # rubocop:enable Metrics/MethodLength
 
       def required_params
         return [] unless @params
@@ -130,37 +139,10 @@ module Elastic
         code.result(binding)
       end
 
-      def setup_documentation(endpoint)
-        # Description is markdown with [description](external_url)
-        # So we split the string with regexp:
-        matches = endpoint['description'].match(/\[(.+)\]\((.+)\)/)
-        description = matches[1]
-        url = matches[2]
-        docs = []
-        docs << "# #{@module_name} - #{endpoint['summary']}"
-        docs << "# #{description}"
-        docs << '#'
-        docs << parameters_documentation if @params && !@params.empty?
-        docs << "# @see #{url}"
-        docs << "#\n"
-        docs.join("\n")
-      end
-
-      def parameters_documentation
-        doc = []
-        @params.each do |param|
-          info = "# @option #{param['name']} - #{param['description']}"
-          info += ' (*Required*)' if param['required']
-          doc << info
-        end
-        doc << '#'
-        doc.join("\n")
-      end
-
       def aliases
         return unless ALIASES[@method_name.to_sym]
 
-        "alias_method :#{ALIASES[@method_name.to_sym]}, :#{@method_name}"
+        "alias #{ALIASES[@method_name.to_sym]} #{@method_name}"
       end
     end
   end

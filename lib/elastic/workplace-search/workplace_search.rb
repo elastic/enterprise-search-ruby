@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Elastic
   module EnterpriseSearch
     # Workplace Search client for Enterprise Search.
@@ -12,10 +14,10 @@ module Elastic
         end
       end
 
+      # The Workplace Search Client
+      # Extends EnterpriseSearch client but overrides authentication to use access token.
       class Client < Elastic::EnterpriseSearch::Client
-        # Extends EnterpriseSearch client but overrides authentication to use
-        # access token.
-        DEFAULT_ENDPOINT = 'http://localhost:8080/'.freeze
+        DEFAULT_ENDPOINT = 'http://localhost:8080/'
 
         include Elastic::EnterpriseSearch::WorkplaceSearch::Actions
         include Elastic::EnterpriseSearch::WorkplaceSearch::Request

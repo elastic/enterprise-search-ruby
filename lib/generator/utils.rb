@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -29,7 +31,7 @@ module Elastic
       end
 
       def self.run_rubocop(dir)
-        system("rubocop -c ./.rubocop.yml --format autogenconf -x #{dir}")
+        system("rubocop -c ./.rubocop.yml --format autogenconf -a #{dir}")
       end
 
       def self.module_name(tag)
