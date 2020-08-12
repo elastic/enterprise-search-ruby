@@ -24,7 +24,7 @@ module Elastic
         # Documents - Indexes one or more new documents into a custom content source, or updates one or more existing documents
         # Indexes one or more new documents into a custom content source, or updates one or more existing documents
         #
-        # @option content_source_key - Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#index-and-update
         #

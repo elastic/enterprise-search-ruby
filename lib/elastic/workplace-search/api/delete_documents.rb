@@ -24,7 +24,7 @@ module Elastic
         # Documents - Deletes a list of documents from a custom content source
         # Remove documents from a Custom API Source
         #
-        # @option content_source_key - Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#destroy
         #
