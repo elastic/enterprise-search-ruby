@@ -14,9 +14,9 @@ module Elastic
         end
       end
 
+      # The Workplace Search Client
+      # Extends EnterpriseSearch client but overrides authentication to use access token.
       class Client < Elastic::EnterpriseSearch::Client
-        # Extends EnterpriseSearch client but overrides authentication to use
-        # access token.
         DEFAULT_ENDPOINT = 'http://localhost:8080/'
 
         include Elastic::EnterpriseSearch::WorkplaceSearch::Actions

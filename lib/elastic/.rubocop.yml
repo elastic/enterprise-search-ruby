@@ -1,0 +1,6 @@
+inherit_from: ../../.rubocop.yml
+
+Layout/LineLength:
+  Enabled: false
+Style/Documentation:
+  Enabled: false

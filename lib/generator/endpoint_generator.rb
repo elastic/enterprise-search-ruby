@@ -18,11 +18,14 @@
 require 'json'
 require 'erb'
 require_relative './utils.rb'
+require_relative './documentation_helper.rb'
 
 module Elastic
   module Generator
     # Generates code for REST API Endpoints
     class EndpointGenerator
+      include DocumentationHelper
+
       ALIASES = {
         put_user_permissions: :update_user_permissions,
         delete_documents: :destroy_documents
@@ -32,11 +35,6 @@ module Elastic
         @name = name
         @spec = load_spec(name)
         @target_dir = File.expand_path(__dir__ + "../../elastic/#{@name}-search/api").freeze
-      end
-
-      def load_spec(name)
-        file = Generator::CURRENT_PATH + "/json/#{name}-search.json"
-        JSON.parse(File.read(file))
       end
 
       def generate
@@ -56,6 +54,11 @@ module Elastic
         return 'EnterpriseSearch' if @name == :enterprise
 
         "#{@name.capitalize}Search"
+      end
+
+      def load_spec(name)
+        file = Generator::CURRENT_PATH + "/json/#{name}-search.json"
+        JSON.parse(File.read(file))
       end
 
       def generate_classes(endpoints)
@@ -128,33 +131,6 @@ module Elastic
         template = "#{Generator::CURRENT_PATH}/templates/endpoint_template.erb"
         code = ERB.new(File.read(template), nil, '-')
         code.result(binding)
-      end
-
-      def setup_documentation(endpoint)
-        # Description is markdown with [description](external_url)
-        # So we split the string with regexp:
-        matches = endpoint['description'].match(/\[(.+)\]\((.+)\)/)
-        description = matches[1]
-        url = matches[2]
-        docs = []
-        docs << "# #{@module_name} - #{endpoint['summary']}"
-        docs << "# #{description}"
-        docs << '#'
-        docs << parameters_documentation if @params && !@params.empty?
-        docs << "# @see #{url}"
-        docs << "#\n"
-        docs.join("\n")
-      end
-
-      def parameters_documentation
-        doc = []
-        @params.each do |param|
-          info = "# @option #{param['name']} - #{param['description']}"
-          info += ' (*Required*)' if param['required']
-          doc << info
-        end
-        doc << '#'
-        doc.join("\n")
       end
 
       def aliases
