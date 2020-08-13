@@ -18,3 +18,7 @@ http_auth = '<content source access token>'
 ent_client.workplace_search.http_auth = http_auth
 ent_client.index_documents(content_source_key, documents)
 ```
+
+## License
+
+Apache-2.0
