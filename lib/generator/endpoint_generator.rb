@@ -27,6 +27,7 @@ module Elastic
     # Generates code for REST API Endpoints
     class EndpointGenerator
       include DocumentationHelper
+      CURRENT_PATH = File.dirname(__FILE__).freeze
 
       def initialize(name)
         @name = name
@@ -54,7 +55,7 @@ module Elastic
       end
 
       def load_spec(name)
-        file = Generator::CURRENT_PATH + "/json/#{name}-search.json"
+        file = CURRENT_PATH + "/json/#{name}-search.json"
         JSON.parse(File.read(file))
       end
 
@@ -129,7 +130,7 @@ module Elastic
       end
 
       def generate_method_code
-        template = "#{Generator::CURRENT_PATH}/templates/endpoint_template.erb"
+        template = "#{CURRENT_PATH}/templates/endpoint_template.erb"
         code = ERB.new(File.read(template), nil, '-')
         code.result(binding)
       end
