@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Elastic
-  module WorkplaceSearch
+  module EnterpriseSearch
     # Util functions
     module Utils
-      module_function
+      DEFAULT_ENDPOINT = 'http://localhost:8080/'
 
       def stringify_keys(hash)
         output = {}
@@ -12,6 +12,14 @@ module Elastic
           output[key.to_s] = value
         end
         output
+      end
+
+      def endpoint=(endpoint)
+        @options[:endpoint] = if endpoint.end_with?('/')
+                                endpoint
+                              else
+                                "#{endpoint}/"
+                              end
       end
     end
   end
