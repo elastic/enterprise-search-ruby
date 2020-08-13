@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_development_dependency 'awesome_print'
+  s.add_development_dependency 'byebug' unless defined?(JRUBY_VERSION)
   s.add_development_dependency 'rspec', '~> 3.9.0'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'vcr', '~> 3.0.3'
