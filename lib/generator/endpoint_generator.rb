@@ -85,9 +85,16 @@ module Elastic
 
       def setup_parameters!(params)
         @params = params.map { |param| parameter_name_and_description(param) }
+        search_parameters if @module_name == 'Search'
       end
 
-      # rubocop:disable Metrics/MethodLength
+      def search_parameters
+        params = @spec.dig('components', 'schemas', 'search_api_query', 'properties')
+        params.each do |param|
+          @params << parameter_display(param[0], param[1])
+        end
+      end
+
       def parameter_name_and_description(param)
         param['name'] = 'current_page' if param['name'] == 'page[current]'
         param['name'] = 'page_size' if param['name'] == 'page[size]'
@@ -97,14 +104,17 @@ module Elastic
           p['name'] == param['name']
         end.values.first
 
+        parameter_display(param['name'], param_info)
+      end
+
+      def parameter_display(name, param_info)
         {
-          'name' => param['name'],
+          'name' => name,
           'description' => param_info['description'],
-          'type' => param_info['schema']['type'],
+          'type' => param_info.dig('schema', 'type') || param_info.dig('type'),
           'required' => param_info['required']
         }
       end
-      # rubocop:enable Metrics/MethodLength
 
       def required_params
         return [] unless @params
