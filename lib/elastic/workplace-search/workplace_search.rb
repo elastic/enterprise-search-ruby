@@ -17,19 +17,9 @@ module Elastic
       # The Workplace Search Client
       # Extends EnterpriseSearch client but overrides authentication to use access token.
       class Client < Elastic::EnterpriseSearch::Client
-        DEFAULT_ENDPOINT = 'http://localhost:8080/'
-
         include Elastic::EnterpriseSearch::WorkplaceSearch::Actions
         include Elastic::EnterpriseSearch::WorkplaceSearch::Request
-
-        # TODO: Refactor this into Utils
-        def endpoint=(endpoint)
-          @options[:endpoint] = if endpoint.end_with?('/')
-                                  endpoint
-                                else
-                                  "#{endpoint}/"
-                                end
-        end
+        include Elastic::EnterpriseSearch::Utils
 
         # Crete a new Elastic::EnterpriseSearch::WorkplaceSearch::Client client
         #

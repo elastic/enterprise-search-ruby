@@ -13,6 +13,7 @@ module Elastic
 
       include Elastic::EnterpriseSearch::Request
       include Elastic::EnterpriseSearch::Actions
+      include Elastic::EnterpriseSearch::Utils
 
       # TODO: Options
       def workplace_search
@@ -53,6 +54,10 @@ module Elastic
 
       def http_auth
         @options[:http_auth] || { user: 'elastic', password: 'changeme' }
+      end
+
+      def http_auth=(http_auth)
+        @options[:http_auth] = http_auth
       end
 
       def endpoint
