@@ -18,13 +18,17 @@
 # frozen_string_literal: true
 
 require 'rspec/core/rake_task'
-require_relative './lib/generator/generator.rb'
+require_relative './lib/generator/endpoint_generator.rb'
 
 RSpec::Core::RakeTask.new(:spec)
 
 desc 'Generate code from JSON API spec'
 task :generate do
-  Elastic::Generator.generate
+  # Generate endpoint code:
+  Elastic::Generator::EndpointGenerator.new(:workplace).generate
+  Elastic::Generator::EndpointGenerator.new(:enterprise).generate
+  # Generate specs:
+  # generate specs(endpoints)
 end
 
 desc 'Open an irb session preloaded with this library'
