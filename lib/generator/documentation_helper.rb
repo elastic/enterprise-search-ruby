@@ -38,9 +38,7 @@ module Elastic
       def parameters_documentation
         doc = []
         @params.each do |param|
-          info = "# @param #{param['name']} [#{param['type'].capitalize}] #{param['description']}"
-          info += ' (*Required*)' if param['required']
-          doc << info
+          doc << show_param(param)
         end
         doc << '#'
         doc.join("\n")
@@ -51,6 +49,12 @@ module Elastic
       def url_and_description(description)
         matches = description.match(/\[(.+)\]\((.+)\)/)
         [matches[1], matches[2]]
+      end
+
+      def show_param(param)
+        info = "# @param #{param['name']} [#{param['type']&.capitalize}] #{param['description']}"
+        info += ' (*Required*)' if param['required']
+        info
       end
     end
   end
