@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -15,24 +17,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-# frozen_string_literal: true
-
-require 'elastic/enterprise-search/version'
-
-# Require generated API code:
-[
-  File.dirname(__FILE__) + '/enterprise-search/api/*.rb',
-  File.dirname(__FILE__) + '/workplace-search/api/*.rb',
-  File.dirname(__FILE__) + '/app-search/api/*.rb'
-].each do |path|
-  Dir[path].sort.each { |file| require file }
-end
-
-require 'elastic/enterprise-search/client'
-require 'elastic/workplace-search/workplace_search.rb'
-require 'elastic/app-search/app_search.rb'
-
 module Elastic
   module EnterpriseSearch
+    module AppSearch
+      module Actions
+        def info
+          'AppSearch API'
+        end
+      end
+    end
   end
 end
