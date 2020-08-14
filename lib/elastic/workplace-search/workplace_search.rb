@@ -48,10 +48,6 @@ module Elastic
           @access_token = options.dig(:access_token)
         end
 
-        def endpoint
-          @options[:endpoint] || DEFAULT_ENDPOINT
-        end
-
         attr_accessor :access_token
       end
     end
