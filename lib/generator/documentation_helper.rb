@@ -37,9 +37,14 @@ module Elastic
 
       def parameters_documentation
         doc = []
-        @params.each do |param|
-          doc << show_param(param)
+        # Show required parameters first
+        required_params.each { |param| doc << show_required_param(param) }
+        # Show optional parameters for the `parameters` hash
+        unless (optional = @params - required_params).empty?
+          doc << '# @param parameters [Hash] Optional parameters'
+          optional.each { |param| doc << show_param(param) }
         end
+
         doc << '#'
         doc.join("\n")
       end
@@ -52,9 +57,15 @@ module Elastic
       end
 
       def show_param(param)
-        info = "# @param #{param['name']} [#{param['type']&.capitalize}] #{param['description']}"
-        info += ' (*Required*)' if param['required']
-        info
+        "# @option #{build_param_display(param)}"
+      end
+
+      def show_required_param(param)
+        "# @param #{build_param_display(param)} (*Required*)"
+      end
+
+      def build_param_display(param)
+        "#{param['name']} [#{param['type']&.capitalize}] #{param['description']}"
       end
     end
   end
