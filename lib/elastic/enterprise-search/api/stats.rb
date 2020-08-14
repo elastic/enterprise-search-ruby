@@ -23,7 +23,8 @@ module Elastic
       # Stats - Get information about the resource usage of the application, the state of different internal queues, etc.
       # Get information about the resource usage of the application, the state of different internal queues, etc.
       #
-      # @param include [Array] Comma-separated list of stats to return
+      # @param parameters [Hash] Optional parameters
+      # @option include [Array] Comma-separated list of stats to return
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#stats-api-example
       #

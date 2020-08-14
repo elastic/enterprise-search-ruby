@@ -25,8 +25,9 @@ module Elastic
         # List all permissions for all users
         #
         # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param current_page [Integer] Which page of results to request
-        # @param page_size [Integer] The number of results to return in a page
+        # @param parameters [Hash] Optional parameters
+        # @option current_page [Integer] Which page of results to request
+        # @option page_size [Integer] The number of results to return in a page
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list
         #
