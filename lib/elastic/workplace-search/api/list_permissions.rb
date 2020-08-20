@@ -21,22 +21,22 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        # ExternalIdentities - Retrieves all external identities
-        # Retrieves all external identities
+        # Permissions - Lists all permissions for all users
+        # List all permissions for all users
         #
         # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param parameters [Hash] Optional parameters
         # @option current_page [Integer] Which page of results to request
         # @option page_size [Integer] The number of results to return in a page
         #
-        # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#list-external-identities
+        # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list
         #
-        def list_all_external_identities(content_source_key, parameters = {})
+        def list_permissions(content_source_key, parameters = {})
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
 
           request(
             :get,
-            "/api/ws/v1/sources/#{content_source_key}/external_identities",
+            "/api/ws/v1/sources/#{content_source_key}/permissions",
             parameters
           )
         end
