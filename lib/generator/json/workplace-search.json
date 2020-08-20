@@ -205,7 +205,7 @@
           }
         }
       },
-      "list_all_external_identities_response": {
+      "list_external_identities_response": {
         "type": "object",
         "required": [
           "meta",
@@ -229,7 +229,7 @@
           "ok"
         ]
       },
-      "list_all_permissions_response": {
+      "list_permissions_response": {
         "type": "object",
         "required": [
           "meta",
@@ -264,7 +264,7 @@
         }
       },
       "filter_value": {
-        "description": "a value to filter on",
+        "description": "A value to filter on",
         "oneOf": [
           {
             "type": "string"
@@ -294,18 +294,18 @@
         "additionalProperties": false,
         "properties": {
           "from": {
-            "description": "the start of the range, inclusive",
+            "description": "The start of the range, inclusive",
             "$ref": "#/components/schemas/filter_value"
           },
           "to": {
-            "description": "the end of the range, exclusive",
+            "description": "The end of the range, exclusive",
             "$ref": "#/components/schemas/filter_value"
           }
         }
       },
       "geo_range_filter": {
         "type": "object",
-        "description": "a range filter with a geographic center",
+        "description": "A range filter with a geographic center",
         "minProperties": 3,
         "additionalProperties": false,
         "required": [
@@ -314,7 +314,7 @@
         ],
         "properties": {
           "unit": {
-            "description": "the base unit of measurement [mm, cm, m (meters), km, in, ft, yd, or mi (miles)]",
+            "description": "The base unit of measurement [mm, cm, m (meters), km, in, ft, yd, or mi (miles)]",
             "$ref": "#/components/schemas/geo_unit_enum"
           },
           "center": {
@@ -341,7 +341,7 @@
         ],
         "properties": {
           "unit": {
-            "description": "the base unit of measurement [mm, cm, m (meters), km, in, ft, yd, or mi (miles)]",
+            "description": "The base unit of measurement [mm, cm, m (meters), km, in, ft, yd, or mi (miles)]",
             "$ref": "#/components/schemas/geo_unit_enum"
           },
           "center": {
@@ -445,7 +445,7 @@
       },
       "sort": {
         "type": "object",
-        "description": "field and direction to sort on",
+        "description": "Field and direction to sort on",
         "minProperties": 1,
         "maxProperties": 1,
         "additionalProperties": {
@@ -457,7 +457,7 @@
       },
       "facet_sort": {
         "type": "object",
-        "description": "facet field to sort on and sort by count and/or value",
+        "description": "Facet field to sort on and sort by count and/or value",
         "minProperties": 1,
         "maxProperties": 1,
         "properties": {
@@ -478,7 +478,7 @@
       },
       "facet_value": {
         "type": "object",
-        "description": "facet by a field value",
+        "description": "Facet by a field value",
         "properties": {
           "type": {
             "enum": [
@@ -505,7 +505,7 @@
       },
       "facet_range_item": {
         "type": "object",
-        "description": "the range for a facet's bucket",
+        "description": "The range for a facet's bucket",
         "properties": {
           "from": {
             "oneOf": [
@@ -547,7 +547,7 @@
       },
       "facet_range": {
         "type": "object",
-        "description": "faceting into buckets by a range of values",
+        "description": "Faceting into buckets by a range of values",
         "properties": {
           "type": {
             "enum": [
@@ -731,7 +731,7 @@
       },
       "boost_item": {
         "type": "object",
-        "description": "field and type of boost with tuning parameters",
+        "description": "Field and type of boost with tuning parameters",
         "properties": {
           "type": {
             "enum": [
@@ -797,11 +797,11 @@
           "automatic_query_refinement": {
             "type": "boolean",
             "default": true,
-            "description": "set to false to not automatically refine the query by keywords"
+            "description": "Set to false to not automatically refine the query by keywords"
           },
           "page": {
             "type": "object",
-            "description": "paging controls for the result set",
+            "description": "Paging controls for the result set",
             "additionalProperties": false,
             "default": {
 
@@ -823,7 +823,7 @@
           },
           "search_fields": {
             "type": "object",
-            "description": "restrict the fulltext search to only specific fields",
+            "description": "Restrict the fulltext search to only specific fields",
             "minProperties": 1,
             "additionalProperties": {
               "type": "object",
@@ -839,7 +839,7 @@
           },
           "result_fields": {
             "type": "object",
-            "description": "restrict the result fields for each item to the specified fields",
+            "description": "Restrict the result fields for each item to the specified fields",
             "minProperties": 1,
             "additionalProperties": {
               "type": "object",
@@ -932,11 +932,11 @@
       },
       "query_refinement_item": {
         "type": "object",
-        "description": "specifics regarding how this part of the query was refined",
+        "description": "Specifics regarding how this part of the query was refined",
         "properties": {
           "term": {
             "type": "string",
-            "description": "the term(s) used for the trigger"
+            "description": "The term(s) used for the trigger"
           },
           "position": {
             "type": "array",
@@ -945,15 +945,15 @@
             "items": {
               "type": "number"
             },
-            "description": "the start and end position the term(s) exist in the original query"
+            "description": "The start and end position the term(s) exist in the original query"
           },
           "trigger_type": {
             "type": "string",
-            "description": "the type of trigger created"
+            "description": "The type of trigger created"
           },
           "trigger_filter_type": {
             "type": "string",
-            "description": "the type of filter created from this trigger"
+            "description": "The type of filter created from this trigger"
           },
           "filter": {
             "$ref": "#/components/schemas/filter"
@@ -962,11 +962,11 @@
       },
       "search_api_result_item": {
         "type": "object",
-        "description": "a single search result item",
+        "description": "A single search result item",
         "properties": {
           "_meta": {
             "type": "object",
-            "description": "metadata about this specific result item",
+            "description": "Metadata about this specific result item",
             "properties": {
               "source": {
                 "type": "string"
@@ -1000,14 +1000,15 @@
               ]
             },
             "snippet": {
-              "type": "string"
+              "type": "string",
+              "nullable": true
             }
           }
         }
       },
       "search_api_query_refinement": {
         "type": "object",
-        "description": "metadata regarding automatic refinements made to the query",
+        "description": "Metadata regarding automatic refinements made to the query",
         "properties": {
           "submitted_query": {
             "type": "string"
@@ -1028,69 +1029,81 @@
           "refinements"
         ]
       },
-      "search_facets_response": {
+      "search_facet_response_item": {
+        "description": "A single facet that was returned from the query",
         "type": "object",
-        "description": "facets returned from the query",
-        "additionalProperties": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "value",
-                "range"
-              ]
-            },
-            "data": {
-              "type": "array",
-              "description": "array of facets and counts for this field",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "count": {
-                    "type": "integer"
-                  },
-                  "key": {
-                    "type": "string"
-                  },
-                  "from": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "to": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  }
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "value",
+              "range"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "description": "array of facets and counts for this field",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
                 },
-                "required": [
-                  "count"
-                ]
-              }
+                "count": {
+                  "type": "integer"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "from": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "to": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "count"
+              ]
             }
           }
         }
+      },
+      "search_facets_response": {
+        "description": "facets returned from the query",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/search_facet_response_item"
+          },
+          {
+            "type": "array",
+            "maxItems": 1024,
+            "items": {
+              "$ref": "#/components/schemas/search_facet_response_item"
+            }
+          }
+        ]
       },
       "search_api_endpoint_response": {
         "type": "object",
@@ -1123,14 +1136,14 @@
               },
               "request_id": {
                 "type": "string",
-                "description": "internal request id for this query instance"
+                "description": "Internal request ID for this query instance"
               },
               "warnings": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "any warnings that the query generated"
+                "description": "Any warnings that the query generated"
               },
               "query_refinements": {
                 "$ref": "#/components/schemas/search_api_query_refinement"
@@ -1362,7 +1375,7 @@
           "External Identities API"
         ],
         "description": "[Retrieves all external identities](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#list-external-identities)",
-        "operationId": "listAllExternalIdentities",
+        "operationId": "listExternalIdentities",
         "security": [
           {
             "bearer_auth": [
@@ -1414,7 +1427,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/list_all_external_identities_response"
+                  "$ref": "#/components/schemas/list_external_identities_response"
                 }
               }
             }
@@ -1675,7 +1688,7 @@
           "Permissions API"
         ],
         "description": "[List all permissions for all users](https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list)",
-        "operationId": "listAllPermissions",
+        "operationId": "listPermissions",
         "security": [
           {
             "bearer_auth": [
@@ -1747,7 +1760,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/list_all_permissions_response"
+                  "$ref": "#/components/schemas/list_permissions_response"
                 }
               }
             }
