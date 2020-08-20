@@ -687,7 +687,7 @@
     },
     {
       "name": "Read-Only API",
-      "description": "an API endpoint for managing the read-only mode for a deployment",
+      "description": "An API endpoint for managing the read-only mode for a deployment",
       "externalDocs": {
         "url": "https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html"
       }
