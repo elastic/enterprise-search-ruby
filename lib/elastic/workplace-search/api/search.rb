@@ -26,10 +26,10 @@ module Elastic
         #
         # @param parameters [Hash] Optional parameters
         # @option query [String] A string or number used to find related documents
-        # @option automatic_query_refinement [Boolean] set to false to not automatically refine the query by keywords
-        # @option page [Object] paging controls for the result set
-        # @option search_fields [Object] restrict the fulltext search to only specific fields
-        # @option result_fields [Object] restrict the result fields for each item to the specified fields
+        # @option automatic_query_refinement [Boolean] Set to false to not automatically refine the query by keywords
+        # @option page [Object] Paging controls for the result set
+        # @option search_fields [Object] Restrict the fulltext search to only specific fields
+        # @option result_fields [Object] Restrict the result fields for each item to the specified fields
         # @option filters []
         # @option sort []
         # @option facets [Object]
