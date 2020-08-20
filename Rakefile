@@ -22,13 +22,29 @@ require_relative './lib/generator/endpoint_generator.rb'
 
 RSpec::Core::RakeTask.new(:spec)
 
-desc 'Generate code from JSON API spec'
-task :generate do
-  # Generate endpoint code:
-  Elastic::Generator::EndpointGenerator.new(:workplace).generate
-  Elastic::Generator::EndpointGenerator.new(:enterprise).generate
-  # Generate specs:
-  # generate specs(endpoints)
+SPECS = [:workplace, :enterprise].freeze
+
+desc 'Generate code from JSON API spec - rake generate[wokplace enterprise app]'
+task :generate, [:files] do |_, params|
+  if params[:files].nil?
+    SPECS.each do |spec|
+      generate_specs(spec)
+      # Generate specs:
+      # generate specs(spec)
+    end
+  else
+    params[:files].split(' ').each do |arg|
+      raise "Available parameters are #{SPECS}, no spec for #{arg}" unless SPECS.include?(arg.to_sym)
+
+      generate_specs(arg)
+      # Generate specs:
+      # generate specs(endpoints)
+    end
+  end
+end
+
+def generate_specs(name)
+  Elastic::Generator::EndpointGenerator.new(name.to_sym).generate
 end
 
 desc 'Open an irb session preloaded with this library'
