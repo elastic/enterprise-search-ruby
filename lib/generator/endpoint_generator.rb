@@ -40,8 +40,9 @@ module Elastic
         Utils.empty_directory(@target_dir)
 
         # for each endpoint in the spec generate the code
-        @spec['paths'].each do |endpoints|
-          generate_classes(endpoints)
+        @spec['paths'].each do |endpoint|
+          @path = replace_path_variables(endpoint[0])
+          generate_classes(endpoint)
         end
         Utils.run_rubocop(@target_dir)
       end
@@ -59,15 +60,23 @@ module Elastic
         JSON.parse(File.read(file))
       end
 
-      def generate_classes(endpoints)
-        @path = replace_path_variables(endpoints[0])
+      def generate_classes(endpoint)
+        endpoint.last.each_key do |method|
+          @params = []
+          if method == 'parameters'
+            endpoint.last['parameters'].each { |param| add_parameter(param) }
+            next
+          end
 
-        endpoints[1].each do |method, endpoint|
           @http_method = method
-          setup_values!(endpoint)
-          file_name = "#{@target_dir}/#{@method_name}.rb"
-          Utils.write_file(file_name, generate_method_code)
+          setup_values!(endpoint.last[method])
+          write_file(generate_code)
         end
+      end
+
+      def write_file(code)
+        file_name = "#{@target_dir}/#{@method_name}.rb"
+        Utils.write_file(file_name, code)
       end
 
       def replace_path_variables(path)
@@ -77,15 +86,24 @@ module Elastic
       end
 
       def setup_values!(endpoint)
-        @module_name = Utils.module_name(endpoint['tags'])
+        @module_name = Utils.module_name(endpoint.fetch('tags'))
         @method_name = Utils.to_ruby_name(endpoint['operationId'])
         setup_parameters!(endpoint['parameters']) if endpoint.dig('parameters')
         @doc = setup_documentation(endpoint)
       end
 
       def setup_parameters!(params)
-        @params = params.map { |param| parameter_name_and_description(param) }
-        search_parameters if @module_name == 'Search'
+        search_parameters if @module_name == 'Search' && @name == 'workplace'
+
+        params.each { |param| add_parameter(param) }
+      end
+
+      def add_parameter(param)
+        @params << if param.keys.include?('$ref') && !param['$ref'].empty?
+                     parameter_name_and_description(dig_ref_from_spec(param['$ref']))
+                   else
+                     parameter_name_and_description(param)
+                   end
       end
 
       def search_parameters
@@ -95,14 +113,19 @@ module Elastic
         end
       end
 
+      def dig_ref_from_spec(ref)
+        path = ref.gsub('#', '').split('/').reject(&:empty?)
+        @spec.dig(*path)
+      end
+
       def parameter_name_and_description(param)
-        param['name'] = 'current_page' if param['name'] == 'page[current]'
-        param['name'] = 'page_size' if param['name'] == 'page[size]'
+        param['name'] = Utils.to_ruby_name(param['x-codegen-param-name']) if param['x-codegen-param-name']
 
         # Check the spec for parameters with a given name and retrieve info
         param_info = @spec.dig('components', 'parameters').select do |_, p|
           p['name'] == param['name']
         end.values.first
+        param_info = param if param_info.nil?
 
         parameter_display(param['name'], param_info)
       end
@@ -139,7 +162,7 @@ module Elastic
         params.join(",\n")
       end
 
-      def generate_method_code
+      def generate_code
         template = "#{CURRENT_PATH}/templates/endpoint_template.erb"
         code = ERB.new(File.read(template), nil, '-')
         code.result(binding)

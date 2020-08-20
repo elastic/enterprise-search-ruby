@@ -22,7 +22,7 @@ require_relative './lib/generator/endpoint_generator.rb'
 
 RSpec::Core::RakeTask.new(:spec)
 
-SPECS = [:workplace, :enterprise].freeze
+SPECS = [:workplace, :enterprise, :app].freeze
 
 desc 'Generate code from JSON API spec - rake generate[wokplace enterprise app]'
 task :generate, [:files] do |_, params|
