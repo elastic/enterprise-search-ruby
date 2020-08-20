@@ -22,18 +22,33 @@ module Elastic
     # Helper for setting up generated code documentation
     module DocumentationHelper
       def setup_documentation(endpoint)
-        description, url = url_and_description(endpoint['description'])
+        description, url = url_and_description(endpoint)
         docs = []
         docs << "# #{@module_name} - #{endpoint['summary']}"
         docs << "# #{description}"
         docs << '#'
         docs << parameters_documentation if @params && !@params.empty?
-        docs << "# @see #{url}"
+        docs << "# @see #{url}" if url
         docs << "#\n"
         docs.join("\n")
       end
 
       private
+
+      # Description is markdown with [description](external_url)
+      # So we split the string with regexp:
+      def url_and_description(endpoint)
+        if endpoint['description'].nil?
+          description = 'TODO'
+          url = endpoint.dig('externalDocs', 'url')
+        else
+          matches = endpoint['description'].match(/\[(.+)\]\((.+)\)/)
+          description = matches[1]
+          url = matches[2]
+        end
+
+        [description, url]
+      end
 
       def parameters_documentation
         doc = []
@@ -47,13 +62,6 @@ module Elastic
 
         doc << '#'
         doc.join("\n")
-      end
-
-      # Description is markdown with [description](external_url)
-      # So we split the string with regexp:
-      def url_and_description(description)
-        matches = description.match(/\[(.+)\]\((.+)\)/)
-        [matches[1], matches[2]]
       end
 
       def show_param(param)
