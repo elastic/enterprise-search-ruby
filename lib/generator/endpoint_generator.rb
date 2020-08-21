@@ -94,19 +94,28 @@ module Elastic
       def setup_parameters!(endpoint)
         # TODO - Follow $ref to document parameters from body
         endpoint['parameters'].each { |param| add_parameter(param) } if endpoint.dig('parameters')
+        extract_path_parameters.each do |param|
+          next unless @params.select { |p| p['name'] == param }.empty?
+
+          @params << {
+            'name' => param,
+            'required' => true,
+            'description' => '',
+            'type' => 'String'
+          }
+        end
+      end
+
+      def extract_path_parameters
+        @path.scan(/{(\w+)}/).flatten
       end
 
       def add_parameter(param)
         @params << if param.keys.include?('$ref') && !param['$ref'].empty?
-                     parameter_name_and_description(dig_ref_from_spec(param['$ref']))
+                     parameter_name_and_description(Utils.dig_ref_from_spec(param['$ref'], @spec))
                    else
                      parameter_name_and_description(param)
                    end
-      end
-
-      def dig_ref_from_spec(ref)
-        path = ref.gsub('#', '').split('/').reject(&:empty?)
-        @spec.dig(*path)
       end
 
       def parameter_name_and_description(param)
