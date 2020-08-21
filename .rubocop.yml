@@ -8,6 +8,8 @@ Layout/LineLength:
   Max: 120
 Style/SymbolArray:
   EnforcedStyle: brackets
+Style/WordArray:
+  EnforcedStyle: brackets
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 Layout/SpaceAroundMethodCallOperator:
