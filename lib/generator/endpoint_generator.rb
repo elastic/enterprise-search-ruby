@@ -67,7 +67,6 @@ module Elastic
             endpoint.last['parameters'].each { |param| add_parameter(param) }
             next
           end
-
           @http_method = method
           setup_values!(endpoint.last[method])
           write_file(generate_code)
@@ -88,14 +87,13 @@ module Elastic
       def setup_values!(endpoint)
         @module_name = Utils.module_name(endpoint.fetch('tags'))
         @method_name = Utils.to_ruby_name(endpoint['operationId'])
-        setup_parameters!(endpoint['parameters']) if endpoint.dig('parameters')
+        setup_parameters!(endpoint)
         @doc = setup_documentation(endpoint)
       end
 
-      def setup_parameters!(params)
-        search_parameters if @module_name == 'Search' && @name == 'workplace'
-
-        params.each { |param| add_parameter(param) }
+      def setup_parameters!(endpoint)
+        # TODO - Follow $ref to document parameters from body
+        endpoint['parameters'].each { |param| add_parameter(param) } if endpoint.dig('parameters')
       end
 
       def add_parameter(param)
@@ -104,13 +102,6 @@ module Elastic
                    else
                      parameter_name_and_description(param)
                    end
-      end
-
-      def search_parameters
-        params = @spec.dig('components', 'schemas', 'search_api_query', 'properties')
-        params.each do |param|
-          @params << parameter_display(param[0], param[1])
-        end
       end
 
       def dig_ref_from_spec(ref)
@@ -151,6 +142,7 @@ module Elastic
         params = required_params.map do |param|
           param['name']
         end
+        params << 'body = {}' if body?
         params << 'parameters = {}'
         "(#{params.join(', ')})"
       end
@@ -159,7 +151,12 @@ module Elastic
         params = []
         params += [":#{@http_method}", "\"#{@path}\""]
         params << 'parameters' if @params
+        params << 'body' if body?
         params.join(",\n")
+      end
+
+      def body?
+        ['post', 'put', 'patch'].include? @http_method
       end
 
       def generate_code
