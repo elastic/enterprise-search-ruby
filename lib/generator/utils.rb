@@ -60,6 +60,11 @@ module Elastic
           }
         end
       end
+
+      def self.dig_ref_from_spec(ref, spec)
+        path = ref.gsub('#', '').split('/').reject(&:empty?)
+        spec.dig(*path)
+      end
     end
   end
 end
