@@ -21,8 +21,21 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        def info
-          'AppSearch API'
+        # Engine - Add a source engine to an existing meta engine.
+        #
+        # @param engine_name [String]  (*Required*)
+        #
+        # @see https://www.elastic.co/guide/en/app-search/current/meta-engines.html#meta-engines-add-source-engines
+        #
+        def add_meta_engine_source(body = {}, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+
+          request(
+            :post,
+            "/api/as/v1/engines/#{engine_name}/source_engines",
+            parameters,
+            body
+          )
         end
       end
     end
