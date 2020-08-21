@@ -25,7 +25,7 @@ module Elastic
         description, url = url_and_description(endpoint)
         docs = []
         docs << "# #{@module_name} - #{endpoint['summary']}"
-        docs << "# #{description}"
+        docs << "# #{description}" if description
         docs << '#'
         docs << parameters_documentation if @params && !@params.empty?
         docs << "# @see #{url}" if url
@@ -39,7 +39,7 @@ module Elastic
       # So we split the string with regexp:
       def url_and_description(endpoint)
         if endpoint['description'].nil?
-          description = 'TODO'
+          description = nil
           url = endpoint.dig('externalDocs', 'url')
         else
           matches = endpoint['description'].match(/\[(.+)\]\((.+)\)/)
