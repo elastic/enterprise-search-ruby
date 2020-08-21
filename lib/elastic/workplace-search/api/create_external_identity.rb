@@ -28,13 +28,14 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#add-external-identity
         #
-        def create_external_identity(content_source_key, parameters = {})
+        def create_external_identity(content_source_key, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
 
           request(
             :post,
             "/api/ws/v1/sources/#{content_source_key}/external_identities",
-            parameters
+            parameters,
+            body
           )
         end
       end
