@@ -145,12 +145,35 @@ module Elastic
         @params.select { |p| p['required'] }
       end
 
+      METHOD_SIGNATURE_PARAMS = [
+        'content_source_key'
+      ].freeze
+
       def method_signature_params
         return unless @params
 
-        params = required_params.map do |param|
-          param['name']
+        required_params.select do |param|
+          in_signature?(param['name'])
+        end.map { |p| p['name'] }
+      end
+
+      def in_signature?(param_name)
+        METHOD_SIGNATURE_PARAMS.include?(param_name)
+      end
+
+      def raise_for_required_params
+        errors = []
+        required_params.map do |param|
+          name = param['name']
+          parameter = in_signature?(name) ? name : "parameters[:#{name}]"
+          errors << "raise ArgumentError, \"Required parameter '#{name}' missing\" unless #{parameter}"
         end
+        errors.join("\n")
+      end
+
+      def display_signature_params
+        # Display
+        params = method_signature_params
         params << 'body = {}' if body?
         params << 'parameters = {}'
         "(#{params.join(', ')})"
