@@ -7,11 +7,8 @@ module Elastic
     <% end -%>
       module Actions
         <%= @doc -%>
-        def <%= @method_name %><%= method_signature_params %>
-          <% required_params.map do |required|
-              name = required['name'] -%>
-            raise ArgumentError, "Required parameter '<%= name %>' missing" unless <%= name %>
-          <% end -%>
+        def <%= @method_name %><%= display_signature_params %>
+          <%= raise_for_required_params %>
 
           request(
             <%= request_method_params %>
