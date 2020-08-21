@@ -28,13 +28,14 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#index-and-update
         #
-        def index_documents(content_source_key, parameters = {})
+        def index_documents(content_source_key, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
 
           request(
             :post,
             "/api/ws/v1/sources/#{content_source_key}/documents/bulk_create",
-            parameters
+            parameters,
+            body
           )
         end
       end
