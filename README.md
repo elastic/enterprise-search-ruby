@@ -37,7 +37,7 @@ ent_client.health
 ent_client = Elastic::EnterpriseSearch::Client.new
 http_auth = '<content source access token>'
 ent_client.workplace_search.http_auth = http_auth
-ent_client.index_documents(content_source_key, documents)
+ent_client.workplace_search.index_documents(content_source_key, documents)
 ```
 
 ### App Search
