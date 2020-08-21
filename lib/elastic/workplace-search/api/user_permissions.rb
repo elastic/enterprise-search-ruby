@@ -29,9 +29,9 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list-one
         #
-        def user_permissions(content_source_key, user, parameters = {})
+        def user_permissions(content_source_key, parameters = {})
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
-          raise ArgumentError, "Required parameter 'user' missing" unless user
+          raise ArgumentError, "Required parameter 'user' missing" unless parameters[:user]
 
           request(
             :get,

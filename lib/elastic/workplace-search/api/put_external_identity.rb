@@ -29,14 +29,15 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#update-external-identity
         #
-        def put_external_identity(content_source_key, user, parameters = {})
+        def put_external_identity(content_source_key, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
-          raise ArgumentError, "Required parameter 'user' missing" unless user
+          raise ArgumentError, "Required parameter 'user' missing" unless parameters[:user]
 
           request(
             :put,
             "/api/ws/v1/sources/#{content_source_key}/external_identities/#{user}",
-            parameters
+            parameters,
+            body
           )
         end
       end
