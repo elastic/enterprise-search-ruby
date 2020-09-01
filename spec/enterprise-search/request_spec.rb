@@ -18,12 +18,12 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'ostruct'
 
 # rubocop:disable Metrics/BlockLength
 describe Elastic::EnterpriseSearch::Client do
   let(:client) { Elastic::EnterpriseSearch::Client.new(http_auth: http_auth) }
-  let(:response) { { 'status' => 'ok' } }
-  let(:stub_response) { { body: response.to_json } }
+  let(:stub_response) { OpenStruct.new(status: 200) }
   let(:host) { 'http://localhost:8080' }
   let(:http_auth) { { user: 'elastic', password: 'password' } }
   let(:user_agent) do
@@ -37,9 +37,9 @@ describe Elastic::EnterpriseSearch::Client do
 
   let(:headers) do
     {
-      'User-Agent' => user_agent,
+      'Authorization' => 'Basic ZWxhc3RpYzpwYXNzd29yZA==',
       'Content-Type' => 'application/json',
-      'Authorization' => 'Basic ZWxhc3RpYzpwYXNzd29yZA=='
+      'User-Agent' => user_agent
     }
   end
 
@@ -47,30 +47,36 @@ describe Elastic::EnterpriseSearch::Client do
     context 'get' do
       it 'builds the right request' do
         stub_request(:get, "#{host}/test")
-          .with(query: { 'params' => 'test' }, headers: headers)
-          .to_return(stub_response)
+          .with(
+            query: { 'params' => 'test' },
+            headers: headers
+          ).to_return(stub_response)
 
-        expect(client.get('test', { 'params' => 'test' })).to eq(response)
+        expect(client.get('test', params: 'test').status).to eq(200)
       end
     end
 
     context 'delete' do
       it 'builds the right request' do
         stub_request(:delete, "#{host}/test")
-          .with(query: { 'params' => 'test' }, headers: headers)
-          .to_return(stub_response)
+          .with(
+            query: { 'params' => 'test' },
+            headers: headers
+          ).to_return(stub_response)
 
-        expect(client.delete('test', { 'params' => 'test' })).to eq(response)
+        expect(client.delete('test', params: 'test').status).to eq(200)
       end
     end
 
     context 'post' do
       it 'builds the right request' do
         stub_request(:post, "#{host}/test")
-          .with(body: { 'params' => 'test' }, headers: headers)
-          .to_return(stub_response)
+          .with(
+            body: { some: 'value' },
+            headers: headers
+          ).to_return(stub_response)
 
-        expect(client.post('test', { 'params' => 'test' })).to eq(response)
+        expect(client.post('test', {}, { some: 'value' }).status).to eq(200)
       end
     end
 
@@ -80,24 +86,28 @@ describe Elastic::EnterpriseSearch::Client do
           .with(body: { 'params' => 'test' }, headers: headers)
           .to_return(stub_response)
 
-        expect(client.put('test', { 'params' => 'test' })).to eq(response)
+        expect(client.put('test', {}, { 'params' => 'test' }).status).to eq(200)
       end
     end
   end
 
   context 'with ssl' do
     let(:host) { 'https://localhost:3002/api/ws/v1' }
-
-    before do
-      client.endpoint = host
+    let(:client) do
+      Elastic::EnterpriseSearch::Client.new(
+        http_auth: http_auth,
+        host: host
+      )
     end
 
     it 'sends the request correctly' do
       stub_request(:get, "#{host}/test")
-        .with(query: { 'params' => 'test' }, headers: headers)
-        .to_return(stub_response)
+        .with(
+          query: { 'params' => 'test' },
+          headers: headers
+        ).to_return(stub_response)
 
-      expect(client.get('test', { 'params' => 'test' })).to eq(response)
+      expect(client.get('test', { 'params' => 'test' }).status).to eq(200)
     end
   end
 end
