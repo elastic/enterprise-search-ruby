@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8080/api/ent/v1/internal/stats
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic ZWxhc3RpYzpjaGFuZ2VtZQ==
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json;charset=utf-8
+      Etag:
+      - W/"b488e8a56ceff7aefab98412fdacf8df"
+      Server:
+      - Jetty(9.4.30.v20200611)
+      X-Cloud-Request-Id:
+      - crX7gbKaRAWWYtBhNohKHQ
+      X-Content-Type-Options:
+      - nosniff
+      X-Found-Handling-Cluster:
+      - 67368225fc704eddad33f0178309ca36
+      X-Found-Handling-Instance:
+      - instance-0000000001
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - a9169ba0-c053-4c34-aa70-11d2d2e2246f
+      X-Runtime:
+      - '0.081117'
+      X-Xss-Protection:
+      - 1; mode=block
+      Date:
+      - Tue, 01 Sep 2020 16:53:22 GMT
+      Content-Length:
+      - '1887'
+    body:
+      encoding: UTF-8
+      string: '{"app":{"pid":19,"start":"2020-09-01T16:51:24+00:00","end":"2020-09-01T16:52:24+00:00","metrics":{"timers.actastic.relation.search":{"sum":184.33178216218948,"max":19.385725259780884,"mean":6.14439273873965},"timers.http.request.all":{"sum":369.9815273284912,"max":90.48819541931152,"mean":28.460117486807015},"timers.http.request.200":{"sum":369.9815273284912,"max":90.48819541931152,"mean":28.460117486807015},"timers.cron.local.cron-refresh_elasticsearch_license.total_job_time":{"sum":33.603571355342865,"max":33.603571355342865,"mean":33.603571355342865},"timers.cron.local.cron-keep_filebeat_alive.total_job_time":{"sum":52.1046407520771,"max":52.1046407520771,"mean":52.1046407520771},"timers.actastic.relation.document_count":{"sum":9.221263229846954,"max":4.708867520093918,"mean":4.610631614923477},"counters.http.request.all":13,"counters.http.request.200":13}},"queues":{"connectors":{"pending":0},"document_destroyer":{"pending":0},"engine_destroyer":{"pending":0},"index_adder":{"pending":0},"indexed_doc_remover":{"pending":0},"mailer":{"pending":0},"refresh_document_counts":{"pending":0},"reindexer":{"pending":0},"schema_updater":{"pending":0},"seed_sample_engine":{"pending":0},"workplace_search":{"pending":0},"failed":[]},"connectors":{"alive":true,"pool":{"extract_worker_pool":{"running":true,"queue_depth":0,"size":8,"busy":1,"idle":7,"total_scheduled":4901,"total_completed":4900},"subextract_worker_pool":{"running":true,"queue_depth":0,"size":0,"busy":0,"idle":0,"total_scheduled":0,"total_completed":0},"publish_worker_pool":{"running":true,"queue_depth":0,"size":0,"busy":0,"idle":0,"total_scheduled":0,"total_completed":0},"status_update_worker_pool":{"running":true,"queue_depth":0,"size":0,"busy":0,"idle":0,"total_scheduled":0,"total_completed":0}},"job_store":{"waiting":0,"working":0,"job_types":{"full":0,"incremental":0,"delete":0,"permissions":0}}}}'
+    http_version: 
+  recorded_at: Tue, 01 Sep 2020 16:53:22 GMT
+recorded_with: VCR 3.0.3
