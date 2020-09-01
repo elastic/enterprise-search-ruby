@@ -20,6 +20,7 @@
 # TODO: CONFIG require 'elastic/enterprise-search/configuration'
 require 'elastic/enterprise-search/request'
 require 'elastic/enterprise-search/utils'
+require 'elasticsearch-transport'
 
 module Elastic
   module EnterpriseSearch
@@ -54,6 +55,13 @@ module Elastic
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
       def initialize(options = {})
         @options = options
+        @transport = Elasticsearch::Client.new(
+          host: endpoint,
+          request_timeout: overall_timeout,
+          transport_options: {
+            request: { open_timeout: open_timeout },
+          }
+        )
       end
 
       def open_timeout
