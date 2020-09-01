@@ -25,9 +25,8 @@ module Elastic
       # EnterpriseSearch client's authentication method with Workplace's
       # authentication.
       module Request
-        def setup_authentication_header(req)
-          req['Authorization'] = "Bearer #{access_token}"
-          req
+        def setup_authentication_header
+          "Bearer #{access_token}"
         end
       end
 
@@ -44,8 +43,8 @@ module Elastic
         # @option options [String] :access_token the access token for workplace search
         # @option options [String] :endpoint the endpoint Workplace Search
         def initialize(options = {})
-          @options = options
           @access_token = options.dig(:access_token)
+          super(options)
         end
 
         attr_accessor :access_token
