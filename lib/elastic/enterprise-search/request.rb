@@ -67,7 +67,7 @@ module Elastic
 
       private
 
-      # TODO - different errors from elasticsearch-transport
+      # TODO: different errors from elasticsearch-transport
       # rubocop:disable Metrics/MethodLength
       def handle_errors(response)
         case response

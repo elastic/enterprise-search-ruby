@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8080/api/ent/v1/internal/health
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic ZWxhc3RpYzpjaGFuZ2VtZQ==
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json;charset=utf-8
+      Etag:
+      - W/"bcf81810c7740444df13d3f042ba90f2"
+      Server:
+      - Jetty(9.4.30.v20200611)
+      X-Cloud-Request-Id:
+      - y8Lwx6hQRf22NUfDyd0yIg
+      X-Content-Type-Options:
+      - nosniff
+      X-Found-Handling-Cluster:
+      - 67368225fc704eddad33f0178309ca36
+      X-Found-Handling-Instance:
+      - instance-0000000001
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 85ccbf99-216c-4685-b3ca-b6525e432f13
+      X-Runtime:
+      - '0.065396'
+      X-Xss-Protection:
+      - 1; mode=block
+      Date:
+      - Tue, 01 Sep 2020 13:59:00 GMT
+      Content-Length:
+      - '1086'
+    body:
+      encoding: UTF-8
+      string: '{"name":"74d04cdadf25","version":{"number":"7.9.0","build_hash":"e784856897348ca7d6115f6276db33492bb2e6a2","build_date":"2020-08-11T23:52:22Z"},"jvm":{"gc":{"collection_count":29,"collection_time":6919,"garbage_collectors":{"Copy":{"collection_count":24,"collection_time":3418},"MarkSweepCompact":{"collection_count":5,"collection_time":3501}}},"pid":19,"uptime":2023967,"memory_usage":{"heap_init":1289748480,"heap_used":625198536,"heap_committed":1246756864,"heap_max":1246756864,"object_pending_finalization_count":0,"non_heap_init":2555904,"non_heap_committed":314376192},"memory_pools":["Code
+        Cache","Metaspace","Compressed Class Space","Eden Space","Survivor Space","Tenured
+        Gen"],"threads":{"thread_count":35,"peak_thread_count":42,"total_started_thread_count":63,"daemon_thread_count":11},"vm_version":"25.252-b09","vm_vendor":"AdoptOpenJDK","vm_name":"OpenJDK
+        64-Bit Server VM"},"filebeat":{"pid":85,"alive":true,"restart_count":0,"seconds_since_last_restart":-1},"system":{"java_version":"1.8.0_252","jruby_version":"9.2.9.0","os_name":"Linux","os_version":"4.15.0-1032-gcp"}}'
+    http_version: 
+  recorded_at: Tue, 01 Sep 2020 13:59:00 GMT
+recorded_with: VCR 3.0.3

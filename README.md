@@ -25,10 +25,23 @@ The version follows the Elastic Stack version so 7.10 is compatible with Enterpr
 
 ### Enterprise Search
 
+Example usage:
+
 ```ruby
 http_auth = {user: 'elastic', password: 'password'}
-ent_client = Elastic::EnterpriseSearch::Client.new(host: 'host', http_auth: http_auth)
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
+
+ent_client = Elastic::EnterpriseSearch::Client.new(host: host, http_auth: http_auth)
+
 ent_client.health
+
+ent_client.read_only
+
+ent_client.put_read_only(enabled: false)
+
+ent_client.stats
+
+ent_client.version
 ```
 
 ### Workplace Search
