@@ -19,7 +19,6 @@
 
 require 'spec_helper'
 
-# rubocop:disable Metrics/BlockLength
 describe Elastic::EnterpriseSearch::Client do
   let(:host) { 'https://localhost:8080' }
   let(:http_auth) { { user: 'elasticenterprise', password: 'password' } }
@@ -57,4 +56,3 @@ describe Elastic::EnterpriseSearch::Client do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
