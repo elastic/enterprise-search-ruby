@@ -33,12 +33,12 @@ module Elastic
         request(:get, path, params)
       end
 
-      def post(path, params = {})
-        request(:post, path, params)
+      def post(path, params = {}, body = {})
+        request(:post, path, params, body)
       end
 
-      def put(path, params = {})
-        request(:put, path, params)
+      def put(path, params = {}, body = {})
+        request(:put, path, params, body)
       end
 
       def delete(path, params = {})
