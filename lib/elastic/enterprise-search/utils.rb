@@ -21,7 +21,7 @@ module Elastic
   module EnterpriseSearch
     # Util functions
     module Utils
-      DEFAULT_ENDPOINT = 'http://localhost:8080/'
+      DEFAULT_HOST = 'http://localhost:8080/'
 
       def stringify_keys(hash)
         output = {}
@@ -31,12 +31,12 @@ module Elastic
         output
       end
 
-      def endpoint=(endpoint)
-        @options[:endpoint] = if endpoint.end_with?('/')
-                                endpoint
-                              else
-                                "#{endpoint}/"
-                              end
+      def host=(host)
+        @options[:host] = if host.end_with?('/')
+                            host
+                          else
+                            "#{host}/"
+                          end
       end
     end
   end

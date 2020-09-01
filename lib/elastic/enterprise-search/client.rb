@@ -25,6 +25,7 @@ require 'elasticsearch-transport'
 module Elastic
   module EnterpriseSearch
     # API client for the {Elastic Enterprise Search API}[https://www.elastic.co/enterprise-search].
+    # This is the main client from which the Workplace Search and App Search clients inherit.
     class Client
       DEFAULT_TIMEOUT = 15
 
@@ -35,7 +36,7 @@ module Elastic
       # TODO: Options
       def workplace_search
         @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
-          endpoint: endpoint
+          host: host
         )
       end
 
@@ -49,17 +50,19 @@ module Elastic
       # Create a new Elastic::EnterpriseSearch::Client client
       #
       # @param options [Hash] a hash of configuration options that will override what is set on the Elastic::EnterpriseSearch class.
+      # @option options [String] :host Enterprise Search host
       # @option options [Hash] :basic_auth a username and password for Basic Authentication
       # @option options [Numeric] :overall_timeout overall timeout for requests in seconds (default: 15s)
       # @option options [Numeric] :open_timeout the number of seconds Net::HTTP (default: 15s) will wait while opening a connection before raising a Timeout::Error
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
       def initialize(options = {})
         @options = options
+
         @transport = Elasticsearch::Client.new(
-          host: endpoint,
+          host: host,
           request_timeout: overall_timeout,
           transport_options: {
-            request: { open_timeout: open_timeout },
+            request: { open_timeout: open_timeout }
           }
         )
       end
@@ -84,8 +87,8 @@ module Elastic
         @options[:http_auth] = http_auth
       end
 
-      def endpoint
-        @options[:endpoint] || DEFAULT_ENDPOINT
+      def host
+        @options[:host] || DEFAULT_HOST
       end
     end
   end
