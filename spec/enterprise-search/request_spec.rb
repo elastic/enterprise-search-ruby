@@ -20,7 +20,6 @@
 require 'spec_helper'
 require 'ostruct'
 
-# rubocop:disable Metrics/BlockLength
 describe Elastic::EnterpriseSearch::Client do
   let(:client) { Elastic::EnterpriseSearch::Client.new(http_auth: http_auth) }
   let(:stub_response) { OpenStruct.new(status: 200) }
@@ -111,4 +110,3 @@ describe Elastic::EnterpriseSearch::Client do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
