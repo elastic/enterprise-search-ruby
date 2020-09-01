@@ -44,18 +44,20 @@ module Elastic
       def delete(path, params = {})
         request(:delete, path, params)
       end
+
       # Construct and send a request to the API.
       #
       # @raise [Timeout::Error] when the timeout expires
-      def request(method, path, params = {})
+      def request(method, path, params = {}, body = {})
         headers = {
           authorization: setup_authentication_header,
           user_agent: request_user_agent
         }
-        body = {}
-        response = @transport.perform_request(method, path, params, body, headers)
+
+        response = @transport.perform_request(method.to_s.upcase, path, params, body, headers)
         # handle_errors(response)
-        response.body
+        # TODO: response
+        response
       end
 
       def setup_authentication_header
