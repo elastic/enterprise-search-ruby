@@ -21,15 +21,15 @@ require 'spec_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe Elastic::EnterpriseSearch::Client do
-  let(:endpoint) { 'https://localhost:8080' }
+  let(:host) { 'https://localhost:8080' }
   let(:http_auth) { { user: 'elasticenterprise', password: 'password' } }
 
   context 'initialization' do
     it 'sets up options' do
       client = Elastic::EnterpriseSearch::Client.new(
-        endpoint: endpoint
+        host: host
       )
-      expect(client.endpoint).to eq endpoint
+      expect(client.host).to eq host
     end
   end
 
@@ -50,10 +50,10 @@ describe Elastic::EnterpriseSearch::Client do
   end
 
   context 'workplace search instantiation from enterprise search' do
-    let(:client) { Elastic::EnterpriseSearch::Client.new(endpoint: endpoint) }
+    let(:client) { Elastic::EnterpriseSearch::Client.new(host: host) }
 
     it 'instantiates workplace search with default endpoint' do
-      expect(client.workplace_search.endpoint).to eq endpoint
+      expect(client.workplace_search.host).to eq host
     end
   end
 end
