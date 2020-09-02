@@ -19,7 +19,7 @@ jobs:
       run: |
         ruby -v
         bundle install
-        bundle exec rspec
+        bundle exec rake spec:client
   test-jruby:
     env:
       ENDPOINT: http://localhost:3002/api/ws/v1
@@ -37,4 +37,4 @@ jobs:
       run: |
         ruby -v
         bundle install
-        bundle exec rspec
+        bundle exec rake spec:client
