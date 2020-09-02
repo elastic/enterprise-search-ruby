@@ -20,8 +20,6 @@
 require 'rspec/core/rake_task'
 require_relative './lib/generator/endpoint_generator.rb'
 
-RSpec::Core::RakeTask.new(:spec)
-
 SPECS = [:workplace, :enterprise, :app].freeze
 
 desc 'Generate code from JSON API spec - rake generate[wokplace enterprise app]'
@@ -50,4 +48,21 @@ end
 desc 'Open an irb session preloaded with this library'
 task :console do
   sh 'irb -r rubygems -I lib -r elastic_enterprise_search.rb'
+end
+
+namespace :spec do
+  desc 'Run client tests'
+  task :client do
+    sh 'rspec spec/enterprise-search'
+  end
+
+  desc 'Run integration tests'
+  task :integration do
+    sh 'rspec spec/integration'
+  end
+
+  desc 'Run all tests'
+  task :all do
+    sh 'rspec spec'
+  end
 end

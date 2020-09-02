@@ -19,9 +19,7 @@
 
 require 'elastic/enterprise_search'
 require 'rspec'
-require 'webmock'
-require 'webmock/rspec'
-require 'vcr'
+# require 'vcr'
 
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
@@ -30,9 +28,9 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
-  VCR.configure do |c|
-    c.cassette_library_dir = 'spec/fixtures/vcr'
-    c.hook_into :webmock
-    c.allow_http_connections_when_no_cassette = true
-  end
+  # VCR.configure do |c|
+  #   c.cassette_library_dir = 'spec/fixtures/vcr'
+  #   c.hook_into :webmock
+  #   c.allow_http_connections_when_no_cassette = true
+  # end
 end
