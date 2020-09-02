@@ -69,6 +69,30 @@ This will generate the code for all the specs. But if you only want to update on
 $ rake generate[workplace enterprise]
 ```
 
+## Development
+
+### Run tests
+
+Unit tests for Enterprise Search Client:
+
+```
+$ rake spec:client
+```
+
+
+Integration tests: you need to have an instance of Enterprise Search running either locally or remotely, and specify the host and credentials in environment variables (see below for a complete dockerized setup)
+```
+$ ELASTIC_ENTERPRISE_HOST='https://id.ent-search.europe-west2.gcp.elastic-cloud.com' \
+  ELASTIC_ENTERPRISE_USER='elastic' \
+  ELASTIC_ENTERPRISE_PASSWORD='changeme' \
+  rake spec:integration
+```
+
+Run integration tests with a docker setup for Enterprise Search, the way we run them on our CI:
+```
+STACK_VERSION=7.10.0 ./.ci/run-tests
+```
+
 ## License
 
 Apache-2.0
