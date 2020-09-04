@@ -29,7 +29,7 @@ module Elastic
         def search(body = {}, parameters = {})
           request(
             :post,
-            '/api/ws/v1/search',
+            'api/ws/v1/search/',
             parameters,
             body
           )

@@ -35,7 +35,7 @@ module Elastic
 
           request(
             :put,
-            "/api/ws/v1/sources/#{content_source_key}/permissions/#{user}",
+            "api/ws/v1/sources/#{content_source_key}/permissions/#{user}/",
             parameters,
             body
           )

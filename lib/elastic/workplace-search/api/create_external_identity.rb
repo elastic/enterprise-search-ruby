@@ -33,7 +33,7 @@ module Elastic
 
           request(
             :post,
-            "/api/ws/v1/sources/#{content_source_key}/external_identities",
+            "api/ws/v1/sources/#{content_source_key}/external_identities/",
             parameters,
             body
           )
