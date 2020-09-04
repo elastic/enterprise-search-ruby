@@ -33,7 +33,7 @@ module Elastic
 
           request(
             :post,
-            "/api/ws/v1/sources/#{content_source_key}/documents/bulk_destroy",
+            "api/ws/v1/sources/#{content_source_key}/documents/bulk_destroy/",
             parameters,
             body
           )

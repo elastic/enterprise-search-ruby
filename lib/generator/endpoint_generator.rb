@@ -43,7 +43,7 @@ module Elastic
 
         # for each endpoint in the spec generate the code
         @spec['paths'].each do |endpoint|
-          @path = replace_path_variables(endpoint[0])
+          @path = generate_path(endpoint[0])
           generate_classes(endpoint)
         end
         Utils.run_rubocop(@target_dir)
@@ -78,6 +78,12 @@ module Elastic
       def write_file(code)
         file_name = "#{@target_dir}/#{@method_name}.rb"
         Utils.write_file(file_name, code)
+      end
+
+      def generate_path(path_string)
+        path = replace_path_variables(path_string).gsub(/^\//, '')
+
+        path.match?(/\/$/) ? path : "#{path}/"
       end
 
       def replace_path_variables(path)

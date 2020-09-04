@@ -35,7 +35,7 @@ module Elastic
 
           request(
             :delete,
-            "/api/ws/v1/sources/#{content_source_key}/external_identities/#{user}",
+            "api/ws/v1/sources/#{content_source_key}/external_identities/#{user}/",
             parameters
           )
         end
