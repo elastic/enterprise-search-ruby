@@ -40,7 +40,8 @@ echo -e "\033[32;1mRUN: \033[31mRuby \e[0m container.\033[0m"
 docker run \
        --network ${network_name} \
        --name enterprise-search-ruby \
+       --env "ELASTIC_ENTERPRISE_HOST=http://${CONTAINER_NAME}:3002" \
        --rm \
        --volume `pwd`:/code/enterprise-search-ruby \
        elastic/enterprise-search-ruby \
-       bundle exec rake spec:integration
+       rake spec:integration
