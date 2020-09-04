@@ -53,7 +53,7 @@ end
 namespace :spec do
   desc 'Run client tests'
   task :client do
-    sh 'rspec spec/enterprise-search'
+    sh 'rspec spec/enterprise-search spec/workplace-search'
   end
 
   desc 'Run integration tests'

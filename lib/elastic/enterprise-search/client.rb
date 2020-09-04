@@ -33,10 +33,11 @@ module Elastic
       include Elastic::EnterpriseSearch::Actions
       include Elastic::EnterpriseSearch::Utils
 
-      # TODO: Options
-      def workplace_search
+      def workplace_search(options = {})
         @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
-          host: host
+          host: host,
+          access_token: options.dig(:access_token),
+          transport: @transport
         )
       end
 
@@ -57,14 +58,14 @@ module Elastic
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
       def initialize(options = {})
         @options = options
-
-        @transport = Elasticsearch::Client.new(
-          host: host,
-          request_timeout: overall_timeout,
-          transport_options: {
-            request: { open_timeout: open_timeout }
-          }
-        )
+        @transport = @options[:transport] ||
+                     Elasticsearch::Client.new(
+                       host: host,
+                       request_timeout: overall_timeout,
+                       transport_options: {
+                         request: { open_timeout: open_timeout }
+                       }
+                     )
       end
 
       def open_timeout

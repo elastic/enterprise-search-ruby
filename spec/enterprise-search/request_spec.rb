@@ -19,7 +19,7 @@
 
 require 'spec_helper'
 require 'ostruct'
-require_relative './webmock_requires'
+require_relative './../webmock_requires'
 
 describe Elastic::EnterpriseSearch::Client do
   let(:client) { Elastic::EnterpriseSearch::Client.new(http_auth: http_auth) }
