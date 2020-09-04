@@ -9,8 +9,4 @@ ENV CI=true
 WORKDIR /code/enterprise-search-ruby
 
 COPY . .
-
-RUN gem update --system
-RUN gem uninstall bundler
-RUN gem install bundler
 RUN bundle install
