@@ -31,7 +31,8 @@ describe Elastic::EnterpriseSearch::Client do
       "#{Elastic::EnterpriseSearch::CLIENT_NAME}/#{Elastic::EnterpriseSearch::VERSION} ",
       "(RUBY_VERSION: #{RUBY_VERSION}; ",
       "#{RbConfig::CONFIG['host_os'].split('_').first[/[a-z]+/i].downcase} ",
-      "#{RbConfig::CONFIG['target_cpu']})"
+      "#{RbConfig::CONFIG['target_cpu']}; ",
+      "elasticsearch-transport: #{Elasticsearch::Transport::VERSION})"
     ].join
   end
 
