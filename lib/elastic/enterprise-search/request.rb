@@ -94,6 +94,7 @@ module Elastic
           meta << "#{RbConfig::CONFIG['host_os'].split('_').first[/[a-z]+/i].downcase} " \
                   "#{RbConfig::CONFIG['target_cpu']}"
         end
+        meta << "elasticsearch-transport: #{Elasticsearch::Transport::VERSION}"
         "#{ua} (#{meta.join('; ')})"
       end
     end
