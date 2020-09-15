@@ -55,8 +55,6 @@ module Elastic
         }
 
         response = @transport.perform_request(method.to_s.upcase, path, params, body, headers)
-        # handle_errors(response)
-        # TODO: response
         response
       end
 
@@ -66,26 +64,6 @@ module Elastic
       end
 
       private
-
-      # TODO: different errors from elasticsearch-transport
-      # rubocop:disable Metrics/MethodLength
-      def handle_errors(response)
-        case response
-        when Net::HTTPSuccess
-          response
-        when Net::HTTPUnauthorized
-          raise Elastic::EnterpriseSearch::InvalidCredentials
-        when Net::HTTPNotFound
-          raise Elastic::EnterpriseSearch::NonExistentRecord
-        when Net::HTTPBadRequest
-          raise Elastic::EnterpriseSearch::BadRequest, "#{response.code} #{response.body}"
-        when Net::HTTPForbidden
-          raise Elastic::EnterpriseSearch::Forbidden
-        else
-          raise Elastic::EnterpriseSearch::UnexpectedHTTPException, "#{response.code} #{response.body}"
-        end
-      end
-      # rubocop:enable Metrics/MethodLength
 
       def request_user_agent
         ua = "#{CLIENT_NAME}/#{CLIENT_VERSION}"
