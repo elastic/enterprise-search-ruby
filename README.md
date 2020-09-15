@@ -11,6 +11,7 @@ This project is in development and is not ready for use in production yet.
   - [Enterprise Search](https://github.com/elastic/enterprise-search-ruby#enterprise-search)
   - [Workplace Search](https://github.com/elastic/enterprise-search-ruby#workplace-search)
   - [App Search](https://github.com/elastic/enterprise-search-ruby#app-search)
+- [HTTP Layer](https://github.com/elastic/enterprise-search-ruby#http-layer)
 - [Generating the API Code](https://github.com/elastic/enterprise-search-ruby#generating-the-api-code)
 - [License](https://github.com/elastic/enterprise-search-ruby#license)
 
@@ -54,6 +55,18 @@ ent_client.workplace_search.index_documents(content_source_key, documents)
 ```
 
 ### App Search
+
+TODO
+
+## HTTP Layer
+
+This library uses [elasticsearch-transport](https://github.com/elastic/elasticsearch-ruby/tree/master/elasticsearch-transport), the low-level Ruby client for connecting to an Elasticsearch cluster - also used in the official [Elasticsearch Ruby Client](https://github.com/elastic/elasticsearch-ruby).
+
+All requests, if successful, will return an `Elasticsearch::Transport::Transport::Response` instance. You can access the response `body`, `headers` and `status`.
+
+`elasticsearch-transport` defines a [number of exception classes](https://github.com/elasticsearch/elasticsearch-ruby/blob/master/elasticsearch-transport/lib/elasticsearch/transport/transport/errors.rb) for various client and server errors, as well as unsuccessful HTTP responses, making it possible to rescue specific exceptions with desired granularity. More details [here](https://github.com/elastic/elasticsearch-ruby/tree/master/elasticsearch-transport#exception-handling).
+
+You can find the full documentation for `elasticsearch-transport` at [RubyDoc](https://rubydoc.info/gems/elasticsearch-transport).
 
 ## Generating the API Code
 
