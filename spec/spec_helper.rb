@@ -28,6 +28,10 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
+  config.add_formatter('progress')
+  config.add_formatter('documentation')
+  config.add_formatter('RspecJunitFormatter', 'enterprise-search-junit.xml')
+
   VCR.configure do |c|
     c.cassette_library_dir = 'spec/fixtures/vcr'
     c.hook_into :webmock
