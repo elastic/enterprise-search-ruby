@@ -65,5 +65,5 @@
       - email:
           recipients: build-lang-clients@elastic.co
       - junit:
-          results: "build/output/*-junit.xml" # TODO
+          results: "*-junit.xml"
           allow-empty-results: true
