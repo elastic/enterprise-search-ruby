@@ -41,6 +41,14 @@ module Elastic
         )
       end
 
+      def app_search(options = {})
+        @app_search ||= Elastic::EnterpriseSearch::AppSearch::Client.new(
+          host: host,
+          api_key: options.dig(:api_key),
+          transport: @transport
+        )
+      end
+
       # TODO: CONFIG and initializer revamp for Ent search and the rest and pass
       # in options so they can live with workplace-search and app-search options
       #
