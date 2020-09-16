@@ -32,14 +32,14 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-update
         #
-        def update_curation(body = {}, parameters = {})
+        def update_curation(engine_name, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'queries' missing" unless parameters[:queries]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'curation_id' missing" unless parameters[:curation_id]
 
           request(
             :put,
-            "/api/as/v1/engines/#{engine_name}/curations/#{curation_id}",
+            "api/as/v1/engines/#{engine_name}/curations/#{curation_id}/",
             parameters,
             body
           )

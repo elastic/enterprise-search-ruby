@@ -30,12 +30,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/counts.html
         #
-        def count_analytics(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def count_analytics(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :get,
-            "/api/as/v1/engines/#{engine_name}/analytics/counts",
+            "api/as/v1/engines/#{engine_name}/analytics/counts/",
             parameters
           )
         end

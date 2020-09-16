@@ -28,13 +28,13 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-read
         #
-        def curation(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def curation(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'curation_id' missing" unless parameters[:curation_id]
 
           request(
             :get,
-            "/api/as/v1/engines/#{engine_name}/curations/#{curation_id}",
+            "api/as/v1/engines/#{engine_name}/curations/#{curation_id}/",
             parameters
           )
         end

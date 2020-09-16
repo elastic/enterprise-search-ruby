@@ -36,14 +36,14 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/api-logs.html
         #
-        def api_logs(parameters = {})
+        def api_logs(engine_name, parameters = {})
           raise ArgumentError, "Required parameter 'from_date' missing" unless parameters[:from_date]
           raise ArgumentError, "Required parameter 'to_date' missing" unless parameters[:to_date]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :get,
-            "/api/as/v1/engines/#{engine_name}/logs/api",
+            "api/as/v1/engines/#{engine_name}/logs/api/",
             parameters
           )
         end

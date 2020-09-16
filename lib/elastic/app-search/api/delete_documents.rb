@@ -27,12 +27,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-delete
         #
-        def delete_documents(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def delete_documents(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :delete,
-            "/api/as/v1/engines/#{engine_name}/documents",
+            "api/as/v1/engines/#{engine_name}/documents/",
             parameters
           )
         end

@@ -28,13 +28,13 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-list-one
         #
-        def synonym_set(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def synonym_set(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless parameters[:synonym_set_id]
 
           request(
             :get,
-            "/api/as/v1/engines/#{engine_name}/synonyms/#{synonym_set_id}",
+            "api/as/v1/engines/#{engine_name}/synonyms/#{synonym_set_id}/",
             parameters
           )
         end
