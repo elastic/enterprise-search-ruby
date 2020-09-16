@@ -48,16 +48,50 @@ ent_client.version
 ### Workplace Search
 
 ```ruby
-ent_client = Elastic::EnterpriseSearch::Client.new
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
 http_auth = '<content source access token>'
+
+ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
 ent_client.workplace_search.http_auth = http_auth
 ent_client.workplace_search.index_documents(content_source_key, documents)
 ```
 
 ### App Search
 
-TODO
+#### Instantiation
+```ruby
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
+api_key = 'private-api-key'
+client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, api_key: api_key)
 
+engine_name = 'videogames'
+document = {
+  id: 'Mr1064',
+  name: 'Super Mario 64',
+  body: 'A classic 3D videogame'
+}
+
+client.index_documents(engine_name, document, {engine_name: engine_name})
+```
+
+#### Engines
+```ruby
+# List all engines
+client.list_engines
+
+# Get an engine
+client.engine('videogames')
+```
+
+#### Search
+
+```ruby
+queries = {
+  query: 'mario'
+}
+
+client.search(engine_name, query)
+```
 ## HTTP Layer
 
 This library uses [elasticsearch-transport](https://github.com/elastic/elasticsearch-ruby/tree/master/elasticsearch-transport), the low-level Ruby client for connecting to an Elasticsearch cluster - also used in the official [Elasticsearch Ruby Client](https://github.com/elastic/elasticsearch-ruby).
