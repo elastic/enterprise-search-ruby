@@ -28,7 +28,6 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
-  config.add_formatter('progress')
   config.add_formatter('documentation')
   config.add_formatter('RspecJunitFormatter', 'enterprise-search-junit.xml')
 
