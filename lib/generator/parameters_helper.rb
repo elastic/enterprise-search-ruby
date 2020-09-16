@@ -22,7 +22,8 @@ module Elastic
     # Generator Helper for working with parameters
     module ParametersHelper
       METHOD_SIGNATURE_PARAMS = [
-        'content_source_key'
+        'content_source_key',
+        'engine_name'
       ].freeze
 
       def setup_parameters!(endpoint)
