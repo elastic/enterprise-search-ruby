@@ -28,13 +28,13 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search.html#search-multi
         #
-        def multi_search(body = {}, parameters = {})
+        def multi_search(engine_name, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'queries' missing" unless parameters[:queries]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :post,
-            "/api/as/v1/engines/#{engine_name}/multi_search",
+            "api/as/v1/engines/#{engine_name}/multi_search/",
             parameters,
             body
           )

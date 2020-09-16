@@ -27,12 +27,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/meta-engines.html#meta-engines-remove-source-engines
         #
-        def delete_meta_engine_source(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def delete_meta_engine_source(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :delete,
-            "/api/as/v1/engines/#{engine_name}/source_engines",
+            "api/as/v1/engines/#{engine_name}/source_engines/",
             parameters
           )
         end

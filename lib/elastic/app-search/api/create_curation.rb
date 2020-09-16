@@ -31,13 +31,13 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-create
         #
-        def create_curation(body = {}, parameters = {})
+        def create_curation(engine_name, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'queries' missing" unless parameters[:queries]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :post,
-            "/api/as/v1/engines/#{engine_name}/curations",
+            "api/as/v1/engines/#{engine_name}/curations/",
             parameters,
             body
           )

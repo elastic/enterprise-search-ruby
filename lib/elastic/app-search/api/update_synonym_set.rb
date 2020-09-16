@@ -29,14 +29,14 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-update
         #
-        def update_synonym_set(body = {}, parameters = {})
+        def update_synonym_set(engine_name, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'synonyms' missing" unless parameters[:synonyms]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless parameters[:synonym_set_id]
 
           request(
             :put,
-            "/api/as/v1/engines/#{engine_name}/synonyms/#{synonym_set_id}",
+            "api/as/v1/engines/#{engine_name}/synonyms/#{synonym_set_id}/",
             parameters,
             body
           )

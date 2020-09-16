@@ -27,12 +27,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-partial
         #
-        def update_documents(body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def update_documents(engine_name, body = {}, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :patch,
-            "/api/as/v1/engines/#{engine_name}/documents",
+            "api/as/v1/engines/#{engine_name}/documents/",
             parameters,
             body
           )
