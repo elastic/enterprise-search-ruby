@@ -32,14 +32,14 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clickthrough.html
         #
-        def log_clickthrough(body = {}, parameters = {})
+        def log_clickthrough(engine_name, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'query_text' missing" unless parameters[:query_text]
           raise ArgumentError, "Required parameter 'document_id' missing" unless parameters[:document_id]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :post,
-            "/api/as/v1/engines/#{engine_name}/click",
+            "api/as/v1/engines/#{engine_name}/click/",
             parameters,
             body
           )

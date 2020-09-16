@@ -27,12 +27,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-get
         #
-        def engine(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def engine(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :get,
-            "/api/as/v1/engines/#{engine_name}",
+            "api/as/v1/engines/#{engine_name}/",
             parameters
           )
         end

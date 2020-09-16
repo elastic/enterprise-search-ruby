@@ -27,12 +27,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/meta-engines.html#meta-engines-add-source-engines
         #
-        def add_meta_engine_source(body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def add_meta_engine_source(engine_name, body = {}, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :post,
-            "/api/as/v1/engines/#{engine_name}/source_engines",
+            "api/as/v1/engines/#{engine_name}/source_engines/",
             parameters,
             body
           )

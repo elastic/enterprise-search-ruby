@@ -27,12 +27,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update
         #
-        def update_search_settings(body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def update_search_settings(engine_name, body = {}, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :put,
-            "/api/as/v1/engines/#{engine_name}/search_settings",
+            "api/as/v1/engines/#{engine_name}/search_settings/",
             parameters,
             body
           )

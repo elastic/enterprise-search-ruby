@@ -31,12 +31,12 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/queries.html#queries-top-queries
         #
-        def top_queries_analytics(parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+        def top_queries_analytics(engine_name, parameters = {})
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :get,
-            "/api/as/v1/engines/#{engine_name}/analytics/queries",
+            "api/as/v1/engines/#{engine_name}/analytics/queries/",
             parameters
           )
         end

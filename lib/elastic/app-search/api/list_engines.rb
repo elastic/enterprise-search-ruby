@@ -32,7 +32,7 @@ module Elastic
         def list_engines(parameters = {})
           request(
             :get,
-            '/api/as/v1/engines',
+            'api/as/v1/engines/',
             parameters
           )
         end

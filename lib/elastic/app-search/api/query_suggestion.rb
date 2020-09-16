@@ -31,13 +31,13 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/query-suggestion.html
         #
-        def query_suggestion(body = {}, parameters = {})
+        def query_suggestion(engine_name, body = {}, parameters = {})
           raise ArgumentError, "Required parameter 'query' missing" unless parameters[:query]
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless parameters[:engine_name]
+          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           request(
             :post,
-            "/api/as/v1/engines/#{engine_name}/query_suggestion",
+            "api/as/v1/engines/#{engine_name}/query_suggestion/",
             parameters,
             body
           )
