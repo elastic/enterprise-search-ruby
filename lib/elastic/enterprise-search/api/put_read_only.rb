@@ -28,7 +28,7 @@ module Elastic
       def put_read_only(body = {}, parameters = {})
         request(
           :put,
-          '/api/ent/v1/internal/read_only_mode',
+          'api/ent/v1/internal/read_only_mode/',
           parameters,
           body
         )
