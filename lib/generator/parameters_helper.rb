@@ -77,7 +77,18 @@ module Elastic
       def required_params
         return [] unless @params
 
-        @params.select { |p| p['required'] }
+        @params.select { |param| param['required'] }
+      end
+
+      def required_variables_from_parameters
+        response = []
+        required_params.map do |param|
+          name = param['name']
+          next if in_signature?(name)
+
+          response << "#{name} = parameters[:#{name}]"
+        end
+        response.join("\n")
       end
 
       def method_signature_params
