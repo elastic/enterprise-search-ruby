@@ -84,7 +84,7 @@ module Elastic
         response = []
         required_params.map do |param|
           name = param['name']
-          next if in_signature?(name)
+          next if in_signature?(name) || !extract_path_parameters.include?(name)
 
           response << "#{name} = parameters[:#{name}]"
         end
