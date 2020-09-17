@@ -32,6 +32,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'curation_id' missing" unless parameters[:curation_id]
 
+          curation_id = parameters[:curation_id]
+
           request(
             :delete,
             "api/as/v1/engines/#{engine_name}/curations/#{curation_id}/",
