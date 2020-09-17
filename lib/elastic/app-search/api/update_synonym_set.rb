@@ -34,6 +34,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless parameters[:synonym_set_id]
 
+          synonym_set_id = parameters[:synonym_set_id]
+
           request(
             :put,
             "api/as/v1/engines/#{engine_name}/synonyms/#{synonym_set_id}/",
