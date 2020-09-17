@@ -33,6 +33,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
           raise ArgumentError, "Required parameter 'user' missing" unless parameters[:user]
 
+          user = parameters[:user]
+
           request(
             :get,
             "api/ws/v1/sources/#{content_source_key}/external_identities/#{user}/",

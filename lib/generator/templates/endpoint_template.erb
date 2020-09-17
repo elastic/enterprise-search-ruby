@@ -10,6 +10,8 @@ module Elastic
         def <%= @method_name %><%= display_signature_params %>
           <%= raise_for_required_params %>
 
+          <%= required_variables_from_parameters %>
+
           request(
             <%= request_method_params %>
           )
