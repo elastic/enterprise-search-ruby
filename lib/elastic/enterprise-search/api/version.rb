@@ -28,7 +28,7 @@ module Elastic
       def version(parameters = {})
         request(
           :get,
-          '/api/ent/v1/internal/version',
+          'api/ent/v1/internal/version/',
           parameters
         )
       end

@@ -28,7 +28,7 @@ module Elastic
       def health(parameters = {})
         request(
           :get,
-          '/api/ent/v1/internal/health',
+          'api/ent/v1/internal/health/',
           parameters
         )
       end
