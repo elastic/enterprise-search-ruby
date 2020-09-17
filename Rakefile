@@ -50,6 +50,11 @@ task :console do
   sh 'irb -r rubygems -I lib -r elastic_enterprise_search.rb'
 end
 
+desc 'Run Elastic Enterprise Search stack'
+task :stack, [:version] do |_, params|
+  sh "STACK_VERSION=#{params[:version]} ./.ci/run-local.sh"
+end
+
 namespace :spec do
   desc 'Run client tests'
   task :client do
