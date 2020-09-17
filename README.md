@@ -13,6 +13,9 @@ This project is in development and is not ready for use in production yet.
   - [App Search](https://github.com/elastic/enterprise-search-ruby#app-search)
 - [HTTP Layer](https://github.com/elastic/enterprise-search-ruby#http-layer)
 - [Generating the API Code](https://github.com/elastic/enterprise-search-ruby#generating-the-api-code)
+- [Development](https://github.com/elastic/enterprise-search-ruby#development)
+  - [Run stack locally](https://github.com/elastic/enterprise-search-ruby#run-stack-locally)
+  - [Run tests](https://github.com/elastic/enterprise-search-ruby#run-tests)
 - [License](https://github.com/elastic/enterprise-search-ruby#license)
 
 ## Installation
@@ -47,13 +50,28 @@ ent_client.version
 
 ### Workplace Search
 
-```ruby
-host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
-http_auth = '<content source access token>'
+In your Elastic Workplace Search dashboard navigate to Sources/Add a Shared Content Source/Custom API Source to create a new source. Name your source (e.g. `Workplace Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
 
+#### Instantiation
+
+The Workplace Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one if you're only going to use Worplace Search:
+```ruby
+# Prerequisites
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
+access_token = '<access token>'
+content_source_key = '<content source key>'
+
+# From the Enterprise Search client:
 ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
-ent_client.workplace_search.http_auth = http_auth
+ent_client.workplace_search.access_token = access_token
 ent_client.workplace_search.index_documents(content_source_key, documents)
+
+# On its own
+workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
+  host: host,
+  access_token: access_token
+)
+workplace_search_client.list_permissions(content_source_key)
 ```
 
 ### App Search
@@ -118,24 +136,35 @@ $ rake generate[workplace enterprise]
 
 ## Development
 
-### Run tests
+### Run Stack locally
 
-Unit tests for Enterprise Search Client:
+A rake task is included to run the Elastic Enterprise Search stack locally via Docker:
+
+```
+$ rake stack[7.10.0]
+```
+
+This will run Elastic Enterprise Search in http://localhost:3002
+- Username: `enterprise_search`
+- Password: `changeme`
+
+### Run Tests
+
+Unit tests for the clients:
 
 ```
 $ rake spec:client
 ```
 
-
-Integration tests: you need to have an instance of Enterprise Search running either locally or remotely, and specify the host and credentials in environment variables (see below for a complete dockerized setup)
+Integration tests: you need to have an instance of Enterprise Search running either locally or remotely, and specify the host and credentials in environment variables (see below for a complete dockerized setup). If you're using the included rake task `rake stack[:version]`, you can run the integration tests with the following command:
 ```
-$ ELASTIC_ENTERPRISE_HOST='https://id.ent-search.europe-west2.gcp.elastic-cloud.com' \
+$ ELASTIC_ENTERPRISE_HOST='http://localhost:3002' \
   ELASTIC_ENTERPRISE_USER='elastic' \
   ELASTIC_ENTERPRISE_PASSWORD='changeme' \
   rake spec:integration
 ```
 
-Run integration tests with a docker setup for Enterprise Search, the way we run them on our CI:
+Run integration tests completely within containers, the way we run them on our CI:
 ```
 STACK_VERSION=7.10.0 ./.ci/run-tests
 ```
