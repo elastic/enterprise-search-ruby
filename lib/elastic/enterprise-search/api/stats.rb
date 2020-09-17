@@ -31,7 +31,7 @@ module Elastic
       def stats(parameters = {})
         request(
           :get,
-          '/api/ent/v1/internal/stats',
+          'api/ent/v1/internal/stats/',
           parameters
         )
       end
