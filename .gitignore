@@ -10,3 +10,4 @@ pkg/*
 doc
 .#*
 *junit.xml
+.byebug_history
