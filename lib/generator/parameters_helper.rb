@@ -54,7 +54,7 @@ module Elastic
       end
 
       def parameter_name_and_description(param)
-        param['name'] = Utils.to_ruby_name(param['x-codegen-param-name']) if param['x-codegen-param-name']
+        param['name'] = parameter_name(param)
 
         # Check the spec for parameters with a given name and retrieve info
         param_info = @spec.dig('components', 'parameters').select do |_, p|
@@ -72,6 +72,18 @@ module Elastic
           'type' => param_info.dig('schema', 'type') || param_info.dig('type'),
           'required' => param_info['required']
         }
+      end
+
+      def parameter_name(param)
+        if (name = param['x-codegen-param-name'])
+          if name == 'engineName'
+            'name'
+          else
+            Utils.to_ruby_name(name)
+          end
+        else
+          param['name']
+        end
       end
 
       def required_params
