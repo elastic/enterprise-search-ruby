@@ -23,7 +23,7 @@ module Elastic
       module Actions
         # Engine - Creates a new engine.
         #
-        # @param engine_name [String] Name of the engine. (*Required*)
+        # @param name [String] Engine name. (*Required*)
         # @param parameters [Hash] Optional parameters
         # @option language [String] Engine language (null for universal).
         # @option type [String] Engine type.
@@ -31,8 +31,8 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-create
         #
-        def create_engine(engine_name, body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+        def create_engine(body = {}, parameters = {})
+          # raise ArgumentError, "Required parameter 'name' missing" unless parameters[:name]
 
           request(
             :post,
