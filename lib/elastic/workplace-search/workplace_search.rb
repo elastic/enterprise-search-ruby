@@ -43,11 +43,16 @@ module Elastic
         # @option options [String] :access_token the access token for workplace search
         # @option options [String] :endpoint the endpoint Workplace Search
         def initialize(options = {})
-          @access_token = options.dig(:access_token)
           super(options)
         end
 
-        attr_accessor :access_token
+        def access_token
+          @options[:access_token]
+        end
+
+        def access_token=(access_token)
+          @options[:access_token] = access_token
+        end
       end
     end
   end
