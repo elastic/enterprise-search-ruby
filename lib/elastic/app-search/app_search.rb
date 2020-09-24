@@ -28,7 +28,7 @@ module Elastic
       # authentication.
       module Request
         def setup_authentication_header
-          "Bearer #{api_key}"
+          "Bearer #{http_auth}"
         end
       end
 
@@ -45,11 +45,16 @@ module Elastic
         # @option options [String] :host_identifier A unique string that represents your account.
         # @option options [String] :api_key Part of the credentials
         def initialize(options = {})
-          @api_key = options.dig(:api_key)
           super(options)
         end
 
-        attr_accessor :api_key
+        def http_auth
+          @options[:http_auth]
+        end
+
+        def http_auth=(api_key)
+          @options[:http_auth] = api_key
+        end
       end
     end
   end

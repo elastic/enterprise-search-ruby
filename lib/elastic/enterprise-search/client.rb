@@ -44,7 +44,7 @@ module Elastic
       def app_search(options = {})
         @app_search ||= Elastic::EnterpriseSearch::AppSearch::Client.new(
           host: host,
-          api_key: options.dig(:api_key),
+          http_auth: options.dig(:http_auth),
           transport: @transport
         )
       end
