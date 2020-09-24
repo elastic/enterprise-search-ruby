@@ -35,13 +35,13 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'sets up authentication during initialization' do
       ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
-      workplace_client = ent_client.workplace_search(access_token: access_token)
-      expect(workplace_client.access_token).to eq access_token
+      workplace_client = ent_client.workplace_search(http_auth: access_token)
+      expect(workplace_client.http_auth).to eq access_token
     end
 
     it 'sets up authentication as a parameter' do
-      workplace_client.access_token = access_token
-      expect(workplace_client.access_token).to eq access_token
+      workplace_client.http_auth = access_token
+      expect(workplace_client.http_auth).to eq access_token
     end
   end
 
@@ -57,13 +57,13 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'sets up authentication during initialization' do
       ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
-      workplace_client = ent_client.workplace_search(access_token: access_token)
-      expect(workplace_client.access_token).to eq access_token
+      workplace_client = ent_client.workplace_search(http_auth: access_token)
+      expect(workplace_client.http_auth).to eq access_token
     end
 
     it 'sets up authentication as a parameter' do
-      workplace_client.access_token = access_token
-      expect(workplace_client.access_token).to eq access_token
+      workplace_client.http_auth = access_token
+      expect(workplace_client.http_auth).to eq access_token
     end
   end
 end

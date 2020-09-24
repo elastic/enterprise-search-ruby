@@ -36,7 +36,7 @@ module Elastic
       def workplace_search(options = {})
         @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
           host: host,
-          access_token: options.dig(:access_token),
+          http_auth: options.dig(:http_auth),
           transport: @transport
         )
       end
