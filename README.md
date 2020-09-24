@@ -20,37 +20,78 @@ This project is in development and is not ready for use in production yet.
 
 ## Installation
 
+Install the gem:
+
 ```
 $ gem install elastic-enterprise-search
 ```
+
+Or add it to your project's Gemfile:
+
+```
+gem 'elastic-enterprise-search'
+```
+
 The version follows the Elastic Stack version so 7.10 is compatible with Enterprise Search released in Elastic Stack 7.10.
 
 ## Getting Started
 
 ### Enterprise Search
 
-Example usage:
+The Enterprise Search API uses basic auth with credentials from an Elasticsearch user. You can read about the API, authentication and privileges needed [on the official docs](https://www.elastic.co/guide/en/enterprise-search/current/management-apis.html).
+
+#### Example usage:
 
 ```ruby
 http_auth = {user: 'elastic', password: 'password'}
 host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
 
 ent_client = Elastic::EnterpriseSearch::Client.new(host: host, http_auth: http_auth)
+```
 
-ent_client.health
+#### Health API
 
-ent_client.read_only
+```ruby
+> response = ent_client.health
+> response.body
+ => {"name"=>"...",
+     "version"=>{"number"=>"7.10.0", "build_hash"=>"...", "build_date"=>"..."},
+     "jvm"=>{...},
+     "filebeat"=>{...},
+     "system"=>{...}
+    }
+```
 
+#### Version API
+
+```ruby
+> response = ent_client.version
+> response.body
+ => {"number"=>"7.10.0", "build_hash"=>"...", "build_date"=>"..."}
+```
+
+#### Managing Read-Only mode:
+
+```ruby
+# Set read-only flag state
 ent_client.put_read_only(enabled: false)
 
-ent_client.stats
+# Get read-only flag state
+ent_client.read_only
+```
 
-ent_client.version
+#### Stats API
+```ruby
+> ent_client.stats.body
+ => {"app"=>{"pid"=>1, "start"=>"...", "end"=>"", "metrics"=>{...}},
+     "queues"=>{"connectors"=>{...}, "document_destroyer"=>{...}, "engine_destroyer"=>{...}, "index_adder"=>{...}, ...},
+     "connectors"=>{"alive"=>true, "pool"=>{...}, "job_store"=>{...}}}}
+
 ```
 
 ### Workplace Search
 
-In your Elastic Workplace Search dashboard navigate to Sources/Add a Shared Content Source/Custom API Source to create a new source. Name your source (e.g. `Enterprise Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
+In your Elastic Workplace Search dashboard navigate to _Sources/Add a Shared Content Source_ and select _Custom API Source_ to create a new source. Name your source (e.g. `Enterprise Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
 
 #### Instantiation
 
@@ -72,9 +113,9 @@ workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new
   host: host,
   http_auth: access_token
 )
-
-workplace_search_client.list_permissions(content_source_key)
 ```
+
+TODO: Document All Workplace Search APIs
 
 ### App Search
 
@@ -95,7 +136,13 @@ ent_client.app_search.http_auth = api_key
 
 # On its own
 client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: api_key)
+```
 
+TODO: Documents all App Search APIs
+
+#### Index Documents
+
+```
 engine_name = 'videogames'
 document = {
   id: 'Mr1064',
@@ -107,12 +154,19 @@ client.index_documents(engine_name, document, {engine_name: engine_name})
 ```
 
 #### Engines
+
 ```ruby
+# Create an engine
+client.create_engine(name: 'videogames')
+
 # List all engines
 client.list_engines
 
 # Get an engine
 client.engine('videogames')
+
+# Delete an engine
+client.delete_engine('videogames')
 ```
 
 #### Search
@@ -124,6 +178,7 @@ queries = {
 
 client.search(engine_name, query)
 ```
+
 ## HTTP Layer
 
 This library uses [elasticsearch-transport](https://github.com/elastic/elasticsearch-ruby/tree/master/elasticsearch-transport), the low-level Ruby client for connecting to an Elasticsearch cluster - also used in the official [Elasticsearch Ruby Client](https://github.com/elastic/elasticsearch-ruby).
