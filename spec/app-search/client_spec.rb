@@ -35,13 +35,13 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'sets up authentication during initialization' do
       ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
-      app_client = ent_client.app_search(api_key: api_key)
-      expect(app_client.api_key).to eq api_key
+      app_client = ent_client.app_search(http_auth: api_key)
+      expect(app_client.http_auth).to eq api_key
     end
 
     it 'sets up authentication as a parameter' do
-      app_client.api_key = api_key
-      expect(app_client.api_key).to eq api_key
+      app_client.http_auth = api_key
+      expect(app_client.http_auth).to eq api_key
     end
   end
 
@@ -56,13 +56,13 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'sets up authentication during initialization' do
       ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
-      app_client = ent_client.app_search(api_key: api_key)
-      expect(app_client.api_key).to eq api_key
+      app_client = ent_client.app_search(http_auth: api_key)
+      expect(app_client.http_auth).to eq api_key
     end
 
     it 'sets up authentication as a parameter' do
-      app_client.api_key = api_key
-      expect(app_client.api_key).to eq api_key
+      app_client.http_auth = api_key
+      expect(app_client.http_auth).to eq api_key
     end
   end
 end
