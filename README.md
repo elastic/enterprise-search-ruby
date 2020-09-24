@@ -50,11 +50,12 @@ ent_client.version
 
 ### Workplace Search
 
-In your Elastic Workplace Search dashboard navigate to Sources/Add a Shared Content Source/Custom API Source to create a new source. Name your source (e.g. `Workplace Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
+In your Elastic Workplace Search dashboard navigate to Sources/Add a Shared Content Source/Custom API Source to create a new source. Name your source (e.g. `Enterprise Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
 
 #### Instantiation
 
 The Workplace Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one if you're only going to use Worplace Search:
+
 ```ruby
 # Prerequisites
 host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
@@ -63,13 +64,13 @@ content_source_key = '<content source key>'
 
 # From the Enterprise Search client:
 ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
-ent_client.workplace_search.access_token = access_token
+ent_client.workplace_search.http_auth = access_token
 ent_client.workplace_search.index_documents(content_source_key, documents)
 
 # On its own
 workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
   host: host,
-  access_token: access_token
+  http_auth: access_token
 )
 workplace_search_client.list_permissions(content_source_key)
 ```
@@ -80,7 +81,7 @@ workplace_search_client.list_permissions(content_source_key)
 ```ruby
 host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
 api_key = 'private-api-key'
-client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, api_key: api_key)
+client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: api_key)
 
 engine_name = 'videogames'
 document = {
