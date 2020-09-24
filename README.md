@@ -72,15 +72,28 @@ workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new
   host: host,
   http_auth: access_token
 )
+
 workplace_search_client.list_permissions(content_source_key)
 ```
 
 ### App Search
 
+In your Elastic App Search dashboard, navigate to Credentials and Create a Key for the client to use. Make sure to read [the documentation on Authentication](https://www.elastic.co/guide/en/app-search/current/authentication.html) to understand which key you want to use. Once you've created your key, you need to copy the key value to use on your client:
+
 #### Instantiation
+
+The App Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one if you're only going to use App Search:
+
 ```ruby
+# Prerequisites
 host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
 api_key = 'private-api-key'
+
+# From the Enterprise Search client:
+ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
+ent_client.app_search.http_auth = api_key
+
+# On its own
 client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: api_key)
 
 engine_name = 'videogames'
