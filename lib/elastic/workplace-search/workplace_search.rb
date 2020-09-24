@@ -26,7 +26,7 @@ module Elastic
       # authentication.
       module Request
         def setup_authentication_header
-          "Bearer #{access_token}"
+          "Bearer #{http_auth}"
         end
       end
 
@@ -46,12 +46,12 @@ module Elastic
           super(options)
         end
 
-        def access_token
-          @options[:access_token]
+        def http_auth
+          @options[:http_auth]
         end
 
-        def access_token=(access_token)
-          @options[:access_token] = access_token
+        def http_auth=(access_token)
+          @options[:http_auth] = access_token
         end
       end
     end

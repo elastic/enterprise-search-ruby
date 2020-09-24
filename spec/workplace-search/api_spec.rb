@@ -26,7 +26,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   let(:client) do
     Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
       host: host,
-      access_token: access_token
+      http_auth: access_token
     )
   end
 
