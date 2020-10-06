@@ -235,7 +235,7 @@ $ ELASTIC_ENTERPRISE_HOST='http://localhost:3002' \
 
 Run integration tests completely within containers, the way we run them on our CI:
 ```
-STACK_VERSION=7.10.0 ./.ci/run-tests
+RUNSCRIPTS=enterprise-search STACK_VERSION=7.10.0 ./.ci/run-tests
 ```
 
 ## License
