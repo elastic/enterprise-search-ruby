@@ -58,8 +58,8 @@ module Elastic
       end
 
       def load_spec(name)
-        file = CURRENT_PATH + "/json/#{name}-search.json"
-        JSON.parse(File.read(file))
+        file_path = Pathname.new("./../json-specs/#{name}-search.json")
+        JSON.parse(File.read(file_path))
       end
 
       def generate_classes(endpoint)

@@ -191,17 +191,7 @@ You can find the full documentation for `elasticsearch-transport` at [RubyDoc](h
 
 ## Generating the API Code
 
-The code from the API endpoints is programatically generated from OpenAPI JSON specs.  These specs are stored in `lib/generator/json`. There's a rake task you can use to generate the code:
-
-```
-$ rake generate
-```
-
-This will generate the code for all the specs. But if you only want to update one spec, you can also pass in the name(s) as a parameter:
-
-```
-$ rake generate[workplace enterprise]
-```
+The code from the API endpoints is programatically generated from OpenAPI JSON specs.
 
 ## Development
 
