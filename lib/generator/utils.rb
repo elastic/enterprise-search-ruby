@@ -31,7 +31,7 @@ module Elastic
       end
 
       def self.run_rubocop(dir)
-        system("rubocop -c ./.rubocop.yml --format autogenconf -a #{dir}")
+        system("rubocop -c ./.rubocop.yml --format autogenconf -A #{dir}")
       end
 
       def self.module_name(tag)
