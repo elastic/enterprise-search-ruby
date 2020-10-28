@@ -68,16 +68,20 @@ module Elastic
       # @option arguments [Object] :logger An instance of a Logger-compatible object
       def initialize(options = {})
         @options = options
-        @transport = @options[:transport] ||
-                     Elasticsearch::Client.new(
-                       host: host,
-                       log: log,
-                       logger: logger,
-                       request_timeout: overall_timeout,
-                       transport_options: {
-                         request: { open_timeout: open_timeout }
-                       }
-                     )
+        @transport = transport
+      end
+
+      def transport
+        @options[:transport] ||
+          Elasticsearch::Client.new(
+            host: host,
+            log: log,
+            logger: logger,
+            request_timeout: overall_timeout,
+            transport_options: {
+              request: { open_timeout: open_timeout }
+            }
+          )
       end
 
       def open_timeout
@@ -112,6 +116,7 @@ module Elastic
         return DEFAULT_HOST unless @options[:host]
 
         raise URI::InvalidURIError unless @options[:host] =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/
+
         @options[:host]
       end
     end
