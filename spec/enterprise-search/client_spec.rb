@@ -38,11 +38,6 @@ describe Elastic::EnterpriseSearch::Client do
       expect(client.host).to eq 'http://localhost:3002'
     end
 
-    it 'uses the default port' do
-      client = Elastic::EnterpriseSearch::Client.new(host: 'http://localhost')
-      expect(client.host).to eq 'http://localhost:3002'
-    end
-
     it 'raises an exception for invalid host' do
       expect do
         Elastic::EnterpriseSearch::Client.new(host: 'localhost')
