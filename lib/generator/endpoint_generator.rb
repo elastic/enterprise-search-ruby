@@ -19,9 +19,9 @@
 
 require 'json'
 require 'erb'
-require_relative './utils.rb'
-require_relative './documentation_helper.rb'
-require_relative './parameters_helper.rb'
+require_relative './utils'
+require_relative './documentation_helper'
+require_relative './parameters_helper'
 
 module Elastic
   module Generator

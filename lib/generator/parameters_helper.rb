@@ -28,7 +28,7 @@ module Elastic
 
       def setup_parameters!(endpoint)
         # TODO: Follow $ref to document parameters from body
-        endpoint['parameters'].each { |param| add_parameter(param) } if endpoint.dig('parameters')
+        endpoint['parameters']&.each { |param| add_parameter(param) }
         extract_path_parameters.each do |param|
           next unless @params.select { |p| p['name'] == param }.empty?
 
@@ -69,7 +69,7 @@ module Elastic
         {
           'name' => name,
           'description' => param_info['description'],
-          'type' => param_info.dig('schema', 'type') || param_info.dig('type'),
+          'type' => param_info.dig('schema', 'type') || param_info['type'],
           'required' => param_info['required']
         }
       end

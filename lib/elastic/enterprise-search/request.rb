@@ -54,8 +54,7 @@ module Elastic
           user_agent: request_user_agent
         }
 
-        response = @transport.perform_request(method.to_s.upcase, path, params, body, headers)
-        response
+        @transport.perform_request(method.to_s.upcase, path, params, body, headers)
       end
 
       def setup_authentication_header
