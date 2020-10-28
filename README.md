@@ -95,7 +95,7 @@ In your Elastic Workplace Search dashboard navigate to _Sources/Add a Shared Con
 
 #### Instantiation
 
-The Workplace Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one if you're only going to use Worplace Search:
+The Workplace Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one. If you instantiate the Workplace Search client from an existing Enterprise Search Client, it's going to share the HTTP transport instance, so it's going to connect to the same host, which is a common scenario. However, if you want to connect to a different host, you should instantiate a new Workplace Client on its own:
 
 ```ruby
 # Prerequisites
@@ -123,7 +123,7 @@ In your Elastic App Search dashboard, navigate to Credentials and Create a Key f
 
 #### Instantiation
 
-The App Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one if you're only going to use App Search:
+The App Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one. If you instantiate the App Search client from an existing Enterprise Search Client, it's going to share the HTTP transport instance, so it's going to connect to the same host which is a common scenario. However, if you want to connect to a different host, you should instantiate a new App Search Client on its own.
 
 ```ruby
 # Prerequisites
@@ -188,6 +188,10 @@ All requests, if successful, will return an `Elasticsearch::Transport::Transport
 `elasticsearch-transport` defines a [number of exception classes](https://github.com/elasticsearch/elasticsearch-ruby/blob/master/elasticsearch-transport/lib/elasticsearch/transport/transport/errors.rb) for various client and server errors, as well as unsuccessful HTTP responses, making it possible to rescue specific exceptions with desired granularity. More details [here](https://github.com/elastic/elasticsearch-ruby/tree/master/elasticsearch-transport#exception-handling).
 
 You can find the full documentation for `elasticsearch-transport` at [RubyDoc](https://rubydoc.info/gems/elasticsearch-transport).
+
+### Setting the host and port
+
+If you don't specify a host and port, the client will default to `http://localhost:3002`.
 
 ## Generating the API Code
 
