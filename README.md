@@ -12,6 +12,8 @@ This project is in development and is not ready for use in production yet.
   - [Workplace Search](https://github.com/elastic/enterprise-search-ruby#workplace-search)
   - [App Search](https://github.com/elastic/enterprise-search-ruby#app-search)
 - [HTTP Layer](https://github.com/elastic/enterprise-search-ruby#http-layer)
+  - [Setting the host and port](https://github.com/elastic/enterprise-search-ruby#setting-the-host-and-port)
+  - [Logging](https://github.com/elastic/enterprise-search-ruby#logging)
 - [Generating the API Code](https://github.com/elastic/enterprise-search-ruby#generating-the-api-code)
 - [Development](https://github.com/elastic/enterprise-search-ruby#development)
   - [Run stack locally](https://github.com/elastic/enterprise-search-ruby#run-stack-locally)
@@ -191,7 +193,16 @@ The clients pass different options to transport, you can check them out [in the 
 
 ### Setting the host and port
 
-If you don't specify a host and port, the client will default to `http://localhost:3002`.
+If you don't specify a host and port, the client will default to `http://localhost:3002`. Otherwise pass in the `:host` parameter as a String.
+
+### Logging
+
+You can enable logging with the default logger by passing `log: true` as a parameter to the client's initializer, or pass in a Logger object with the `:logger` parameter:
+
+```ruby
+logger = MyLogger.new
+client = Elastic::EnterpriseSearch::Client.new(logger: logger)
+```
 
 ## Generating the API Code
 
