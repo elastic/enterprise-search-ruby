@@ -24,7 +24,7 @@ require_relative './../webmock_requires'
 describe Elastic::EnterpriseSearch::Client do
   let(:client) { Elastic::EnterpriseSearch::Client.new(http_auth: http_auth) }
   let(:stub_response) { OpenStruct.new(status: 200) }
-  let(:host) { 'http://localhost:8080' }
+  let(:host) { 'http://localhost:3002' }
   let(:http_auth) { { user: 'elastic', password: 'password' } }
   let(:user_agent) do
     [

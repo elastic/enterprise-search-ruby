@@ -21,7 +21,7 @@ module Elastic
   module EnterpriseSearch
     # Util functions
     module Utils
-      DEFAULT_HOST = 'http://localhost:8080/'
+      DEFAULT_HOST = 'http://localhost:3002'
 
       def stringify_keys(hash)
         output = {}
