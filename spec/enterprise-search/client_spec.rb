@@ -43,6 +43,12 @@ describe Elastic::EnterpriseSearch::Client do
         Elastic::EnterpriseSearch::Client.new(host: 'localhost')
       end.to raise_exception(URI::InvalidURIError)
     end
+
+    it 'sets log' do
+      client = Elastic::EnterpriseSearch::Client.new(log: true)
+
+      expect(client.log)
+    end
   end
 
   context 'basic authentication' do

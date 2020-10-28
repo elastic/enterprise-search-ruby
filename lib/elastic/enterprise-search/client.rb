@@ -64,11 +64,13 @@ module Elastic
       # @option options [Numeric] :overall_timeout overall timeout for requests in seconds (default: 15s)
       # @option options [Numeric] :open_timeout the number of seconds Net::HTTP (default: 15s) will wait while opening a connection before raising a Timeout::Error
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
+      # @option options [Boolean] :log Use the default logger (disabled by default)
       def initialize(options = {})
         @options = options
         @transport = @options[:transport] ||
                      Elasticsearch::Client.new(
                        host: host,
+                       log: log,
                        request_timeout: overall_timeout,
                        transport_options: {
                          request: { open_timeout: open_timeout }
@@ -94,6 +96,10 @@ module Elastic
 
       def http_auth=(http_auth)
         @options[:http_auth] = http_auth
+      end
+
+      def log
+        @options[:log] || false
       end
 
       def host
