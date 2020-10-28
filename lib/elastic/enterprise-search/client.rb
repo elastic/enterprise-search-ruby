@@ -103,10 +103,10 @@ module Elastic
       end
 
       def host
-        host = @options[:host] || DEFAULT_HOST
-        raise URI::InvalidURIError unless host =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/
+        return DEFAULT_HOST unless @options[:host]
 
-        host
+        raise URI::InvalidURIError unless @options[:host] =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/
+        @options[:host]
       end
     end
   end
