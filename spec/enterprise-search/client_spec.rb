@@ -43,11 +43,28 @@ describe Elastic::EnterpriseSearch::Client do
         Elastic::EnterpriseSearch::Client.new(host: 'localhost')
       end.to raise_exception(URI::InvalidURIError)
     end
+  end
+
+  context 'logging' do
+    require 'logger'
+    class FakeLogger < Logger
+      def initialize; @strio = StringIO.new; super(@strio); end
+      def messages; @strio.string; end
+    end
+
+    let(:logger) { FakeLogger.new }
 
     it 'sets log' do
       client = Elastic::EnterpriseSearch::Client.new(log: true)
 
       expect(client.log)
+    end
+
+    it 'sets a logger' do
+      client = Elastic::EnterpriseSearch::Client.new(logger: logger)
+      stub_request(:get, 'http://localhost:3002/api/ent/v1/internal/health/')
+      client.health
+      expect(logger.messages).to include('INFO -- : GET http://localhost:3002/api/ent/v1/internal/health/')
     end
   end
 
