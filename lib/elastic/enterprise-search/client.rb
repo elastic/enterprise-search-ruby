@@ -100,10 +100,7 @@ module Elastic
         host = @options[:host] || DEFAULT_HOST
         raise URI::InvalidURIError unless host =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/
 
-        uri = URI::Generic.new(*URI.split(host))
-        uri.scheme = 'https' unless uri.scheme
-        uri.port = 3002 unless uri.port
-        uri.to_s
+        host
       end
     end
   end
