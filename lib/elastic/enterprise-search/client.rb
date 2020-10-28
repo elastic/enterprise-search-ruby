@@ -36,7 +36,7 @@ module Elastic
       def workplace_search(options = {})
         @workplace_search ||= Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
           host: host,
-          http_auth: options.dig(:http_auth),
+          http_auth: options[:http_auth],
           transport: @transport
         )
       end
@@ -44,7 +44,7 @@ module Elastic
       def app_search(options = {})
         @app_search ||= Elastic::EnterpriseSearch::AppSearch::Client.new(
           host: host,
-          http_auth: options.dig(:http_auth),
+          http_auth: options[:http_auth],
           transport: @transport
         )
       end

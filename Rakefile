@@ -18,7 +18,7 @@
 # frozen_string_literal: true
 
 require 'rspec/core/rake_task'
-require_relative './lib/generator/endpoint_generator.rb'
+require_relative './lib/generator/endpoint_generator'
 
 SPECS = [:workplace, :enterprise, :app].freeze
 
