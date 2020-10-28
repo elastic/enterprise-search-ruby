@@ -47,10 +47,12 @@ describe Elastic::EnterpriseSearch::Client do
 
   context 'logging' do
     require 'logger'
+    # rubocop:disable all
     class FakeLogger < Logger
       def initialize; @strio = StringIO.new; super(@strio); end
       def messages; @strio.string; end
     end
+    # rubocop:enable all
 
     let(:logger) { FakeLogger.new }
 
