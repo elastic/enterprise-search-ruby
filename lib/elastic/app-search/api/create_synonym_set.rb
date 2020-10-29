@@ -21,21 +21,26 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Synonyms - Create a new synonym set.
+        # Synonyms - Create a new synonym set
         #
-        # @param synonyms [] List of synonyms words. (*Required*)
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option synonyms [] List of synonyms words (*Required*)
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-create
         #
-        def create_synonym_set(engine_name, body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'synonyms' missing" unless parameters[:synonyms]
+        def create_synonym_set(engine_name, arguments = {})
+          raise ArgumentError, "Required parameter 'synonyms' missing" unless arguments[:synonyms]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/synonyms/",
-            parameters,
+            arguments,
             body
           )
         end

@@ -21,19 +21,24 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Search - Allows you to search over, facet and filter your data.
+        # Search - Allows you to search over, facet and filter your data
         #
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search.html#search-single
         #
-        def search(engine_name, body = {}, parameters = {})
+        def search(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/search/",
-            parameters,
+            arguments,
             body
           )
         end

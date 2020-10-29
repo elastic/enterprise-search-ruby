@@ -21,22 +21,27 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Synonyms - Retrieve available synonym sets for the engine.
+        # Synonyms - Retrieve available synonym sets for the engine
         #
         # @param engine_name [String]  (*Required*)
-        # @param parameters [Hash] Optional parameters
-        # @option current_page [String] The page to fetch. Defaults to 1.
-        # @option page_size [String] The number of results per page.
+        # @param arguments [Hash] endpoint arguments
+        # @option current_page [String] The page to fetch. Defaults to 1
+        # @option page_size [String] The number of results per page
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-get
         #
-        def list_synonym_sets(engine_name, parameters = {})
+        def list_synonym_sets(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :get,
             "api/as/v1/engines/#{engine_name}/synonyms/",
-            parameters
+            arguments,
+            body
           )
         end
       end

@@ -21,19 +21,24 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Retrieves all engines with optional pagination support.
+        # Engine - Retrieves all engines with optional pagination support
         #
-        # @param parameters [Hash] Optional parameters
-        # @option current_page [String] The page to fetch. Defaults to 1.
-        # @option page_size [String] The number of results per page.
+        # @param arguments [Hash] endpoint arguments
+        # @option current_page [String] The page to fetch. Defaults to 1
+        # @option page_size [String] The number of results per page
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-list
         #
-        def list_engines(parameters = {})
+        def list_engines(arguments = {})
+          body = arguments.delete(:body) || {}
+
           request(
             :get,
             'api/as/v1/engines/',
-            parameters
+            arguments,
+            body
           )
         end
       end

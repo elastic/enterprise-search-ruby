@@ -21,24 +21,28 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Querysuggestion - Provide relevant query suggestions for incomplete queries.
+        # Querysuggestion - Provide relevant query suggestions for incomplete queries
         #
-        # @param query [String] A partial query for which to receive suggestions. (*Required*)
         # @param engine_name [String]  (*Required*)
-        # @param parameters [Hash] Optional parameters
-        # @option fields [Array] List of fields to use to generate suggestions. Defaults to all text fields.
-        # @option size [Integer] Number of query suggestions to return. Must be between 1 and 20. Defaults to 5.
+        # @param arguments [Hash] endpoint arguments
+        # @option query [String] A partial query for which to receive suggestions (*Required*)
+        # @option fields [Array] List of fields to use to generate suggestions. Defaults to all text fields
+        # @option size [Integer] Number of query suggestions to return. Must be between 1 and 20. Defaults to 5
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/query-suggestion.html
         #
-        def query_suggestion(engine_name, body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'query' missing" unless parameters[:query]
+        def query_suggestion(engine_name, arguments = {})
+          raise ArgumentError, "Required parameter 'query' missing" unless arguments[:query]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/query_suggestion/",
-            parameters,
+            arguments,
             body
           )
         end

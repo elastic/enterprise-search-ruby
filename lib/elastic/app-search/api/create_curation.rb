@@ -21,24 +21,28 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Curations - Create a new curation.
+        # Curations - Create a new curation
         #
-        # @param queries [Array] List of affected search queries. (*Required*)
         # @param engine_name [String]  (*Required*)
-        # @param parameters [Hash] Optional parameters
-        # @option promoted_doc_ids [] List of promoted document ids.
-        # @option hidden_doc_ids [] List of hidden document ids.
+        # @param arguments [Hash] endpoint arguments
+        # @option queries [Array] List of affected search queries (*Required*)
+        # @option promoted_doc_ids [] List of promoted document IDs
+        # @option hidden_doc_ids [] List of hidden document IDs
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-create
         #
-        def create_curation(engine_name, body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'queries' missing" unless parameters[:queries]
+        def create_curation(engine_name, arguments = {})
+          raise ArgumentError, "Required parameter 'queries' missing" unless arguments[:queries]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/curations/",
-            parameters,
+            arguments,
             body
           )
         end

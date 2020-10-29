@@ -21,19 +21,24 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Documents - Create or update documents.
+        # Documents - Create or update documents
         #
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-create
         #
-        def index_documents(engine_name, body = {}, parameters = {})
+        def index_documents(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/documents/",
-            parameters,
+            arguments,
             body
           )
         end

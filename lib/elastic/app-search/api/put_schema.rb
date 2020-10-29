@@ -21,19 +21,24 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Schema - Update schema for the current engine.
+        # Schema - Update schema for the current engine
         #
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/schema.html#schema-patch
         #
-        def update_schema(engine_name, body = {}, parameters = {})
+        def put_schema(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/schema/",
-            parameters,
+            arguments,
             body
           )
         end

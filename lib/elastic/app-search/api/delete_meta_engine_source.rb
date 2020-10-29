@@ -21,19 +21,25 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Delete a source engine from a meta engine.
+        # Engine - Delete a source engine from a meta engine
         #
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/meta-engines.html#meta-engines-remove-source-engines
         #
-        def delete_meta_engine_source(engine_name, parameters = {})
+        def delete_meta_engine_source(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :delete,
             "api/as/v1/engines/#{engine_name}/source_engines/",
-            parameters
+            arguments,
+            body
           )
         end
       end
