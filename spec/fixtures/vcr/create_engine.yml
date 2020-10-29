@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: http://localhost:3002/api/as/v1/engines/
+    uri: http://localhost:3002/api/as/v1/engines/?name=videogames
     body:
       encoding: UTF-8
-      string: '{"name":"videogames"}'
+      string: "{}"
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
