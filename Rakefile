@@ -22,21 +22,19 @@ require_relative './lib/generator/endpoint_generator'
 
 SPECS = [:workplace, :enterprise, :app].freeze
 
-desc 'Generate code from JSON API spec - rake generate[wokplace enterprise app]'
+desc 'Generate code from JSON API spec - rake generate[wokplace||enterprise||app]'
 task :generate, [:files] do |_, params|
   if params[:files].nil?
     SPECS.each do |spec|
       generate_specs(spec)
-      # Generate specs:
-      # generate specs(spec)
     end
   else
     params[:files].split(' ').each do |arg|
-      raise "Available parameters are #{SPECS}, no spec for #{arg}" unless SPECS.include?(arg.to_sym)
+      unless SPECS.include?(arg.to_sym)
+        raise "Available parameters are #{SPECS.map(&:to_s).join(', ')}. No spec for #{arg}"
+      end
 
       generate_specs(arg)
-      # Generate specs:
-      # generate specs(endpoints)
     end
   end
 end

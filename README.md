@@ -14,7 +14,6 @@ This project is in development and is not ready for use in production yet.
 - [HTTP Layer](https://github.com/elastic/enterprise-search-ruby#http-layer)
   - [Setting the host and port](https://github.com/elastic/enterprise-search-ruby#setting-the-host-and-port)
   - [Logging](https://github.com/elastic/enterprise-search-ruby#logging)
-- [Generating the API Code](https://github.com/elastic/enterprise-search-ruby#generating-the-api-code)
 - [Development](https://github.com/elastic/enterprise-search-ruby#development)
   - [Run stack locally](https://github.com/elastic/enterprise-search-ruby#run-stack-locally)
   - [Run tests](https://github.com/elastic/enterprise-search-ruby#run-tests)
@@ -108,7 +107,7 @@ content_source_key = '<content source key>'
 # From the Enterprise Search client:
 ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
 ent_client.workplace_search.http_auth = access_token
-ent_client.workplace_search.index_documents(content_source_key, documents)
+ent_client.workplace_search.index_documents(content_source_key, body: documents)
 
 # On its own
 workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
@@ -142,19 +141,6 @@ client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth:
 
 TODO: Documents all App Search APIs
 
-#### Index Documents
-
-```
-engine_name = 'videogames'
-document = {
-  id: 'Mr1064',
-  name: 'Super Mario 64',
-  body: 'A classic 3D videogame'
-}
-
-client.index_documents(engine_name, document, {engine_name: engine_name})
-```
-
 #### Engines
 
 ```ruby
@@ -171,11 +157,34 @@ client.engine('videogames')
 client.delete_engine('videogames')
 ```
 
+#### Documents
+
+```ruby
+engine_name = 'videogames'
+document = {
+  id: 'Mr1064',
+  name: 'Super Luigi 64',
+  body: 'A classic 3D videogame'
+}
+
+# Index documents
+client.index_documents(engine_name, body: document)
+
+# List documents
+client.list_documents(engine_name)
+
+# Delete a document
+client.delete_documents(engine_name, body: [document_id])
+
+# Update a document
+client.put_documents(engine_name, body: [{id: document_id, key: value}])
+```
+
 #### Search
 
 ```ruby
-queries = {
-  query: 'mario'
+query = {
+  query: 'luigi'
 }
 
 client.search(engine_name, query)
@@ -203,10 +212,6 @@ You can enable logging with the default logger by passing `log: true` as a param
 logger = MyLogger.new
 client = Elastic::EnterpriseSearch::Client.new(logger: logger)
 ```
-
-## Generating the API Code
-
-The code from the API endpoints is programatically generated from OpenAPI JSON specs.
 
 ## Development
 
