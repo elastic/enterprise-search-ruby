@@ -21,30 +21,35 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Logs - The API Log displays API request and response data at the Engine level.
+        # Logs - The API Log displays API request and response data at the Engine level
         #
-        # @param from_date [String] Filter date from. (*Required*)
-        # @param to_date [String] Filter date to. (*Required*)
         # @param engine_name [String]  (*Required*)
-        # @param parameters [Hash] Optional parameters
-        # @option current_page [String] The page to fetch. Defaults to 1.
-        # @option page_size [String] The number of results per page.
-        # @option query [String] Use this to specify a particular endpoint, like analytics, search, curations and so on.
-        # @option http_status_filter [String] Filter based on a particular status code: 400, 401, 403, 429, 200.
-        # @option http_method_filter [String] Filter based on a particular HTTP method: GET, POST, PUT, PATCH, DELETE.
+        # @param arguments [Hash] endpoint arguments
+        # @option from_date [String] Filter date from (*Required*)
+        # @option to_date [String] Filter date to (*Required*)
+        # @option current_page [String] The page to fetch. Defaults to 1
+        # @option page_size [String] The number of results per page
+        # @option query [String] Use this to specify a particular endpoint, like analytics, search, curations and so on
+        # @option http_status_filter [String] Filter based on a particular status code: 400, 401, 403, 429, 200
+        # @option http_method_filter [String] Filter based on a particular HTTP method: GET, POST, PUT, PATCH, DELETE
         # @option sort_direction [String] Would you like to have your results ascending, oldest to newest, or descending, newest to oldest?
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/api-logs.html
         #
-        def api_logs(engine_name, parameters = {})
-          raise ArgumentError, "Required parameter 'from_date' missing" unless parameters[:from_date]
-          raise ArgumentError, "Required parameter 'to_date' missing" unless parameters[:to_date]
+        def api_logs(engine_name, arguments = {})
+          raise ArgumentError, "Required parameter 'from_date' missing" unless arguments[:from_date]
+          raise ArgumentError, "Required parameter 'to_date' missing" unless arguments[:to_date]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :get,
             "api/as/v1/engines/#{engine_name}/logs/api/",
-            parameters
+            arguments,
+            body
           )
         end
       end

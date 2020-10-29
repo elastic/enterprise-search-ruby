@@ -21,19 +21,25 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Delete an engine by name.
+        # Engine - Delete an engine by name
         #
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-delete
         #
-        def delete_engine(engine_name, parameters = {})
+        def delete_engine(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :delete,
             "api/as/v1/engines/#{engine_name}/",
-            parameters
+            arguments,
+            body
           )
         end
       end

@@ -21,19 +21,25 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Documents - Delete documents by id.
+        # Documents - Delete documents by ID
         #
         # @param engine_name [String]  (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-delete
         #
-        def delete_documents(engine_name, parameters = {})
+        def delete_documents(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :delete,
             "api/as/v1/engines/#{engine_name}/documents/",
-            parameters
+            arguments,
+            body
           )
         end
       end

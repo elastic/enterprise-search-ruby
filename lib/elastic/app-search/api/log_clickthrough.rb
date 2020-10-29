@@ -21,26 +21,30 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Click - Send data about clicked results.
+        # Click - Send data about clicked results
         #
-        # @param query_text [String] Search query text. (*Required*)
-        # @param document_id [] The id of the document that was clicked on. (*Required*)
         # @param engine_name [String]  (*Required*)
-        # @param parameters [Hash] Optional parameters
-        # @option request_id [String] The request id returned in the meta tag of a search API response.
-        # @option tags [Array] Array of strings representing additional information you wish to track with the clickthrough.
+        # @param arguments [Hash] endpoint arguments
+        # @option query_text [String] Search query text (*Required*)
+        # @option document_id [] The ID of the document that was clicked on (*Required*)
+        # @option request_id [String] The request ID returned in the meta tag of a search API response
+        # @option tags [Array] Array of strings representing additional information you wish to track with the clickthrough
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clickthrough.html
         #
-        def log_clickthrough(engine_name, body = {}, parameters = {})
-          raise ArgumentError, "Required parameter 'query_text' missing" unless parameters[:query_text]
-          raise ArgumentError, "Required parameter 'document_id' missing" unless parameters[:document_id]
+        def log_clickthrough(engine_name, arguments = {})
+          raise ArgumentError, "Required parameter 'query_text' missing" unless arguments[:query_text]
+          raise ArgumentError, "Required parameter 'document_id' missing" unless arguments[:document_id]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/click/",
-            parameters,
+            arguments,
             body
           )
         end
