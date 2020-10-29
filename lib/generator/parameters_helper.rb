@@ -129,8 +129,8 @@ module Elastic
       def display_signature_params
         # Display
         params = method_signature_params
-        params << 'body = {}' if body?
         params << 'parameters = {}'
+        params << 'body = {}' if body?
         "(#{params.join(', ')})"
       end
 

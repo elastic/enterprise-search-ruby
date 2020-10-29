@@ -19,7 +19,7 @@
 
 require 'spec_helper'
 
-describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
+describe Elastic::EnterpriseSearch::AppSearch::Client do
   let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
   let(:api_key) { ENV['ELASTIC_APPSEARCH_API_KEY'] || 'api_key' }
   let(:client) do
