@@ -28,6 +28,7 @@ module Elastic
         docs << "# #{description}" if description
         docs << '#'
         docs << parameters_documentation if @params && !@params.empty?
+        docs << "# @param body [Hash] The request body\n#" if body?
         docs << "# @see #{url}" if url
         docs << "#\n"
         docs.join("\n")
