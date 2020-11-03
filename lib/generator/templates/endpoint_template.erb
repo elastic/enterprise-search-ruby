@@ -11,6 +11,9 @@ module Elastic
           <%= raise_for_required_params %>
 
           <%= required_variables_from_parameters %>
+          <% if body? %>
+            body = arguments.delete(:body) || {}
+          <% end %>
 
           request(
             <%= request_method_params %>
