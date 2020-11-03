@@ -25,11 +25,13 @@ module Elastic
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html#setting-read-only-state
       #
-      def put_read_only(body = {}, parameters = {})
+      def put_read_only(arguments = {})
+        body = arguments.delete(:body) || {}
+
         request(
           :put,
           'api/ent/v1/internal/read_only_mode/',
-          parameters,
+          arguments,
           body
         )
       end

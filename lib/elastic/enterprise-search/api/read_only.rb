@@ -25,11 +25,12 @@ module Elastic
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html#getting-read-only-state
       #
-      def read_only(parameters = {})
+      def read_only(arguments = {})
         request(
           :get,
           'api/ent/v1/internal/read_only_mode/',
-          parameters
+          arguments,
+          {}
         )
       end
     end
