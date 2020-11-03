@@ -41,6 +41,10 @@ Style/SlicingWithRange:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+Metrics/MethodLength:
+  Max: 15
+Metrics/AbcSize:
+  Max: 20
 Style/RegexpLiteral:
   EnforcedStyle: mixed
   AllowInnerSlashes: true
