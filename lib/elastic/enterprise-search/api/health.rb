@@ -25,11 +25,12 @@ module Elastic
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#health-api-example
       #
-      def health(parameters = {})
+      def health(arguments = {})
         request(
           :get,
           'api/ent/v1/internal/health/',
-          parameters
+          arguments,
+          {}
         )
       end
     end

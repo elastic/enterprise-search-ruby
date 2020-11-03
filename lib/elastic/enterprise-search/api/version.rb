@@ -25,11 +25,12 @@ module Elastic
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/management-apis.html
       #
-      def version(parameters = {})
+      def version(arguments = {})
         request(
           :get,
           'api/ent/v1/internal/version/',
-          parameters
+          arguments,
+          {}
         )
       end
     end

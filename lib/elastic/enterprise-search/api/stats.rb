@@ -23,16 +23,17 @@ module Elastic
       # Stats - Get information about the resource usage of the application, the state of different internal queues, etc.
       # Get information about the resource usage of the application, the state of different internal queues, etc.
       #
-      # @param parameters [Hash] Optional parameters
+      # @param arguments [Hash] endpoint arguments
       # @option include [Array] Comma-separated list of stats to return
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#stats-api-example
       #
-      def stats(parameters = {})
+      def stats(arguments = {})
         request(
           :get,
           'api/ent/v1/internal/stats/',
-          parameters
+          arguments,
+          {}
         )
       end
     end
