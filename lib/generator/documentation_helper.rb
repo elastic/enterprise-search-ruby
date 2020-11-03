@@ -52,6 +52,17 @@ module Elastic
 
       def parameters_documentation
         doc = ['# @param arguments [Hash] endpoint arguments']
+        # Show optional parameters for the `parameters` hash
+        doc = add_required(doc)
+        unless (optional = @params - required_params).empty?
+          optional.each { |param| doc << show_param(param) }
+        end
+        doc << "# @option body - The request body\n#" if body?
+        doc << '#'
+        doc.join("\n")
+      end
+
+      def add_required(doc)
         # Show required parameters first
         required_params.each do |param|
           if in_signature?(param['name'])
@@ -60,13 +71,7 @@ module Elastic
             doc << show_required_option(param)
           end
         end
-        # Show optional parameters for the `parameters` hash
-        unless (optional = @params - required_params).empty?
-          optional.each { |param| doc << show_param(param) }
-        end
-        doc << "# @option body - The request body\n#" if body?
-        doc << '#'
-        doc.join("\n")
+        doc
       end
 
       def show_param(param)
