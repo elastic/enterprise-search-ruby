@@ -27,7 +27,6 @@ module Elastic
       ].freeze
 
       def setup_parameters!(endpoint)
-        # TODO: Follow $ref to document parameters from body
         endpoint['parameters']&.each { |param| add_parameter(param) }
         extract_path_parameters.each do |param|
           next unless @params.select { |p| p['name'] == param }.empty?
@@ -98,7 +97,7 @@ module Elastic
           name = param['name']
           next if in_signature?(name) || !extract_path_parameters.include?(name)
 
-          response << "#{name} = parameters[:#{name}]"
+          response << "#{name} = arguments[:#{name}]"
         end
         response.join("\n")
       end
@@ -120,25 +119,24 @@ module Elastic
         errors = []
         required_params.map do |param|
           name = param['name']
-          parameter = in_signature?(name) ? name : "parameters[:#{name}]"
+          parameter = in_signature?(name) ? name : "arguments[:#{name}]"
           errors << "raise ArgumentError, \"Required parameter '#{name}' missing\" unless #{parameter}"
         end
         errors.join("\n")
       end
 
+      # Display the parameters that should be in the method signature
       def display_signature_params
-        # Display
         params = method_signature_params
-        params << 'parameters = {}'
-        params << 'body = {}' if body?
+        params << 'arguments = {}'
         "(#{params.join(', ')})"
       end
 
       def request_method_params
         params = []
         params += [":#{@http_method}", "\"#{@path}\""]
-        params << 'parameters' if @params
-        params << 'body' if body?
+        params << 'arguments'
+        params << (body? ? 'body' : {})
         params.join(",\n")
       end
     end

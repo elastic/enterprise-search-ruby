@@ -63,6 +63,7 @@ module Elastic
       end
 
       def generate_classes(endpoint)
+        # endpoint is an array with ['path', {'http_method(s)' => 'info'}
         endpoint.last.each_key do |method|
           @params = []
           if method == 'parameters'
@@ -100,7 +101,10 @@ module Elastic
       end
 
       def body?
-        ['post', 'put', 'patch'].include? @http_method
+        # TODO: Define exactly when we need a body
+        return ['post', 'put', 'patch'].include? @http_method if @name != :app
+
+        true
       end
 
       def generate_code
