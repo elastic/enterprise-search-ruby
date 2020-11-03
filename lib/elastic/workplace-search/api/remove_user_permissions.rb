@@ -25,20 +25,25 @@ module Elastic
         # Remove one or more permission for a given user
         #
         # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param user [String] The username in context (*Required*)
+        # @param arguments [Hash] endpoint arguments
+        # @option user [String] The username in context (*Required*)
+        # @option body - The request body
+        #
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#remove-one
         #
-        def remove_user_permissions(content_source_key, body = {}, parameters = {})
+        def remove_user_permissions(content_source_key, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
-          raise ArgumentError, "Required parameter 'user' missing" unless parameters[:user]
+          raise ArgumentError, "Required parameter 'user' missing" unless arguments[:user]
 
-          user = parameters[:user]
+          user = arguments[:user]
+
+          body = arguments.delete(:body) || {}
 
           request(
             :post,
             "api/ws/v1/sources/#{content_source_key}/permissions/#{user}/remove/",
-            parameters,
+            arguments,
             body
           )
         end
