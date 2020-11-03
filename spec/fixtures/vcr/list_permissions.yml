@@ -36,9 +36,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 9230eb67-020f-4915-b2cb-09343c2c6290
+      - fd45fd96-ce2c-46bd-be13-172722153505
       X-Runtime:
-      - '0.054235'
+      - '0.079460'
       Transfer-Encoding:
       - chunked
       Server:
@@ -47,5 +47,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"meta":{"page":{"current":1,"total_pages":1,"total_results":1,"size":25}},"results":[{"user":"enterprise_search","permissions":[]}]}'
     http_version: 
-  recorded_at: Thu, 17 Sep 2020 18:14:15 GMT
+  recorded_at: Tue, 03 Nov 2020 23:12:47 GMT
 recorded_with: VCR 3.0.3

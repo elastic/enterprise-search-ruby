@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/permissions/enterprise_search/add/?user=enterprise_search
+    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/permissions/enterprise_search/add/?permissions%5B%5D=more&permissions%5B%5D=permissions&permissions%5B%5D=testing&user=enterprise_search
     body:
       encoding: UTF-8
-      string: '{"permissions":["testing","more","permissions"]}'
+      string: "{}"
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
@@ -36,9 +36,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - c8349d99-4e7f-4273-a9ea-9033a656497a
+      - 62635fa8-edce-4b90-806b-a2544b295d23
       X-Runtime:
-      - '1.257662'
+      - '2.435278'
       Transfer-Encoding:
       - chunked
       Server:
@@ -47,13 +47,13 @@ http_interactions:
       encoding: UTF-8
       string: '{"user":"enterprise_search","permissions":["testing","more","permissions"]}'
     http_version: 
-  recorded_at: Thu, 17 Sep 2020 18:14:07 GMT
+  recorded_at: Tue, 03 Nov 2020 23:16:55 GMT
 - request:
     method: put
-    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/permissions/enterprise_search/?user=enterprise_search
+    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/permissions/enterprise_search/?permissions%5B%5D&user=enterprise_search
     body:
       encoding: UTF-8
-      string: '{"permissions":[]}'
+      string: "{}"
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
@@ -84,9 +84,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - dde858d8-e96b-46fc-a18f-6efcf1ea66b2
+      - 5e7c7f55-f940-4cb1-9278-5807ecd338d6
       X-Runtime:
-      - '2.006525'
+      - '2.016964'
       Transfer-Encoding:
       - chunked
       Server:
@@ -95,5 +95,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"user":"enterprise_search","permissions":[]}'
     http_version: 
-  recorded_at: Thu, 17 Sep 2020 18:14:09 GMT
+  recorded_at: Tue, 03 Nov 2020 23:16:58 GMT
 recorded_with: VCR 3.0.3
