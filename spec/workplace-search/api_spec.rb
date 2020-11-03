@@ -48,7 +48,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'indexes' do
       VCR.use_cassette(:index_documents) do
-        response = client.index_documents(content_source_key, documents)
+        response = client.index_documents(content_source_key, body: documents)
 
         expect(response.status).to eq 200
         expect(response.body)
@@ -64,11 +64,11 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'deletes' do
       VCR.use_cassette(:index_documents) do
-        client.index_documents(content_source_key, documents)
+        client.index_documents(content_source_key, body: documents)
       end
 
       VCR.use_cassette(:delete_documents) do
-        response = client.delete_documents(content_source_key, documents.map { |doc| doc['id'] })
+        response = client.delete_documents(content_source_key, body: documents.map { |doc| doc['id'] })
         expect(response.status).to eq 200
         expect(response.body)
           .to eq(
@@ -120,8 +120,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       VCR.use_cassette(:clear_user_permissions) do
         client.put_user_permissions(
           content_source_key,
-          { permissions: [] },
-          { user: user }
+          { permissions: [], user: user }
         )
       end
     end
@@ -130,8 +129,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       VCR.use_cassette(:put_user_permissions) do
         response = client.add_user_permissions(
           content_source_key,
-          { permissions: ['testing', 'more', 'permissions'] },
-          { user: user }
+          { permissions: ['testing', 'more', 'permissions'], user: user }
         )
 
         expect(response.status).to eq 200
@@ -143,8 +141,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
         response = client.put_user_permissions(
           content_source_key,
-          { permissions: [] },
-          { user: user }
+          { permissions: [], user: user }
         )
 
         expect(response.status).to eq 200
@@ -161,8 +158,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
         permissions = ['permission1', 'permission2']
         response = client.add_user_permissions(
           content_source_key,
-          { permissions: permissions },
-          { user: user }
+          { permissions: permissions, user: user }
         )
 
         expect(response.status).to eq 200
@@ -177,8 +173,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
         permissions = ['permission1', 'permission2']
         response = client.remove_user_permissions(
           content_source_key,
-          { permissions: permissions },
-          { user: user }
+          { permissions: permissions, user: user }
         )
 
         expect(response.status).to eq 200

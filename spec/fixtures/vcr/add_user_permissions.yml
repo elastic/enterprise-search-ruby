@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/permissions/enterprise_search/add/?user=enterprise_search
+    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/permissions/enterprise_search/add/?permissions%5B%5D=permission1&permissions%5B%5D=permission2&user=enterprise_search
     body:
       encoding: UTF-8
-      string: '{"permissions":["permission1","permission2"]}'
+      string: "{}"
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
@@ -36,9 +36,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 7ce49562-9c0c-4efc-bb47-5fb486ef9e4c
+      - d8232f35-60cc-431a-8c94-cbdb41f362a7
       X-Runtime:
-      - '2.017384'
+      - '1.344729'
       Transfer-Encoding:
       - chunked
       Server:
@@ -47,5 +47,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"user":"enterprise_search","permissions":["permission1","permission2"]}'
     http_version: 
-  recorded_at: Thu, 17 Sep 2020 18:14:11 GMT
+  recorded_at: Tue, 03 Nov 2020 23:17:24 GMT
 recorded_with: VCR 3.0.3

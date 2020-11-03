@@ -36,9 +36,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - c93acf1e-e8ad-4463-b67c-dcc2aa3e1755
+      - 3303955f-9244-420d-9be1-7349d0aa3feb
       X-Runtime:
-      - '0.147271'
+      - '0.185714'
       Transfer-Encoding:
       - chunked
       Server:
@@ -47,5 +47,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"results":[{"id":"4e696e74656e646f203634","success":true},{"id":"47616d6520426f7920436f6c6f72","success":true}]}'
     http_version: 
-  recorded_at: Thu, 17 Sep 2020 18:14:16 GMT
+  recorded_at: Tue, 03 Nov 2020 23:12:26 GMT
 recorded_with: VCR 3.0.3
