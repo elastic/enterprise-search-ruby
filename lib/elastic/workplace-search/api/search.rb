@@ -26,11 +26,13 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html
         #
-        def search(body = {}, parameters = {})
+        def search(arguments = {})
+          body = arguments.delete(:body) || {}
+
           request(
             :post,
             'api/ws/v1/search/',
-            parameters,
+            arguments,
             body
           )
         end
