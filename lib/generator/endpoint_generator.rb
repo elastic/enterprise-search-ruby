@@ -22,6 +22,7 @@ require 'erb'
 require_relative './utils'
 require_relative './documentation_helper'
 require_relative './parameters_helper'
+require_relative './parameters_exceptions'
 
 module Elastic
   module Generator
@@ -29,6 +30,7 @@ module Elastic
     class EndpointGenerator
       include DocumentationHelper
       include ParametersHelper
+      include ParametersExceptions
       CURRENT_PATH = File.dirname(__FILE__).freeze
 
       def initialize(name)
