@@ -45,6 +45,11 @@ module Elastic
 
           body = arguments.delete(:body) || {}
 
+          arguments[:from_date] = date_to_rfc3339(arguments[:from_date])
+          arguments['filters[date][from]'] = arguments.delete(:from_date)
+          arguments[:to_date] = date_to_rfc3339(arguments[:to_date])
+          arguments['filters[date][to]'] = arguments.delete(:to_date)
+
           request(
             :get,
             "api/as/v1/engines/#{engine_name}/logs/api/",
