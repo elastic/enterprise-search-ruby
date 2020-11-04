@@ -55,6 +55,10 @@ module Elastic
         def http_auth=(api_key)
           @options[:http_auth] = api_key
         end
+
+        def date_to_rfc3339(date)
+          DateTime.parse(date.to_s).rfc3339
+        end
       end
     end
   end
