@@ -17,17 +17,9 @@
 
 # frozen_string_literal: true
 
-require 'spec_helper'
+require_relative './api_spec_helper'
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
-  let(:api_key) { ENV['ELASTIC_APPSEARCH_API_KEY'] || 'api_key' }
-  let(:client) do
-    Elastic::EnterpriseSearch::AppSearch::Client.new(
-      host: host,
-      http_auth: api_key
-    )
-  end
   let(:engine_name) { 'videogames' }
 
   # TODO: Once we stop using VCR, we need to do create / list / destroy engines
@@ -41,14 +33,14 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
           { name: 'Galaxxian', year: 1979 },
           { name: 'Audiovisual, the hedgehog', year: '1991' }
         ]
-        response = client.index_documents(engine_name, body: documents)
+        response = @client.index_documents(engine_name, body: documents)
         expect(response.status).to eq 200
         expect(response.body.count).to eq 4
         expect(response.body.map(&:keys)).to eq [['id', 'errors'], ['id', 'errors'], ['id', 'errors'], ['id', 'errors']]
       end
 
       VCR.use_cassette('app_search/list_documents') do
-        response = client.list_documents(engine_name)
+        response = @client.list_documents(engine_name)
 
         expect(response.status).to eq 200
         expect(response.body['results'].count).to eq 4
@@ -57,7 +49,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'searches for a document' do
       VCR.use_cassette('app_search/search') do
-        response = client.search(engine_name, body: { query: 'Pack-Man' })
+        response = @client.search(engine_name, body: { query: 'Pack-Man' })
         expect(response.status).to eq 200
         expect(response.body['meta']['engine']).to eq({ 'name' => 'videogames', 'type' => 'default' })
         expect(response.body['results'].first['name']).to eq({ 'raw' => 'Pack-Man' })
@@ -68,12 +60,12 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     it 'deletes a document' do
       VCR.use_cassette('app_search/index_and_delete_document') do
         document = { name: 'Princess Zelda', year: 1986 }
-        response = client.index_documents(engine_name, body: document)
+        response = @client.index_documents(engine_name, body: document)
         expect(response.status).to eq 200
 
         id = response.body.first['id']
 
-        response = client.delete_documents(engine_name, body: [id])
+        response = @client.delete_documents(engine_name, body: [id])
         expect(response.status).to eq 200
         expect(response.body.first['deleted'])
       end
@@ -82,12 +74,12 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     it 'updates a document' do
       VCR.use_cassette('app_search/create_and_update_document') do
         document = { name: '', year: 1986 }
-        response = client.index_documents(engine_name, body: document)
+        response = @client.index_documents(engine_name, body: document)
         expect(response.status).to eq 200
 
         id = response.body.first['id']
 
-        response = client.put_documents(engine_name, body: [{ id: id, year: 1987 }])
+        response = @client.put_documents(engine_name, body: [{ id: id, year: 1987 }])
         expect(response.status).to eq 200
         expect(response.body).to eq [{ 'id' => 'doc-5fa2d4e1389ab975965be3e3', 'errors' => [] }]
       end
