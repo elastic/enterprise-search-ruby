@@ -17,17 +17,15 @@
 
 # frozen_string_literal: true
 
+require 'spec_helper'
 require_relative './api_spec_helper'
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'api_logs' do
     it 'returns api logs' do
-      VCR.use_cassette('app_search/api_logs') do
-        response = @client.api_logs(
-          'videogames',
-          from_date: Date.new(2020, 10, 0o1),
-          to_date: Date.new(2020, 11, 0o5)
-        )
+      VCR.use_cassette('app_search/count_analytics') do
+        response = @client.count_analytics('videogames')
+
         expect(response.status).to eq 200
         expect(response.body['results'].count).to be > 1
       end

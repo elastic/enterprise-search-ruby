@@ -17,17 +17,9 @@
 
 # frozen_string_literal: true
 
-require 'spec_helper'
+require_relative './api_spec_helper'
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
-  let(:api_key) { ENV['ELASTIC_APPSEARCH_API_KEY'] || 'api_key' }
-  let(:client) do
-    Elastic::EnterpriseSearch::AppSearch::Client.new(
-      host: host,
-      http_auth: api_key
-    )
-  end
   let(:engine_name) { 'videogames' }
 
   # TODO: Once we stop using VCR, we need to do create / list / destroy engines
@@ -35,7 +27,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'engines' do
     it 'creates an engine' do
       VCR.use_cassette(:create_engine) do
-        response = client.create_engine(name: 'videogames')
+        response = @client.create_engine(name: 'videogames')
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'name' => 'videogames', 'type' => 'default', 'language' => nil })
@@ -44,7 +36,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'lists engines' do
       VCR.use_cassette(:list_engines) do
-        response = client.list_engines
+        response = @client.list_engines
 
         expect(response.status).to eq 200
         expect(response.body).to eq(
@@ -56,7 +48,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'retrieves an engine by name' do
       VCR.use_cassette(:get_engine) do
-        response = client.engine('videogames')
+        response = @client.engine('videogames')
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'name' => 'videogames', 'type' => 'default', 'language' => nil })
@@ -65,7 +57,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'deletes an engine' do
       VCR.use_cassette(:delete_engine) do
-        response = client.delete_engine('videogames')
+        response = @client.delete_engine('videogames')
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'deleted' => true })
