@@ -31,6 +31,13 @@ Gem::Specification.new do |s|
   s.description = 'API client for accessing the Elastic Enterprise APIs.'
   s.licenses    = ['Apache-2.0']
 
+  s.metadata = {
+    "bug_tracker_uri"   => "https://github.com/elastic/enterprise-search-ruby/issues",
+    "documentation_uri" => "https://github.com/elastic/enterprise-search-ruby/blob/master/README.md",
+    "homepage_uri"      => "https://www.elastic.co/enterprise-search",
+    "source_code_uri"   => "https://github.com/elastic/enterprise-search-ruby",
+  }
+
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
