@@ -20,6 +20,7 @@
 $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'elastic/enterprise-search/version'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5'
   s.name        = 'elastic-enterprise-search'
@@ -32,10 +33,10 @@ Gem::Specification.new do |s|
   s.licenses    = ['Apache-2.0']
 
   s.metadata = {
-    "bug_tracker_uri"   => "https://github.com/elastic/enterprise-search-ruby/issues",
-    "documentation_uri" => "https://github.com/elastic/enterprise-search-ruby/blob/master/README.md",
-    "homepage_uri"      => "https://www.elastic.co/enterprise-search",
-    "source_code_uri"   => "https://github.com/elastic/enterprise-search-ruby",
+    'bug_tracker_uri' => 'https://github.com/elastic/enterprise-search-ruby/issues',
+    'documentation_uri' => 'https://github.com/elastic/enterprise-search-ruby/blob/master/README.md',
+    'homepage_uri' => 'https://www.elastic.co/enterprise-search',
+    'source_code_uri' => 'https://github.com/elastic/enterprise-search-ruby'
   }
 
   s.files         = `git ls-files`.split("\n")
@@ -52,3 +53,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr', '~> 3.0.3'
   s.add_development_dependency 'webmock'
 end
+# rubocop:enable Metrics/BlockLength

@@ -22,6 +22,8 @@ Lint/RaiseException:
   Enabled: true
 Lint/StructNewOverride:
   Enabled: true
+Naming/FileName:
+  Enabled: false
 Style/ExponentialNotation:
   Enabled: true
 Style/HashEachMethods:
