@@ -4,7 +4,7 @@
 ![rubocop](https://github.com/elastic/enterprise-search-ruby/workflows/rubocop/badge.svg)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
 
-This project is in development and is not ready for use in production yet.
+This project is in development and in a beta state.
 
 ## Contents
 - [Installation](https://github.com/elastic/enterprise-search-ruby#installation)
