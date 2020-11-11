@@ -56,8 +56,8 @@ module Elastic
         param['name'] = parameter_name(param)
 
         # Check the spec for parameters with a given name and retrieve info
-        param_info = @spec.dig('components', 'parameters').select do |_, p|
-          p['name'] == param['name']
+        param_info = @spec.dig('components', 'parameters').select do |k, _|
+          k == param['name']
         end.values.first
         param_info = param if param_info.nil?
 
