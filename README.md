@@ -200,6 +200,11 @@ client.schema(engine_name)
 # Logs - The API Log displays API request and response data at the Engine level
 client.api_logs(engine_name, from_date: Date.new(2020, 10, 01), to_date: Date.new(2020, 11, 05))
 
+# Queries Analytics - Returns queries analytics by usage count
+client.top_queries_analytics(engine_name)
+
+# Clicks Analytics - Returns the number of clicks received by a document in descending order
+client.top_clicks_analytics(engine_name, query: {})
 
 ```
 
