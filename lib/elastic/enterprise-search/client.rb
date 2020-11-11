@@ -49,13 +49,6 @@ module Elastic
         )
       end
 
-      # TODO: CONFIG and initializer revamp for Ent search and the rest and pass
-      # in options so they can live with workplace-search and app-search options
-      #
-      # def self.configure(&block)
-      #   Elastic::EnterpriseSearch.configure(&block)
-      # end
-      #
       # Create a new Elastic::EnterpriseSearch::Client client
       #
       # @param options [Hash] a hash of configuration options that will override what is set on the Elastic::EnterpriseSearch class.
