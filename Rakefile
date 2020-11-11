@@ -45,7 +45,7 @@ end
 
 desc 'Open an irb session preloaded with this library'
 task :console do
-  sh 'irb -r rubygems -I lib -r elastic_enterprise_search.rb'
+  sh 'irb -r rubygems -I lib -r elastic-enterprise-search.rb'
 end
 
 desc 'Run Elastic Enterprise Search stack'
