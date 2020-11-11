@@ -25,7 +25,7 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option query [String] Search query text (*Required*)
+        # @option query [String] Filter clicks over a search query
         # @option current_page [String] The page to fetch. Defaults to 1
         # @option page_size [String] The number of results per page
         # @option filters [Array] Analytics filters
@@ -35,7 +35,6 @@ module Elastic
         # @see https://www.elastic.co/guide/en/app-search/current/clicks.html
         #
         def top_clicks_analytics(engine_name, arguments = {})
-          raise ArgumentError, "Required parameter 'query' missing" unless arguments[:query]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
