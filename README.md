@@ -34,7 +34,7 @@ Or add it to your project's Gemfile:
 gem 'elastic-enterprise-search'
 ```
 
-The version follows the Elastic Stack version so 7.10 is compatible with Enterprise Search released in Elastic Stack 7.10.
+The version follows the Elastic Stack version so 7.10.0 is compatible with Enterprise Search released in Elastic Stack 7.10.0.
 
 ## Getting Started
 
@@ -117,8 +117,6 @@ workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new
 )
 ```
 
-TODO: Document All Workplace Search APIs
-
 ### App Search
 
 In your Elastic App Search dashboard, navigate to Credentials and Create a Key for the client to use. Make sure to read [the documentation on Authentication](https://www.elastic.co/guide/en/app-search/current/authentication.html) to understand which key you want to use. Once you've created your key, you need to copy the key value to use on your client:
@@ -139,8 +137,6 @@ ent_client.app_search.http_auth = api_key
 # On its own
 client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: api_key)
 ```
-
-TODO: Documents all App Search APIs
 
 #### Engines
 
@@ -189,6 +185,22 @@ query = {
 }
 
 client.search(engine_name, query)
+```
+
+#### Other API Endpoints
+
+```ruby
+
+# Count analytics - Returns the number of clicks and total number of queries over a period
+client.count_analytics(engine_name)
+
+# Schema - Retrieve current schema for the engine
+client.schema(engine_name)
+
+# Logs - The API Log displays API request and response data at the Engine level
+client.api_logs(engine_name, from_date: Date.new(2020, 10, 01), to_date: Date.new(2020, 11, 05))
+
+
 ```
 
 ## HTTP Layer
