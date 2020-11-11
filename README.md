@@ -25,7 +25,7 @@ This project is in development and in a beta state.
 Install the gem:
 
 ```
-$ gem install elastic-enterprise-search
+$ gem install elastic-enterprise-search --pre
 ```
 
 Or add it to your project's Gemfile:
