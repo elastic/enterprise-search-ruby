@@ -117,6 +117,52 @@ workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new
 )
 ```
 
+#### Documents
+
+```ruby
+# Index Documents
+documents = [
+  { id: 'e68fbc2688f1', 'title: 'Frankenstein; Or, The Modern Prometheus', author: 'Mary Wollstonecraft Shelley' },
+  { id: '0682bb06af1a', title: 'Jungle Tales', author: 'Horacio Quiroga' },
+  { id: '75015d85370d', title: 'Lenguas de diamante', author: 'Juana de Ibarbourou' },
+  { id: 'c535e226aee3', title: 'Metamorphosis', author: 'Franz Kafka' }
+]
+
+response = client.index_documents(content_source_key, body: documents)
+
+# Delete Documents
+response = client.delete_documents(content_source_key, body: ['e68fbc2688f1', 'c535e226aee3'])
+```
+
+#### Permissions
+
+```ruby
+# List permissions
+client.list_permissions(content_source_key)
+
+# Get a user permissions
+response = client.user_permissions(content_source_key, { user: 'enterprise_search' })
+
+# Clear user permissions
+client.put_user_permissions(content_source_key, { permissions: [], user: 'enterpise_search' })
+
+# Add permissions to a user
+client.add_user_permissions(
+  content_source_key,
+  { permissions: ['permission1', 'permission2'], user: user }
+)
+
+# Updates user permissions
+client.put_user_permissions(content_source_key, { permissions: [], user: user })
+
+# Remove permissions from a user
+client.remove_user_permissions(
+  content_source_key,
+  { permissions: ['permission1', 'permission2'], user: user }
+)
+```
+
+
 ### App Search
 
 In your Elastic App Search dashboard, navigate to Credentials and Create a Key for the client to use. Make sure to read [the documentation on Authentication](https://www.elastic.co/guide/en/app-search/current/authentication.html) to understand which key you want to use. Once you've created your key, you need to copy the key value to use on your client:
