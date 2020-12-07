@@ -19,7 +19,7 @@
 
 require 'elastic/enterprise-search/version'
 
-# Require generated API code:
+# Require API code:
 [
   "#{File.dirname(__FILE__)}/enterprise-search/api/*.rb",
   "#{File.dirname(__FILE__)}/workplace-search/api/*.rb",

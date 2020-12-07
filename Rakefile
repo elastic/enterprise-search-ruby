@@ -18,30 +18,6 @@
 # frozen_string_literal: true
 
 require 'rspec/core/rake_task'
-require_relative './lib/generator/endpoint_generator'
-
-SPECS = [:workplace, :enterprise, :app].freeze
-
-desc 'Generate code from JSON API spec - rake generate[wokplace||enterprise||app]'
-task :generate, [:files] do |_, params|
-  if params[:files].nil?
-    SPECS.each do |spec|
-      generate_specs(spec)
-    end
-  else
-    params[:files].split(' ').each do |arg|
-      unless SPECS.include?(arg.to_sym)
-        raise "Available parameters are #{SPECS.map(&:to_s).join(', ')}. No spec for #{arg}"
-      end
-
-      generate_specs(arg)
-    end
-  end
-end
-
-def generate_specs(name)
-  Elastic::Generator::EndpointGenerator.new(name.to_sym).generate
-end
 
 desc 'Open an irb session preloaded with this library'
 task :console do
