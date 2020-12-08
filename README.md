@@ -162,6 +162,26 @@ client.remove_user_permissions(
 )
 ```
 
+#### External Identities
+
+```ruby
+# Create external identities
+body = { user: 'elastic_user', source_user_id: 'example@elastic.co' }
+client.create_external_identity(content_source_key, body: body)
+
+# Retrieve an external identity
+client.external_identity(content_source_key, user: 'elastic_user')
+
+# List external identities
+client.list_external_identities(content_source_key)
+
+# Update external identity
+body = { source_user_id: 'example2@elastic.co' }
+client.put_external_identity(content_source_key, user: 'elastic_user', body: body)
+
+# Delete an external identity
+client.delete_external_identity(content_source_key, user: 'elastic_user')
+```
 
 ### App Search
 
