@@ -30,58 +30,6 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     )
   end
 
-  context 'documents' do
-    let(:documents) do
-      [
-        { 'id' => '4e696e74656e646f203634',
-          'url' => 'https://www.elastic.co/blog/introducing-quick-start-guides-getting-started-with-elastic-enterprise-search-for-free',
-          'title' => 'Getting started with Elastic Enterprise Search for free',
-          'body' => 'this is a test' },
-        {
-          'id' => '47616d6520426f7920436f6c6f72',
-          'url' => 'https://www.elastic.co/workplace-search',
-          'title' => 'One-stop answer shop for the virtual workplace',
-          'body' => 'this is also a test'
-        }
-      ]
-    end
-
-    it 'indexes' do
-      VCR.use_cassette(:index_documents) do
-        response = client.index_documents(content_source_key, body: documents)
-
-        expect(response.status).to eq 200
-        expect(response.body)
-          .to eq(
-            { 'results' =>
-              [
-                { 'id' => '4e696e74656e646f203634', 'errors' => [] },
-                { 'id' => '47616d6520426f7920436f6c6f72', 'errors' => [] }
-              ] }
-          )
-      end
-    end
-
-    it 'deletes' do
-      VCR.use_cassette(:index_documents) do
-        client.index_documents(content_source_key, body: documents)
-      end
-
-      VCR.use_cassette(:delete_documents) do
-        response = client.delete_documents(content_source_key, body: documents.map { |doc| doc['id'] })
-        expect(response.status).to eq 200
-        expect(response.body)
-          .to eq(
-            { 'results' =>
-              [
-                { 'id' => '4e696e74656e646f203634', 'success' => true },
-                { 'id' => '47616d6520426f7920436f6c6f72', 'success' => true }
-              ] }
-          )
-      end
-    end
-  end
-
   context 'permissions' do
     let(:user) { 'enterprise_search' }
 
