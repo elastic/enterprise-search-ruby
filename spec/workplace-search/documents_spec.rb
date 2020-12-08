@@ -47,7 +47,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
 
     it 'indexes' do
-      VCR.use_cassette(:index_documents) do
+      VCR.use_cassette('workplace_search/index_documents') do
         response = client.index_documents(content_source_key, body: documents)
 
         expect(response.status).to eq 200
@@ -63,11 +63,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
 
     it 'deletes' do
-      VCR.use_cassette(:index_documents) do
-        client.index_documents(content_source_key, body: documents)
-      end
-
-      VCR.use_cassette(:delete_documents) do
+      VCR.use_cassette('workplace_search/delete_documents') do
         response = client.delete_documents(content_source_key, body: documents.map { |doc| doc['id'] })
         expect(response.status).to eq 200
         expect(response.body)

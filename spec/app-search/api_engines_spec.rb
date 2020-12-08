@@ -26,7 +26,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
   context 'engines' do
     it 'creates an engine' do
-      VCR.use_cassette(:create_engine) do
+      VCR.use_cassette('app_search/create_engine') do
         response = @client.create_engine(name: 'videogames')
 
         expect(response.status).to eq 200
@@ -35,7 +35,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'lists engines' do
-      VCR.use_cassette(:list_engines) do
+      VCR.use_cassette('app_search/list_engines') do
         response = @client.list_engines
 
         expect(response.status).to eq 200
@@ -47,7 +47,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'retrieves an engine by name' do
-      VCR.use_cassette(:get_engine) do
+      VCR.use_cassette('app_search/get_engine') do
         response = @client.engine('videogames')
 
         expect(response.status).to eq 200
@@ -56,7 +56,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'deletes an engine' do
-      VCR.use_cassette(:delete_engine) do
+      VCR.use_cassette('app_search/delete_engine') do
         response = @client.delete_engine('videogames')
 
         expect(response.status).to eq 200
