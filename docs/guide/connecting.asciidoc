@@ -1,0 +1,83 @@
+[[connecting]]
+== Connecting
+
+
+This page contains the information you need to connect and use the Client with Elastic Enterprise Search.
+
+**On this page**
+
+* <<authentication>>
+
+
+[discrete]
+[[authentication]]
+=== Authentication
+
+
+This section contains code snippets to show you how to connect to Enterprise Search, App Search, and Workplace Search.
+
+Each service has its own authentication schemes. Using the `http_auth` property with either a string for a key / token or a tuple of `(username, password)` for basic authentication will set the proper `Authorization` HTTP header on the client instance.
+
+[discrete]
+[[auth-ent]]
+==== Authenticating with Enterprise Search
+
+Enterprise Search supports HTTP basic authentication with a username and password.
+
+HTTP basic authentication uses the `http_auth` parameter by passing in a username and password as a tuple:
+
+[source,rb]
+----------------------------
+http_auth = {user: 'elastic', password: 'password'}
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
+
+ent_client = Elastic::EnterpriseSearch::Client.new(host: host, http_auth: http_auth)
+----------------------------
+
+
+[discrete]
+[[auth-as]]
+==== Authenticating with App Search
+
+In your Elastic App Search dashboard, navigate to Credentials and Create a Key for the client to use. Make sure to read https://www.elastic.co/guide/en/app-search/current/authentication.html[the documentation on Authentication] to understand which key you want to use. Once you've created your key, you need to copy the key value to use on your client.
+
+The App Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one. If you instantiate the App Search client from an existing Enterprise Search Client, it's going to share the HTTP transport instance, so it's going to connect to the same host which is a common scenario. However, if you want to connect to a different host, you should instantiate a new App Search Client on its own.
+
+[source,rb]
+----------------------------
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
+api_key = 'private-api-key'
+
+# From the Enterprise Search client:
+ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
+ent_client.app_search.http_auth = api_key
+
+# On its own
+client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: api_key)
+----------------------------
+
+[discrete]
+[[auth-ws]]
+==== Authenticating with Workplace Search
+
+In your Elastic Workplace Search dashboard navigate to _Sources/Add a Shared Content Source_ and select _Custom API Source_ to create a new source. Name your source (e.g. `Enterprise Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
+
+The Workplace Search client can be accessed from an existing Enterprise Search Client, or you can initialize a new one. If you instantiate the Workplace Search client from an existing Enterprise Search Client, it's going to share the HTTP transport instance, so it's going to connect to the same host, which is a common scenario. However, if you want to connect to a different host, you should instantiate a new Workplace Client on its own:
+
+[source,rb]
+----------------------------
+host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
+access_token = '<access token>'
+content_source_key = '<content source key>'
+
+# From the Enterprise Search client:
+ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
+ent_client.workplace_search.http_auth = access_token
+ent_client.workplace_search.index_documents(content_source_key, body: documents)
+
+# On its own
+workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
+  host: host,
+  http_auth: access_token
+)
+----------------------------

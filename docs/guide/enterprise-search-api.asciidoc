@@ -1,0 +1,46 @@
+[[enterprise-search-api]]
+== Enterprise Search API
+
+=== Health API
+
+[source,rb]
+----------------------------
+> response = ent_client.health
+> response.body
+ => {"name"=>"...",
+     "version"=>{"number"=>"7.10.0", "build_hash"=>"...", "build_date"=>"..."},
+     "jvm"=>{...},
+     "filebeat"=>{...},
+     "system"=>{...}
+    }
+----------------------------
+
+=== Version API
+
+[source,rb]
+----------------------------
+> response = ent_client.version
+> response.body
+ => {"number"=>"7.10.0", "build_hash"=>"...", "build_date"=>"..."}
+----------------------------
+
+=== Managing Read-Only mode:
+
+[source,rb]
+----------------------------
+# Set read-only flag state
+ent_client.put_read_only(enabled: false)
+
+# Get read-only flag state
+ent_client.read_only
+----------------------------
+
+=== Stats API
+
+[source,rb]
+----------------------------
+> ent_client.stats.body
+ => {"app"=>{"pid"=>1, "start"=>"...", "end"=>"", "metrics"=>{...}},
+     "queues"=>{"connectors"=>{...}, "document_destroyer"=>{...}, "engine_destroyer"=>{...}, "index_adder"=>{...}, ...},
+     "connectors"=>{"alive"=>true, "pool"=>{...}, "job_store"=>{...}}}}
+----------------------------
