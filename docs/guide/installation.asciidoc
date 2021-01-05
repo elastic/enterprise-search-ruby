@@ -9,6 +9,8 @@ $ gem install elastic-enterprise-search --pre
 ---------------------------------------------------
 
 Or add it to your project's Gemfile:
+
+[source,sh]
 ---------------------------------------------------
 gem 'elastic-enterprise-search'
 ---------------------------------------------------
