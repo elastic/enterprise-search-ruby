@@ -7,7 +7,7 @@
 ----------------------------
 # Index Documents
 documents = [
-  { id: 'e68fbc2688f1', 'title: 'Frankenstein; Or, The Modern Prometheus', author: 'Mary Wollstonecraft Shelley' },
+  { id: 'e68fbc2688f1', title: 'Frankenstein; Or, The Modern Prometheus', author: 'Mary Wollstonecraft Shelley' },
   { id: '0682bb06af1a', title: 'Jungle Tales', author: 'Horacio Quiroga' },
   { id: '75015d85370d', title: 'Lenguas de diamante', author: 'Juana de Ibarbourou' },
   { id: 'c535e226aee3', title: 'Metamorphosis', author: 'Franz Kafka' }
