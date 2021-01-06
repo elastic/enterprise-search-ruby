@@ -93,4 +93,15 @@ describe Elastic::EnterpriseSearch::Client do
       expect(client.workplace_search.host).to eq host
     end
   end
+
+  context 'meta-header' do
+    let(:transport) { Elastic::EnterpriseSearch::Client.new.instance_variable_get('@transport') }
+    let(:subject) { transport.transport.connections.first.connection.headers }
+    let(:regexp) { /^[a-z]{1,}=[a-z0-9.\-]{1,}(?:,[a-z]{1,}=[a-z0-9._-]+)*$/ }
+
+    it 'sends the correct meta header to transport' do
+      expect(subject['x-elastic-client-meta']).to match(regexp)
+      expect(subject['x-elastic-client-meta']).to start_with("ent=#{Elastic::EnterpriseSearch::VERSION}")
+    end
+  end
 end
