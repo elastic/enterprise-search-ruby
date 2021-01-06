@@ -17,12 +17,13 @@
 
 # frozen_string_literal: true
 
-# TODO: CONFIG require 'elastic/enterprise-search/configuration'
 require 'elastic/enterprise-search/request'
 require 'elastic/enterprise-search/utils'
 require 'elasticsearch-transport'
 
 module Elastic
+  META_HEADER_SERVICE_VERSION = [:ent, Elastic::EnterpriseSearch::VERSION].freeze
+
   module EnterpriseSearch
     # API client for the {Elastic Enterprise Search API}[https://www.elastic.co/enterprise-search].
     # This is the main client from which the Workplace Search and App Search clients inherit.
@@ -59,6 +60,8 @@ module Elastic
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
       # @option options [Boolean] :log Use the default logger (disabled by default)
       # @option arguments [Object] :logger An instance of a Logger-compatible object
+      # @option enable_meta_header [Boolean] :enable_meta_header Enable sending the meta data header to Cloud.
+      #                                                          (Default: true)
       def initialize(options = {})
         @options = options
         @transport = transport
@@ -73,7 +76,8 @@ module Elastic
             request_timeout: overall_timeout,
             transport_options: {
               request: { open_timeout: open_timeout }
-            }
+            },
+            enable_meta_header: @options[:enable_meta_header] || true
           )
       end
 
