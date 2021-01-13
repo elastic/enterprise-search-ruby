@@ -21,7 +21,7 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Schema - Retrieve current schema for then engine
+        # Schema - Retrieve current schema for the engine
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
