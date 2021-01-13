@@ -24,21 +24,21 @@ module Elastic
         # ExternalIdentities - Deletes an external identity
         # Deletes an external identity
         #
-        # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option user [String] The username in context (*Required*)
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#remove-external-identity
         #
-        def delete_external_identity(content_source_key, arguments = {})
-          raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
+        def delete_external_identity(content_source_id, arguments = {})
+          raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
           raise ArgumentError, "Required parameter 'user' missing" unless arguments[:user]
 
           user = arguments[:user]
 
           request(
             :delete,
-            "api/ws/v1/sources/#{content_source_key}/external_identities/#{user}/",
+            "api/ws/v1/sources/#{content_source_id}/external_identities/#{user}/",
             arguments,
             {}
           )

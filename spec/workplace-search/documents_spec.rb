@@ -22,7 +22,7 @@ require 'spec_helper'
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
   let(:access_token) { ENV['ELASTIC_WORKPLACE_TOKEN'] || 'access_token' }
-  let(:content_source_key) { ENV['ELASTIC_WORKPLACE_SOURCE_KEY'] || 'content_source_key' }
+  let(:content_source_id) { ENV['ELASTIC_WORKPLACE_SOURCE_ID'] || 'content_source_id' }
   let(:client) do
     Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
       host: host,
@@ -48,7 +48,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'indexes' do
       VCR.use_cassette('workplace_search/index_documents') do
-        response = client.index_documents(content_source_key, body: documents)
+        response = client.index_documents(content_source_id, body: documents)
 
         expect(response.status).to eq 200
         expect(response.body)
@@ -64,7 +64,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'deletes' do
       VCR.use_cassette('workplace_search/delete_documents') do
-        response = client.delete_documents(content_source_key, body: documents.map { |doc| doc['id'] })
+        response = client.delete_documents(content_source_id, body: documents.map { |doc| doc['id'] })
         expect(response.status).to eq 200
         expect(response.body)
           .to eq(
