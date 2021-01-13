@@ -22,7 +22,7 @@ require 'spec_helper'
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
   let(:access_token) { ENV['ELASTIC_WORKPLACE_TOKEN'] || 'access_token' }
-  let(:content_source_key) { ENV['ELASTIC_WORKPLACE_SOURCE_KEY'] || 'content_source_key' }
+  let(:content_source_id) { ENV['ELASTIC_WORKPLACE_SOURCE_ID'] || 'content_source_id' }
   let(:client) do
     Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
       host: host,
@@ -37,7 +37,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     it 'creates an external identity' do
       VCR.use_cassette('workplace_search/create_external_identity') do
         body = { user: user, source_user_id: source_user_id }
-        response = client.create_external_identity(content_source_key, body: body)
+        response = client.create_external_identity(content_source_id, body: body)
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'source_user_id' => source_user_id, 'user' => user })
@@ -46,7 +46,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'retrieves an external identity' do
       VCR.use_cassette('workplace_search/retrieve_external_identity') do
-        response = client.external_identity(content_source_key, user: user)
+        response = client.external_identity(content_source_id, user: user)
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'source_user_id' => source_user_id, 'user' => user })
@@ -55,7 +55,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'lists external identities' do
       VCR.use_cassette('workplace_search/list_external_identities') do
-        response = client.list_external_identities(content_source_key)
+        response = client.list_external_identities(content_source_id)
 
         expect(response.status).to eq 200
         expect(response.body['results']).to eq([{ 'source_user_id' => source_user_id, 'user' => user }])
@@ -65,7 +65,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     it 'updates an external identity' do
       VCR.use_cassette('workplace_search/put_external_identity') do
         body = { source_user_id: 'example2@elastic.co' }
-        response = client.put_external_identity(content_source_key, user: user, body: body)
+        response = client.put_external_identity(content_source_id, user: user, body: body)
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'source_user_id' => 'example2@elastic.co', 'user' => user })
@@ -74,7 +74,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'deletes an external identity' do
       VCR.use_cassette('workplace_search/delete_external_identity') do
-        response = client.delete_external_identity(content_source_key, user: user)
+        response = client.delete_external_identity(content_source_id, user: user)
 
         expect(response.status).to eq 200
         expect(response.body).to eq 'ok'
