@@ -24,7 +24,7 @@ module Elastic
         # Permissions - Creates a new set of permissions or over-writes all existing permissions
         # Create a set of permissions or overwrite existing permissions
         #
-        # @param content_source_key [String] Unique key for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option user [String] The username in context (*Required*)
         # @option body - The request body
@@ -32,8 +32,8 @@ module Elastic
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#add-all
         #
-        def put_user_permissions(content_source_key, arguments = {})
-          raise ArgumentError, "Required parameter 'content_source_key' missing" unless content_source_key
+        def put_user_permissions(content_source_id, arguments = {})
+          raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
           raise ArgumentError, "Required parameter 'user' missing" unless arguments[:user]
 
           user = arguments[:user]
@@ -42,7 +42,7 @@ module Elastic
 
           request(
             :put,
-            "api/ws/v1/sources/#{content_source_key}/permissions/#{user}/",
+            "api/ws/v1/sources/#{content_source_id}/permissions/#{user}/",
             arguments,
             body
           )

@@ -93,7 +93,7 @@ ent_client.read_only
 
 ### Workplace Search
 
-In your Elastic Workplace Search dashboard navigate to _Sources/Add a Shared Content Source_ and select _Custom API Source_ to create a new source. Name your source (e.g. `Enterprise Search Ruby Client`) and once it's created you'll get an `access token` and a `key`. You'll need these in the following steps.
+In your Elastic Workplace Search dashboard navigate to _Sources/Add a Shared Content Source_ and select _Custom API Source_ to create a new source. Name your source (e.g. `Enterprise Search Ruby Client`) and once it's created you'll get an `access token` and a `ID`. You'll need these in the following steps.
 
 #### Instantiation
 
@@ -103,12 +103,12 @@ The Workplace Search client can be accessed from an existing Enterprise Search C
 # Prerequisites
 host = 'https://id.ent-search.europe-west2.gcp.elastic-cloud.com'
 access_token = '<access token>'
-content_source_key = '<content source key>'
+content_source_id = '<content source id>'
 
 # From the Enterprise Search client:
 ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
 ent_client.workplace_search.http_auth = access_token
-ent_client.workplace_search.index_documents(content_source_key, body: documents)
+ent_client.workplace_search.index_documents(content_source_id, body: documents)
 
 # On its own
 workplace_search_client = Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(
@@ -128,36 +128,36 @@ documents = [
   { id: 'c535e226aee3', title: 'Metamorphosis', author: 'Franz Kafka' }
 ]
 
-response = client.index_documents(content_source_key, body: documents)
+response = client.index_documents(content_source_id, body: documents)
 
 # Delete Documents
-response = client.delete_documents(content_source_key, body: ['e68fbc2688f1', 'c535e226aee3'])
+response = client.delete_documents(content_source_id, body: ['e68fbc2688f1', 'c535e226aee3'])
 ```
 
 #### Permissions
 
 ```ruby
 # List permissions
-client.list_permissions(content_source_key)
+client.list_permissions(content_source_id)
 
 # Get a user permissions
-response = client.user_permissions(content_source_key, { user: 'enterprise_search' })
+response = client.user_permissions(content_source_id, { user: 'enterprise_search' })
 
 # Clear user permissions
-client.put_user_permissions(content_source_key, { permissions: [], user: 'enterpise_search' })
+client.put_user_permissions(content_source_id, { permissions: [], user: 'enterpise_search' })
 
 # Add permissions to a user
 client.add_user_permissions(
-  content_source_key,
+  content_source_id,
   { permissions: ['permission1', 'permission2'], user: user }
 )
 
 # Updates user permissions
-client.put_user_permissions(content_source_key, { permissions: [], user: user })
+client.put_user_permissions(content_source_id, { permissions: [], user: user })
 
 # Remove permissions from a user
 client.remove_user_permissions(
-  content_source_key,
+  content_source_id,
   { permissions: ['permission1', 'permission2'], user: user }
 )
 ```
@@ -167,20 +167,20 @@ client.remove_user_permissions(
 ```ruby
 # Create external identities
 body = { user: 'elastic_user', source_user_id: 'example@elastic.co' }
-client.create_external_identity(content_source_key, body: body)
+client.create_external_identity(content_source_id, body: body)
 
 # Retrieve an external identity
-client.external_identity(content_source_key, user: 'elastic_user')
+client.external_identity(content_source_id, user: 'elastic_user')
 
 # List external identities
-client.list_external_identities(content_source_key)
+client.list_external_identities(content_source_id)
 
 # Update external identity
 body = { source_user_id: 'example2@elastic.co' }
-client.put_external_identity(content_source_key, user: 'elastic_user', body: body)
+client.put_external_identity(content_source_id, user: 'elastic_user', body: body)
 
 # Delete an external identity
-client.delete_external_identity(content_source_key, user: 'elastic_user')
+client.delete_external_identity(content_source_id, user: 'elastic_user')
 ```
 
 ### App Search
