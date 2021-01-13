@@ -2,18 +2,18 @@
 http_interactions:
 - request:
     method: delete
-    uri: http://localhost:3002/api/ws/v1/sources/content_source_key/external_identities/elastic_user/?user=elastic_user
+    uri: http://localhost:3002/api/ws/v1/sources/content_source_id/external_identities/elastic_user/?user=elastic_user
     body:
       encoding: UTF-8
       string: "{}"
     headers:
       User-Agent:
-      - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
-        7.9.0)'
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.0)'
       Content-Type:
       - application/json
       Authorization:
-      - Bearer api_key
+      - Bearer access_token
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -32,20 +32,22 @@ http_interactions:
       Content-Type:
       - application/json;charset=utf-8
       Etag:
-      - W/"72054d9a6fbdcc7df012e19f32345b65"
+      - W/"72054d9a6fbdcc7df012e19f32345b65--gzip"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - d101a29e-50e1-453e-8a8a-3596efebad0d
+      - 5f3224eb-705b-4164-99df-04cb6329aa4a
       X-Runtime:
-      - '0.102484'
+      - '0.064770'
+      Vary:
+      - Accept-Encoding, User-Agent
       Transfer-Encoding:
       - chunked
       Server:
-      - Jetty(9.4.30.v20200611)
+      - Jetty(9.4.33.v20201020)
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: '"ok"'
     http_version: 
-  recorded_at: Tue, 08 Dec 2020 16:48:01 GMT
+  recorded_at: Wed, 13 Jan 2021 16:01:57 GMT
 recorded_with: VCR 3.0.3
