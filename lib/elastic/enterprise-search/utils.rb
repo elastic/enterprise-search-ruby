@@ -31,6 +31,13 @@ module Elastic
         output
       end
 
+      def self.symbolize_keys(hash)
+        hash.each_with_object({}) do |(key, value), out|
+          new_key = key.respond_to?(:to_sym) ? key.to_sym : key
+          out[new_key] = value
+        end
+      end
+
       def host=(host)
         @options[:host] = if host.end_with?('/')
                             host

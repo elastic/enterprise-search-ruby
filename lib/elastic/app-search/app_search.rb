@@ -17,6 +17,8 @@
 
 # frozen_string_literal: true
 
+require 'jwt'
+
 module Elastic
   module EnterpriseSearch
     # App Search client for Enterprise Search.
@@ -37,15 +39,30 @@ module Elastic
       class Client < Elastic::EnterpriseSearch::Client
         include Elastic::EnterpriseSearch::AppSearch::Actions
         include Elastic::EnterpriseSearch::AppSearch::Request
-        include Elastic::EnterpriseSearch::Utils
 
-        # Crete a new Elastic::EnterpriseSearch::AppSearch::Client client
+        # Create a new Elastic::EnterpriseSearch::AppSearch::Client client
         #
         # @param options [Hash] a hash of configuration options
         # @option options [String] :host_identifier A unique string that represents your account.
         # @option options [String] :api_key Part of the credentials
         def initialize(options = {})
           super(options)
+        end
+
+        SIGNED_KEY_ALGORITHM = 'HS256'
+
+        class << self
+          # Build a JWT for authentication
+          #
+          # @param [String] api_key the API Key to sign the request with
+          # @param [String] api_key_name the unique name for the API Key
+          # @option options see the {App Search API}[https://swiftype.com/documentation/app-search/] for supported search options.
+          #
+          # @return [String] the JWT to use for authentication
+          def create_signed_search_key(api_key, api_key_name, options = {})
+            payload = Elastic::EnterpriseSearch::Utils.symbolize_keys(options).merge(api_key_name: api_key_name)
+            JWT.encode(payload, api_key, SIGNED_KEY_ALGORITHM)
+          end
         end
 
         def http_auth
