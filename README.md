@@ -204,6 +204,30 @@ ent_client.app_search.http_auth = api_key
 client = Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: api_key)
 ```
 
+##### Signed search key
+
+App Search also supports [authenticating with signed search keys](https://www.elastic.co/guide/en/app-search/current/authentication.html#authentication-signed). Here's an example on how to use it:
+
+```ruby
+public_search_key = 'search-key-value'
+# This name must match the name of the key above from your App Search dashboard
+public_search_key_name = 'search-key'
+
+# Say we have documents with a title and an author. We want this key to be able
+#  to search by title, but only return the author:
+options = {
+  search_fields: { title: {} },
+  result_fields: { author: { raw: {} } }
+}
+
+signed_search_key = Elastic::EnterpriseSearch::AppSearch::Client.create_signed_search_key(public_search_key, public_search_key_name, options)
+
+client = Elastic::EnterpriseSearch::AppSearch::Client.new(http_auth: signed_search_key)
+
+client.search(engine_name, query: 'jungle')
+```
+
+
 #### Engines
 
 ```ruby
