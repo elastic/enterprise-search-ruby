@@ -253,6 +253,25 @@ query = {
 client.search(engine_name, query)
 ```
 
+#### Synonym Sets
+
+```ruby
+# Create a synonym set
+client.create_synonym_set(engine_name, body: {['synonym1', 'synonym2']})
+
+# List synonym sets
+client.list_synonym_sets(engine_name)
+
+# Retrieve a synonym set by id
+client.synonym_set(engine_name, synonym_set_id: 'id')
+
+# Update a synonym set by id
+client.put_synonym_set(engine_name, synonym_set_id: 'id', body: {synonyms: ['synonym2', 'synonym3']})
+
+# Delete a synonym set
+client.delete_synonym_set(engine_name, synonym_set_id: id)
+```
+
 #### Other API Endpoints
 
 ```ruby
