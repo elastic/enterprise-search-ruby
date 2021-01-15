@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/api/as/v1/engines/videogames/search_settings/
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"bc93cfce4dd0c9e2982dfa123395edd3--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - bdadce81-d567-4838-a2d3-f4f28e2dcca8
+      X-Runtime:
+      - '0.022728'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"search_fields":{"id":{"weight":1}},"result_fields":{"id":{"raw":{}}},"boosts":{}}'
+    http_version: 
+  recorded_at: Fri, 15 Jan 2021 20:15:03 GMT
+recorded_with: VCR 3.0.3
