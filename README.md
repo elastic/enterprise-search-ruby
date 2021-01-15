@@ -313,6 +313,37 @@ client.put_synonym_set(engine_name, synonym_set_id: 'id', body: {synonyms: ['syn
 client.delete_synonym_set(engine_name, synonym_set_id: id)
 ```
 
+#### Curations
+
+```ruby
+# Create a curation
+client.create_curation(
+         engine_name,
+         queries: ['query1'],
+         promoted: ['doc-id1'],
+         hidden: ['doc-id2']
+       )
+
+# Retrieve a curation by id:
+client.curation(engine_name, curation_id: 'cur-id')
+
+# Update an existing curation:
+client.put_curation(
+  engine_name,
+  curation_id: 'cur-id',
+  queries: ['query1'],
+  promoted: ['doc-id2'],
+  hidden: ['doc-id1']
+)
+
+# List existing curations:
+client.list_curations(engine_name)
+
+# Delete a curation:
+client.delete_curation(engine_name, curation_id: 'cur-id')
+```
+
+
 #### Other API Endpoints
 
 ```ruby
