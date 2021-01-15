@@ -227,7 +227,6 @@ client = Elastic::EnterpriseSearch::AppSearch::Client.new(http_auth: signed_sear
 client.search(engine_name, query: 'jungle')
 ```
 
-
 #### Engines
 
 ```ruby
@@ -242,6 +241,24 @@ client.engine('videogames')
 
 # Delete an engine
 client.delete_engine('videogames')
+```
+
+#### Meta Engines
+
+```ruby
+# Create a meta engine:
+body = {
+  name: engine_name,
+  type: 'meta',
+  source_engines: [ 'books', 'videogames' ]
+}
+client.create_engine(name: engine_name, body: body)
+
+# Add a source engine to a meta engine:
+client.add_meta_engine_source(meta_engine_name, body: [source_engine_name])
+
+# Remove a source enginge from a meta engine:
+client.delete_meta_engine_source(meta_engine_name, body: [source_engine_name])
 ```
 
 #### Documents
