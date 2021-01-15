@@ -332,6 +332,8 @@ client.top_queries_analytics(engine_name)
 # Clicks Analytics - Returns the number of clicks received by a document in descending order
 client.top_clicks_analytics(engine_name, query: {})
 
+# Search Settings - Returns current search settings for an engine
+client.search_settings(engine_name)
 ```
 
 ## HTTP Layer
