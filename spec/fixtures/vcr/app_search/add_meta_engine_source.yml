@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/engines/?name=comicbooks
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"aac451759143f353e9b928edc402526a--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 57603887-9e92-4392-abfc-a72c86079c36
+      X-Runtime:
+      - '0.627512'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"comicbooks","type":"default","language":null,"document_count":0}'
+    http_version: 
+  recorded_at: Fri, 15 Jan 2021 16:30:41 GMT
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/engines/new-meta-engine/source_engines/
+    body:
+      encoding: UTF-8
+      string: '["comicbooks"]'
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"50161cac2a450348c6cba677e3abbdfe--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e56d499d-a1e9-4b7b-a707-e7432c7fc48a
+      X-Runtime:
+      - '0.079150'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"new-meta-engine","type":"meta","source_engines":["videogames","books","comicbooks"],"document_count":15}'
+    http_version: 
+  recorded_at: Fri, 15 Jan 2021 16:30:41 GMT
+recorded_with: VCR 3.0.3
