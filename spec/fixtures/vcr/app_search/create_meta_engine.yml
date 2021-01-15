@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/engines/?name=new-meta-engine
+    body:
+      encoding: UTF-8
+      string: '{"name":"new-meta-engine","type":"meta","source_engines":["books","videogames"]}'
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"9e5a95d09d5c358b9bec592ec07f7ca6--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - dba9402c-ae0f-4cc6-84c4-bd7101d08fcb
+      X-Runtime:
+      - '0.074167'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"new-meta-engine","type":"meta","source_engines":["videogames","books"],"document_count":15}'
+    http_version: 
+  recorded_at: Fri, 15 Jan 2021 16:21:56 GMT
+recorded_with: VCR 3.0.3
