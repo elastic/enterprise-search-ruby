@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/engines/books/curations/?hidden%5B%5D=doc-600070f60e9e05e6b7037729&promoted%5B%5D=doc-600070f60e9e05e6b7037721&queries%5B%5D=jungle
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"f237403dcc37f3df49fb60ba5934ca53--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 688baba3-423b-4ee3-be91-bd89b555cc3d
+      X-Runtime:
+      - '0.081771'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"cur-6002097c0e9e053992037769"}'
+    http_version: 
+  recorded_at: Fri, 15 Jan 2021 21:30:36 GMT
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/engines/books/search/?query=jungle
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      X-St-Internal-Rails-Version:
+      - 4.2.11.3
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"73cba23cd1d02240b945e96542ad1f28--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - bc1f25d2-609d-4cdc-ad2e-6b9ac8b3b530
+      X-Runtime:
+      - '0.052593'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"alerts":[],"warnings":[],"page":{"current":1,"total_pages":1,"total_results":1,"size":10},"engine":{"name":"books","type":"default"},"request_id":"bc1f25d2-609d-4cdc-ad2e-6b9ac8b3b530"},"results":[{"title":{"raw":"Jungle
+        Tales"},"_meta":{"id":"doc-600070f60e9e05e6b7037721","engine":"books","score":1.0},"id":{"raw":"doc-600070f60e9e05e6b7037721"},"author":{"raw":"Horacio
+        Quiroga"}}]}'
+    http_version: 
+  recorded_at: Fri, 15 Jan 2021 21:30:36 GMT
+recorded_with: VCR 3.0.3
