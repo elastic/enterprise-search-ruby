@@ -17,26 +17,30 @@
 
 # frozen_string_literal: true
 
-module Elastic
-  module EnterpriseSearch
-    # Util functions
-    module Utils
-      DEFAULT_HOST = 'http://localhost:3002'
+require 'spec_helper'
+require_relative './../webmock_requires'
 
-      def stringify_keys(hash)
-        output = {}
-        hash.each do |key, value|
-          output[key.to_s] = value
-        end
-        output
-      end
+describe Elastic::EnterpriseSearch::Utils do
+  let(:subject) { Class.new { extend Elastic::EnterpriseSearch::Utils } }
+  let(:symbolized_hash) do
+    { title: 'This is the title',
 
-      def self.symbolize_keys(hash)
-        hash.each_with_object({}) do |(key, value), out|
-          new_key = key.respond_to?(:to_sym) ? key.to_sym : key
-          out[new_key] = value
-        end
-      end
-    end
+      year: 1985,
+      description: 'A generic description' }
+  end
+  let(:stringified_hash) do
+    {
+      'title' => 'This is the title',
+      'year' => 1985,
+      'description' => 'A generic description'
+    }
+  end
+
+  it 'stringifies keys in a hash' do
+    expect(subject.stringify_keys(symbolized_hash)).to eq stringified_hash
+  end
+
+  it 'symbolizes keys in a hash' do
+    expect(described_class.symbolize_keys(stringified_hash)).to eq symbolized_hash
   end
 end
