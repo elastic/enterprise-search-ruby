@@ -22,12 +22,26 @@ require_relative './api_spec_helper'
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'schema' do
+    let(:engine_name) { 'films' }
+
     it 'returns an engine schema' do
-      VCR.use_cassette('app_search/schema') do
-        response = @client.schema('books')
+      VCR.use_cassette('app_search/api_schema') do
+        response = @client.schema(engine_name)
 
         expect(response.status).to eq 200
-        expect(response.body).to eq({ 'author' => 'text', 'title' => 'text' })
+        expect(response.body).to eq({ 'title' => 'text', 'year' => 'number', 'director' => 'text' })
+      end
+    end
+
+    it 'updates a schema for an engine' do
+      VCR.use_cassette('app_search/api_put_schema') do
+        response = @client.put_schema(engine_name, body: { year: 'text' })
+
+        expect(response.status).to eq 200
+        expect(response.body).to eq({ 'title' => 'text', 'year' => 'text', 'director' => 'text' })
+
+        response = @client.schema(engine_name)
+        expect(response.body).to eq({ 'title' => 'text', 'year' => 'text', 'director' => 'text' })
       end
     end
   end
