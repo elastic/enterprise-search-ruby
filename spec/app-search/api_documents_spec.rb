@@ -26,7 +26,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
   context 'documents' do
     it 'indexes and lists documents' do
-      VCR.use_cassette('app_search/index_documents') do
+      VCR.use_cassette('app_search/api_index_documents') do
         documents = [
           { name: 'Super Lorenzo Bros', year: 1985 },
           { name: 'Pack-Man', year: 1980 },
@@ -44,6 +44,20 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
         expect(response.status).to eq 200
         expect(response.body['results'].count).to eq 4
+      end
+    end
+
+    it 'retrieves documents by ID' do
+      VCR.use_cassette('app_search/api_documents') do
+        ids = ['doc-6005c044ad7f0c8b464b8cc4', 'doc-6005c044ad7f0c8b464b8cc3']
+        response = @client.documents(engine_name, ids: ids)
+
+        expect(response.status).to eq 200
+        expect(response.body.count).to eq 2
+        expect(response.body).to include(
+          { 'name' => 'Galaxxian', 'year' => '1979', 'id' => 'doc-6005c044ad7f0c8b464b8cc4' },
+          { 'name' => 'Pack-Man', 'year' => '1980', 'id' => 'doc-6005c044ad7f0c8b464b8cc3' }
+        )
       end
     end
 
