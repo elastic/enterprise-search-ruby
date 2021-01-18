@@ -372,6 +372,10 @@ client.search_settings(engine_name)
 # Update Search Settings
 client.put_search_settings(engine_name, body: body)
 
+# Reset search settings
+# Warning: This means your settings are wiped! Back them up!
+client.reset_search_settings(engine_name)
+
 # Click - Send data about clicked results
 client.log_clickthrough(engine_name, query_text: 'query', document_id: 'doc-id')
 ```
