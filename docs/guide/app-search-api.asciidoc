@@ -148,6 +148,9 @@ client.top_clicks_analytics(engine_name, query: {})
 # Search Settings - Returns current search settings for an engine
 client.search_settings(engine_name)
 
+# Update Search Settings
+client.put_search_settings(engine_name, body: body)
+
 # Click - Send data about clicked results
 client.log_clickthrough(engine_name, query_text: 'query', document_id: 'doc-id')
 ----------------------------

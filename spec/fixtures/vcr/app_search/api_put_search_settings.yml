@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:3002/api/as/v1/engines/videogames/search_settings/
+    method: put
+    uri: http://localhost:3002/api/as/v1/engines/films/search_settings/
     body:
       encoding: UTF-8
-      string: "{}"
+      string: '{"boosts":{"year":[{"type":"proximity","function":"linear","center":1950,"factor":9}]}}'
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
@@ -37,20 +37,20 @@ http_interactions:
       - Accept-Encoding, User-Agent
       - Origin
       Etag:
-      - W/"bc93cfce4dd0c9e2982dfa123395edd3--gzip"
+      - W/"ac8f60857281ea02737b3888cfed3576--gzip"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - bdadce81-d567-4838-a2d3-f4f28e2dcca8
+      - b4c0a837-3109-444a-a267-20f845a4c982
       X-Runtime:
-      - '0.022728'
+      - '0.059758'
       Transfer-Encoding:
       - chunked
       Server:
       - Jetty(9.4.33.v20201020)
     body:
       encoding: ASCII-8BIT
-      string: '{"search_fields":{"id":{"weight":1}},"result_fields":{"id":{"raw":{}}},"boosts":{}}'
+      string: '{"search_fields":{"director":{"weight":1},"title":{"weight":1},"id":{"weight":1}},"result_fields":{"year":{"raw":{}},"director":{"raw":{}},"id":{"raw":{}},"title":{"raw":{}}},"boosts":{"year":[{"type":"proximity","function":"linear","center":1950,"factor":9}]}}'
     http_version: 
-  recorded_at: Fri, 15 Jan 2021 20:15:03 GMT
+  recorded_at: Mon, 18 Jan 2021 16:08:06 GMT
 recorded_with: VCR 3.0.3
