@@ -17,6 +17,8 @@
 
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start
 require 'elastic/enterprise_search'
 require 'rspec'
 require 'vcr'
