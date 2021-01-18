@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/engines/films/schema/
+    body:
+      encoding: UTF-8
+      string: '{"year":"text"}'
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"f3b77581e8f8954715c0bcb50d3e34ad--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 942c91da-f6c3-4a25-b0cc-592455145d5d
+      X-Runtime:
+      - '0.189873'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"year":"text","director":"text","title":"text"}'
+    http_version: 
+  recorded_at: Mon, 18 Jan 2021 15:09:05 GMT
+- request:
+    method: get
+    uri: http://localhost:3002/api/as/v1/engines/films/schema/
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-App-Search-Version:
+      - 7.12.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"f3b77581e8f8954715c0bcb50d3e34ad--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 7b9625f5-5010-4e49-87ed-a588f8b4d93e
+      X-Runtime:
+      - '0.045827'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"year":"text","director":"text","title":"text"}'
+    http_version: 
+  recorded_at: Mon, 18 Jan 2021 15:09:05 GMT
+recorded_with: VCR 3.0.3
