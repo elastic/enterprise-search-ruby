@@ -41,6 +41,8 @@ module Elastic
 
           body = arguments.delete(:body) || {}
 
+          arguments['query'] = arguments.delete(:query_text)
+
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/click/",
