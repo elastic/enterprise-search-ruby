@@ -63,5 +63,14 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
         )
       end
     end
+
+    it 'resets search settings' do
+      VCR.use_cassette('app_search/api_reset_search_settings') do
+        response = @client.reset_search_settings(engine_name)
+
+        expect(response.body['boosts']).to eq({})
+        expect(response.status).to eq 200
+      end
+    end
   end
 end
