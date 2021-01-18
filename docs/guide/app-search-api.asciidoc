@@ -54,6 +54,9 @@ client.index_documents(engine_name, body: document)
 # List documents
 client.list_documents(engine_name)
 
+# Get document(s) by ID:
+client.documents(engine_name, ids: [id1, id2])
+
 # Delete a document
 client.delete_documents(engine_name, body: [document_id])
 
