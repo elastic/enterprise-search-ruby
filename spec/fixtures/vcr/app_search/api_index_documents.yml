@@ -9,8 +9,8 @@ http_interactions:
         the hedgehog","year":"1991"}]'
     headers:
       User-Agent:
-      - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
-        8.0.0.pre)'
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.10.1)'
       Content-Type:
       - application/json
       Authorization:
@@ -31,26 +31,27 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       X-App-Search-Version:
-      - 7.10.0
+      - 7.12.0
       Content-Type:
       - application/json;charset=utf-8
       Vary:
+      - Accept-Encoding, User-Agent
       - Origin
       Etag:
-      - W/"e067d434e0e34343404ce8f4b2f8603a"
+      - W/"0e54f154c0e6d89301a031938d976aed--gzip"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 6532d2f0-302d-44e5-bfc1-1f1045e96707
+      - b6c642fe-f617-42c6-9766-222758db6620
       X-Runtime:
-      - '0.264329'
+      - '0.089304'
       Transfer-Encoding:
       - chunked
       Server:
-      - Jetty(9.4.30.v20200611)
+      - Jetty(9.4.33.v20201020)
     body:
-      encoding: UTF-8
-      string: '[{"id":"doc-5fa2d123389ab9aa235be3c2","errors":[]},{"id":"doc-5fa2d123389ab9aa235be3c3","errors":[]},{"id":"doc-5fa2d123389ab9aa235be3c4","errors":[]},{"id":"doc-5fa2d123389ab9aa235be3c5","errors":[]}]'
+      encoding: ASCII-8BIT
+      string: '[{"id":"doc-6005c044ad7f0c8b464b8cc2","errors":[]},{"id":"doc-6005c044ad7f0c8b464b8cc3","errors":[]},{"id":"doc-6005c044ad7f0c8b464b8cc4","errors":[]},{"id":"doc-6005c044ad7f0c8b464b8cc5","errors":[]}]'
     http_version: 
-  recorded_at: Wed, 04 Nov 2020 16:04:51 GMT
+  recorded_at: Mon, 18 Jan 2021 17:07:16 GMT
 recorded_with: VCR 3.0.3
