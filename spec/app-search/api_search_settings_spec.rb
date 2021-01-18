@@ -21,14 +21,46 @@ require_relative './api_spec_helper'
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'search settings' do
+    let(:engine_name) { 'films' }
+
     it 'returns engine search settings' do
-      VCR.use_cassette('app_search/search_settings') do
-        response = @client.search_settings('videogames')
+      VCR.use_cassette('app_search/api_search_settings') do
+        response = @client.search_settings(engine_name)
 
         expect(response.status).to eq 200
         expect(response.body['search_fields'])
         expect(response.body['result_fields'])
         expect(response.body['boosts'])
+      end
+    end
+
+    it 'updates search settings' do
+      VCR.use_cassette('app_search/api_put_search_settings') do
+        body = {
+          boosts: {
+            year: [
+              {
+                type: 'proximity',
+                function: 'linear',
+                center: 1950,
+                factor: 9
+              }
+            ]
+          }
+        }
+        response = @client.put_search_settings(engine_name, body: body)
+
+        expect(response.status).to eq 200
+        expect(response.body['boosts']).to eq(
+          {
+            'year' => [
+              { 'type' => 'proximity',
+                'function' => 'linear',
+                'center' => 1950,
+                'factor' => 9 }
+            ]
+          }
+        )
       end
     end
   end
