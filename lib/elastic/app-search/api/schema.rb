@@ -25,8 +25,6 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/schema.html#schema-read
         #

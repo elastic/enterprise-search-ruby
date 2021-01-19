@@ -27,8 +27,6 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option filters [Array] Analytics filters
         # @option interval [String] You can define an interval along with your date range. Can be either hour or day
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/counts.html
         #
