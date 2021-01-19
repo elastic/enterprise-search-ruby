@@ -25,8 +25,8 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body - The request body
-        #
+        # @option body [Object] Search request parameters
+        #                       Properties: analytics, boost, facets, filters, group, page, query, result_fields, search_fields, sort
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search.html#search-single
         #
