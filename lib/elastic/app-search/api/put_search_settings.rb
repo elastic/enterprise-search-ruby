@@ -25,8 +25,8 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body - The request body
-        #
+        # @param body [Object] Search settings (*Required*)
+        #                      Properties: boosts, search_fields
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update
         #

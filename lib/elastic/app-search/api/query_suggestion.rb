@@ -28,8 +28,6 @@ module Elastic
         # @option query [String] A partial query for which to receive suggestions (*Required*)
         # @option fields [Array] List of fields to use to generate suggestions. Defaults to all text fields
         # @option size [Integer] Number of query suggestions to return. Must be between 1 and 20. Defaults to 5
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/query-suggestion.html
         #
