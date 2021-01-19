@@ -26,8 +26,8 @@ module Elastic
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option synonym_set_id [String]  (*Required*)
-        # @option body - The request body
-        #
+        # @param body [Object] Synonym set description (*Required*)
+        #                      Properties: synonyms
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-update
         #

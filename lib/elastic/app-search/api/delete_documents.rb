@@ -25,8 +25,7 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body - The request body
-        #
+        # @param body [Array] List of document IDs (*Required*)
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-delete
         #
