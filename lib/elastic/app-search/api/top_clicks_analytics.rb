@@ -29,8 +29,6 @@ module Elastic
         # @option current_page [String] The page to fetch. Defaults to 1
         # @option page_size [String] The number of results per page
         # @option filters [Array] Analytics filters
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clicks.html
         #

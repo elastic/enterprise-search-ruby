@@ -27,8 +27,6 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option current_page [String] The page to fetch. Defaults to 1
         # @option page_size [String] The number of results per page
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-read
         #
