@@ -29,8 +29,6 @@ module Elastic
         # @option curation_id [String]  (*Required*)
         # @option promoted_doc_ids [] List of promoted document IDs
         # @option hidden_doc_ids [] List of hidden document IDs
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-update
         #

@@ -28,8 +28,6 @@ module Elastic
         # @option language [String] Engine language (null for universal)
         # @option type [String] Engine type
         # @option source_engines [Array] Sources engines list
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-create
         #

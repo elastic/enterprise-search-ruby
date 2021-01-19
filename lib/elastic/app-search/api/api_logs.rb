@@ -33,8 +33,6 @@ module Elastic
         # @option http_status_filter [String] Filter based on a particular status code: 400, 401, 403, 429, 200
         # @option http_method_filter [String] Filter based on a particular HTTP method: GET, POST, PUT, PATCH, DELETE
         # @option sort_direction [String] Would you like to have your results ascending, oldest to newest, or descending, newest to oldest?
-        # @option body - The request body
-        #
         #
         # @see https://www.elastic.co/guide/en/app-search/current/api-logs.html
         #
