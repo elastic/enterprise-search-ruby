@@ -37,7 +37,7 @@ module Elastic
         include Elastic::EnterpriseSearch::WorkplaceSearch::Request
         include Elastic::EnterpriseSearch::Utils
 
-        # Crete a new Elastic::EnterpriseSearch::WorkplaceSearch::Client client
+        # Create a new Elastic::EnterpriseSearch::WorkplaceSearch::Client client
         #
         # @param options [Hash] a hash of configuration options
         # @option options [String] :access_token the access token for workplace search
@@ -52,6 +52,31 @@ module Elastic
 
         def http_auth=(access_token)
           @options[:http_auth] = access_token
+        end
+
+        def authorization_url(client_id, redirect_uri)
+          [
+            host,
+            '/ws/oauth/authorize?',
+            'response_type=code&',
+            "client_id=#{client_id}&",
+            "redirect_uri=#{CGI.escape(redirect_uri)}"
+          ].join
+        end
+
+        def request_access_token(client_id, client_secret, authorization_code, redirect_uri)
+          response = request(
+            :post,
+            '/ws/oauth/token',
+            {
+              grant_type: 'authorization_code',
+              client_id: client_id,
+              client_secret: client_secret,
+              redirect_uri: redirect_uri,
+              code: authorization_code
+            }
+          )
+          response.body['access_token']
         end
       end
     end

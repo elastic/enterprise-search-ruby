@@ -49,12 +49,13 @@ module Elastic
       #
       # @raise [Timeout::Error] when the timeout expires
       def request(method, path, params = {}, body = {}, headers = {})
-        meta_headers = { authorization: setup_authentication_header, user_agent: request_user_agent }
+        meta_headers = { authorization: decide_authorization(params), user_agent: request_user_agent }
         headers = if headers.nil? || !headers.is_a?(Hash)
                     meta_headers
                   else
                     headers.merge(meta_headers)
                   end
+
         @transport.perform_request(method.to_s.upcase, path, params, body, headers)
       end
 
@@ -74,6 +75,16 @@ module Elastic
         end
         meta << "elasticsearch-transport: #{Elasticsearch::Transport::VERSION}"
         "#{ua} (#{meta.join('; ')})"
+      end
+
+      def decide_authorization(params)
+        if params[:grant_type] == 'authorization_code'
+          "Bearer #{params[:code]}"
+        elsif params[:access_token]
+          "Bearer #{params.delete(:access_token)}"
+        else
+          setup_authentication_header
+        end
       end
     end
   end
