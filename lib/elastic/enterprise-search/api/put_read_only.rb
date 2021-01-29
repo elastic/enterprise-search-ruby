@@ -28,6 +28,8 @@ module Elastic
       # @see https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html#setting-read-only-state
       #
       def put_read_only(arguments = {}, headers = {})
+        raise ArgumentError, "Required parameter 'body (enabled)' missing" unless arguments[:body]
+
         body = arguments.delete(:body) || {}
 
         request(
