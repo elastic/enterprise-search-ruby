@@ -28,9 +28,9 @@ Gem::Specification.new do |s|
   s.authors     = ['Fernando Briano']
   s.email       = ['support@elastic.co']
   s.homepage    = 'https://github.com/elastic/enterprise-search-ruby'
-  s.summary     = 'Official gem for accessing the Elastic Enterprise Search APIs'
+  s.summary     = 'Official API client for Elastic Enterprise Search'
   s.description = <<~DESCRIPTION
-    API client for accessing the Elastic Enterprise APIs. This gem is in a beta state.
+    Official API client for Elastic Enterprise Search APIs.
   DESCRIPTION
   s.licenses = ['Apache-2.0']
 
