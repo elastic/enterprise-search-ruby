@@ -4,7 +4,7 @@
 ![rubocop](https://github.com/elastic/enterprise-search-ruby/workflows/rubocop/badge.svg)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
 
-This project is in development and in a beta state.
+Official Ruby API client for [Elastic Enterprise Search](https://www.elastic.co/enterprise-search). Use this gem to integrate App Search and Workplace Search into your Ruby code.
 
 ## Contents
 - [Installation](https://github.com/elastic/enterprise-search-ruby#installation)
