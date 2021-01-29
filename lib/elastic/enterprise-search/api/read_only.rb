@@ -23,14 +23,17 @@ module Elastic
       # Read-Only - Get the read-only flag's state
       # Get the read-only flag's state
       #
+      # @param headers [Hash] optional HTTP headers to send with the request
+      #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html#getting-read-only-state
       #
-      def read_only(arguments = {})
+      def read_only(arguments = {}, headers = {})
         request(
           :get,
           'api/ent/v1/internal/read_only_mode/',
           arguments,
-          {}
+          {},
+          headers
         )
       end
     end
