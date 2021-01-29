@@ -90,6 +90,28 @@ describe Elastic::EnterpriseSearch::Client do
         expect(client.put('test', {}, { 'params' => 'test' }).status).to eq(200)
       end
     end
+
+    context 'with custom headers' do
+      let(:custom_header) { { 'x-custom-header' => 'Custom Header Value' } }
+
+      it 'builds the right request' do
+        stub_request(:get, "#{host}/test")
+          .with(body: { 'params' => 'test' })
+          .with(headers: headers.merge(custom_header))
+          .to_return(stub_response)
+
+        expect(client.request(:get, 'test', {}, { 'params' => 'test' }, custom_header).status).to eq(200)
+      end
+
+      it 'builds the right request for put' do
+        stub_request(:put, "#{host}/test")
+          .with(body: { 'params' => 'test' })
+          .with(headers: headers.merge(custom_header))
+          .to_return(stub_response)
+
+        expect(client.put('test', {}, { 'params' => 'test' }, custom_header).status).to eq(200)
+      end
+    end
   end
 
   context 'with ssl' do
