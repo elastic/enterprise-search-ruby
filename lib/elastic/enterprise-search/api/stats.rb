@@ -26,14 +26,17 @@ module Elastic
       # @param arguments [Hash] endpoint arguments
       # @option include [Array] Comma-separated list of stats to return
       #
+      # @param headers [Hash] optional HTTP headers to send with the request
+      #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#stats-api-example
       #
-      def stats(arguments = {})
+      def stats(arguments = {}, headers = {})
         request(
           :get,
           'api/ent/v1/internal/stats/',
           arguments,
-          {}
+          {},
+          headers
         )
       end
     end
