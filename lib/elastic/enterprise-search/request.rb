@@ -29,31 +29,32 @@ module Elastic
 
     # Module included in Elastic::Enterprise::Client for http requests.
     module Request
-      def get(path, params = {})
-        request(:get, path, params)
+      def get(path, params = {}, headers = {})
+        request(:get, path, params, headers)
       end
 
-      def post(path, params = {}, body = {})
-        request(:post, path, params, body)
+      def post(path, params = {}, body = {}, headers = {})
+        request(:post, path, params, body, headers)
       end
 
-      def put(path, params = {}, body = {})
-        request(:put, path, params, body)
+      def put(path, params = {}, body = {}, headers = {})
+        request(:put, path, params, body, headers)
       end
 
-      def delete(path, params = {})
-        request(:delete, path, params)
+      def delete(path, params = {}, headers = {})
+        request(:delete, path, params, headers)
       end
 
       # Construct and send a request to the API.
       #
       # @raise [Timeout::Error] when the timeout expires
-      def request(method, path, params = {}, body = {})
-        headers = {
-          authorization: setup_authentication_header,
-          user_agent: request_user_agent
-        }
-
+      def request(method, path, params = {}, body = {}, headers = {})
+        meta_headers = { authorization: setup_authentication_header, user_agent: request_user_agent }
+        headers = if headers.nil? || !headers.is_a?(Hash)
+                    meta_headers
+                  else
+                    headers.merge(meta_headers)
+                  end
         @transport.perform_request(method.to_s.upcase, path, params, body, headers)
       end
 
