@@ -33,7 +33,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
           { name: 'Galaxxian', year: 1979 },
           { name: 'Audiovisual, the hedgehog', year: '1991' }
         ]
-        response = @client.index_documents(engine_name, body: documents)
+        response = @client.index_documents(engine_name, documents: documents)
         expect(response.status).to eq 200
         expect(response.body.count).to eq 4
         expect(response.body.map(&:keys)).to eq [['id', 'errors'], ['id', 'errors'], ['id', 'errors'], ['id', 'errors']]
@@ -50,7 +50,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     it 'retrieves documents by ID' do
       VCR.use_cassette('app_search/api_documents') do
         ids = ['doc-6005c044ad7f0c8b464b8cc4', 'doc-6005c044ad7f0c8b464b8cc3']
-        response = @client.documents(engine_name, ids: ids)
+        response = @client.documents(engine_name, document_ids: ids)
 
         expect(response.status).to eq 200
         expect(response.body.count).to eq 2
@@ -74,12 +74,12 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     it 'deletes a document' do
       VCR.use_cassette('app_search/index_and_delete_document') do
         document = { name: 'Princess Zelda', year: 1986 }
-        response = @client.index_documents(engine_name, body: document)
+        response = @client.index_documents(engine_name, documents: document)
         expect(response.status).to eq 200
 
         id = response.body.first['id']
 
-        response = @client.delete_documents(engine_name, body: [id])
+        response = @client.delete_documents(engine_name, document_ids: [id])
         expect(response.status).to eq 200
         expect(response.body.first['deleted'])
       end
@@ -88,12 +88,12 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     it 'updates a document' do
       VCR.use_cassette('app_search/create_and_update_document') do
         document = { name: '', year: 1986 }
-        response = @client.index_documents(engine_name, body: document)
+        response = @client.index_documents(engine_name, documents: document)
         expect(response.status).to eq 200
 
         id = response.body.first['id']
 
-        response = @client.put_documents(engine_name, body: [{ id: id, year: 1987 }])
+        response = @client.put_documents(engine_name, documents: [{ id: id, year: 1987 }])
         expect(response.status).to eq 200
         expect(response.body).to eq [{ 'id' => 'doc-5fa2d4e1389ab975965be3e3', 'errors' => [] }]
       end
