@@ -27,24 +27,25 @@ module Elastic
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option user [String] The username in context (*Required*)
-        # @option body - The request body
+        # @option body [Object]  ( Required: source_user_id, user)
         #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#update-external-identity
         #
-        def put_external_identity(content_source_id, arguments = {})
+        def put_external_identity(content_source_id, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
           raise ArgumentError, "Required parameter 'user' missing" unless arguments[:user]
 
           user = arguments[:user]
-
           body = arguments.delete(:body) || {}
 
           request(
             :put,
             "api/ws/v1/sources/#{content_source_id}/external_identities/#{user}/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
