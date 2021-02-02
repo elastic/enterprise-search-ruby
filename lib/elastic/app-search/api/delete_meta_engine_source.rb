@@ -25,7 +25,7 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option source_engines [Array] List of engine IDs (*Required*)
+        # @option source_engines [Array] List of engine names (*Required*)
         #
         # @param headers [Hash] optional HTTP headers to send with the request
         #
