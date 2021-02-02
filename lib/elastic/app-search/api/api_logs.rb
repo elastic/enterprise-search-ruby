@@ -33,10 +33,13 @@ module Elastic
         # @option http_status_filter [String] Filter based on a particular status code: 400, 401, 403, 429, 200
         # @option http_method_filter [String] Filter based on a particular HTTP method: GET, POST, PUT, PATCH, DELETE
         # @option sort_direction [String] Would you like to have your results ascending, oldest to newest, or descending, newest to oldest?
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/api-logs.html
         #
-        def api_logs(engine_name, arguments = {})
+        def api_logs(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'from_date' missing" unless arguments[:from_date]
           raise ArgumentError, "Required parameter 'to_date' missing" unless arguments[:to_date]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
@@ -52,7 +55,8 @@ module Elastic
             :get,
             "api/as/v1/engines/#{engine_name}/logs/api/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
