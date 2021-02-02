@@ -26,10 +26,13 @@ module Elastic
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option queries [] Search queries (*Required*)
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search.html#search-multi
         #
-        def multi_search(engine_name, arguments = {})
+        def multi_search(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'queries' missing" unless arguments[:queries]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
@@ -39,7 +42,8 @@ module Elastic
             :post,
             "api/as/v1/engines/#{engine_name}/multi_search/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end

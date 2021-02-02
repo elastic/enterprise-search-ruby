@@ -29,10 +29,13 @@ module Elastic
         # @option document_id [] The ID of the document that was clicked on (*Required*)
         # @option request_id [String] The request ID returned in the meta tag of a search API response
         # @option tags [Array] Array of strings representing additional information you wish to track with the clickthrough
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clickthrough.html
         #
-        def log_clickthrough(engine_name, arguments = {})
+        def log_clickthrough(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'query_text' missing" unless arguments[:query_text]
           raise ArgumentError, "Required parameter 'document_id' missing" unless arguments[:document_id]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
@@ -45,7 +48,8 @@ module Elastic
             :post,
             "api/as/v1/engines/#{engine_name}/click/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
