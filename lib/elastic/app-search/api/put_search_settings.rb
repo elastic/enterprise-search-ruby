@@ -25,13 +25,15 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @param body [Object] Search settings (*Required*)
-        #                      Properties: boosts, search_fields
+        # @option body [Object] Search settings (*Required*)
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update
         #
-        def put_search_settings(engine_name, arguments = {})
+        def put_search_settings(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
 
@@ -39,7 +41,8 @@ module Elastic
             :put,
             "api/as/v1/engines/#{engine_name}/search_settings/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
