@@ -47,7 +47,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
         # Create new source engine to add:
         @client.create_engine(name: 'comicbooks')
 
-        response = @client.add_meta_engine_source(engine_name, body: ['comicbooks'])
+        response = @client.add_meta_engine_source(engine_name, source_engines: ['comicbooks'])
 
         expect(response.status).to eq 200
         expect(response.body['name']).to eq('new-meta-engine')
@@ -59,7 +59,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'removes a source engine from a meta engine' do
       VCR.use_cassette('app_search/delete_meta_engine_source') do
-        response = @client.delete_meta_engine_source(engine_name, body: ['videogames'])
+        response = @client.delete_meta_engine_source(engine_name, source_engines: ['videogames'])
 
         expect(response.status).to eq 200
         expect(response.body['name']).to eq('new-meta-engine')
