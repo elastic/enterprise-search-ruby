@@ -28,10 +28,13 @@ module Elastic
         # @option language [String] Engine language (null for universal)
         # @option type [String] Engine type
         # @option source_engines [Array] Sources engines list
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-create
         #
-        def create_engine(arguments = {})
+        def create_engine(arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'name' missing" unless arguments[:name]
 
           body = arguments.delete(:body) || {}
@@ -40,7 +43,8 @@ module Elastic
             :post,
             'api/as/v1/engines/',
             arguments,
-            body
+            body,
+            headers
           )
         end
       end

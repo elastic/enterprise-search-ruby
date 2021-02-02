@@ -27,10 +27,13 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option filters [Array] Analytics filters
         # @option interval [String] You can define an interval along with your date range. Can be either hour or day
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/counts.html
         #
-        def count_analytics(engine_name, arguments = {})
+        def count_analytics(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
@@ -39,7 +42,8 @@ module Elastic
             :get,
             "api/as/v1/engines/#{engine_name}/analytics/counts/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end

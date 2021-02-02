@@ -28,10 +28,13 @@ module Elastic
         # @option queries [Array] List of affected search queries (*Required*)
         # @option promoted_doc_ids [] List of promoted document IDs
         # @option hidden_doc_ids [] List of hidden document IDs
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-create
         #
-        def create_curation(engine_name, arguments = {})
+        def create_curation(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'queries' missing" unless arguments[:queries]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
@@ -41,7 +44,8 @@ module Elastic
             :post,
             "api/as/v1/engines/#{engine_name}/curations/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
