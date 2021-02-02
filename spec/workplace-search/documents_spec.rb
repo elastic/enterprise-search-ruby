@@ -48,7 +48,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'indexes' do
       VCR.use_cassette('workplace_search/index_documents') do
-        response = client.index_documents(content_source_id, body: documents)
+        response = client.index_documents(content_source_id, documents: documents)
 
         expect(response.status).to eq 200
         expect(response.body)
