@@ -25,10 +25,13 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/schema.html#schema-read
         #
-        def schema(engine_name, arguments = {})
+        def schema(engine_name, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
@@ -37,7 +40,8 @@ module Elastic
             :get,
             "api/as/v1/engines/#{engine_name}/schema/",
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
