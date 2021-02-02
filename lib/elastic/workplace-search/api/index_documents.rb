@@ -26,21 +26,24 @@ module Elastic
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body - The request body
+        # @option documents [Array]  (*Required*)
         #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#index-and-update
         #
-        def index_documents(content_source_id, arguments = {})
+        def index_documents(content_source_id, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
+          raise ArgumentError, "Required parameter 'documents' missing" unless arguments[:documents]
 
-          body = arguments.delete(:body) || {}
+          documents = arguments.delete(:documents) || {}
 
           request(
             :post,
             "api/ws/v1/sources/#{content_source_id}/documents/bulk_create/",
             arguments,
-            body
+            documents,
+            headers
           )
         end
       end

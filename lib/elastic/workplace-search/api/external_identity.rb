@@ -28,9 +28,11 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option user [String] The username in context (*Required*)
         #
+        # @param headers [Hash] optional HTTP headers to send with the request
+        #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#show-external-identity
         #
-        def external_identity(content_source_id, arguments = {})
+        def external_identity(content_source_id, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
           raise ArgumentError, "Required parameter 'user' missing" unless arguments[:user]
 
@@ -40,7 +42,8 @@ module Elastic
             :get,
             "api/ws/v1/sources/#{content_source_id}/external_identities/#{user}/",
             arguments,
-            {}
+            {},
+            headers
           )
         end
       end
