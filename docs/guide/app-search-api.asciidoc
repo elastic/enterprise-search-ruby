@@ -31,10 +31,10 @@ body = {
 client.create_engine(name: engine_name, body: body)
 
 # Add a source engine to a meta engine:
-client.add_meta_engine_source(meta_engine_name, body: [source_engine_name])
+client.add_meta_engine_source(meta_engine_name, source_engines: ['engine1', 'engine2'])
 
 # Remove a source enginge from a meta engine:
-client.delete_meta_engine_source(meta_engine_name, body: [source_engine_name])
+client.delete_meta_engine_source(meta_engine_name, source_engines: ['engine1', 'engine2'])
 ----------------------------
 
 === Documents
@@ -49,19 +49,19 @@ document = {
 }
 
 # Index documents
-client.index_documents(engine_name, body: document)
+client.index_documents(engine_name, documents: document)
 
 # List documents
 client.list_documents(engine_name)
 
 # Get document(s) by ID:
-client.documents(engine_name, ids: [id1, id2])
+client.documents(engine_name, document_ids: [id1, id2])
 
 # Delete a document
-client.delete_documents(engine_name, body: [document_id])
+client.delete_documents(engine_name, document_ids: [document_id])
 
 # Update a document
-client.put_documents(engine_name, body: [{id: document_id, key: value}])
+client.put_documents(engine_name, documents: [{id: document_id, key: value}])
 ----------------------------
 
 === Search
@@ -137,7 +137,7 @@ client.count_analytics(engine_name)
 client.schema(engine_name)
 
 # Update schema for an engine
-client.put_schema(engine_name, body: {field: 'type'})
+client.put_schema(engine_name, schema: {field: 'type'})
 
 # Logs - The API Log displays API request and response data at the Engine level
 client.api_logs(engine_name, from_date: Date.new(2020, 10, 01), to_date: Date.new(2020, 11, 05))
