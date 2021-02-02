@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:3002/api/as/v1/engines/videogames/documents/?ids%5B%5D=doc-6005c044ad7f0c8b464b8cc3&ids%5B%5D=doc-6005c044ad7f0c8b464b8cc4
+    uri: http://localhost:3002/api/as/v1/engines/videogames/documents/
     body:
       encoding: UTF-8
-      string: "{}"
+      string: "['doc-6005c044ad7f0c8b464b8cc4', 'doc-6005c044ad7f0c8b464b8cc3']"
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
