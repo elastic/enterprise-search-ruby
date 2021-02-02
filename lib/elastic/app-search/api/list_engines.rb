@@ -26,17 +26,21 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option current_page [String] The page to fetch. Defaults to 1
         # @option page_size [String] The number of results per page
+        # @option body [Hash] The request body
+        #
+        # @param headers [Hash] optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-list
         #
-        def list_engines(arguments = {})
+        def list_engines(arguments = {}, headers = {})
           body = arguments.delete(:body) || {}
 
           request(
             :get,
             'api/as/v1/engines/',
             arguments,
-            body
+            body,
+            headers
           )
         end
       end
