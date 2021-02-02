@@ -68,11 +68,17 @@ client.put_documents(engine_name, documents: [{id: document_id, key: value}])
 
 [source,rb]
 ----------------------------
+# Single Search
 query = {
   query: 'luigi'
 }
 
 client.search(engine_name, query)
+
+# Multi query search
+queries = [{ query: 'Nicanor'}, { query: 'Iain' }]
+
+client.multi_search(engine_name, queries: queries)
 ----------------------------
 
 === Synonym Sets

@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: http://localhost:3002/api/as/v1/engines/books/multi_search/?queries%5B%5D%5Bquery%5D=Herman&queries%5B%5D%5Bquery%5D=Edgar
+    uri: http://localhost:3002/api/as/v1/engines/books/multi_search/
     body:
       encoding: UTF-8
-      string: "{}"
+      string: "{'queries': [{'query': 'Herman'}, {'query': 'Edgar'}]"
     headers:
       User-Agent:
       - 'elastic-enteprise-search-ruby/0.0.1 (RUBY_VERSION: 2.7.1; linux x86_64; elasticsearch-transport:
