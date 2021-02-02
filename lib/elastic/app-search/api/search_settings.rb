@@ -21,7 +21,7 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Searchsettings - Retrive current search settings for the engine
+        # Searchsettings - Retrieve current search settings for the engine
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
