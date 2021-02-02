@@ -35,7 +35,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'updates a schema for an engine' do
       VCR.use_cassette('app_search/api_put_schema') do
-        response = @client.put_schema(engine_name, body: { year: 'text' })
+        response = @client.put_schema(engine_name, schema: { year: 'text' })
 
         expect(response.status).to eq 200
         expect(response.body).to eq({ 'title' => 'text', 'year' => 'text', 'director' => 'text' })
