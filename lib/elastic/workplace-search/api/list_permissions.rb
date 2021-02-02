@@ -29,16 +29,19 @@ module Elastic
         # @option current_page [Integer] Which page of results to request
         # @option page_size [Integer] The number of results to return in a page
         #
+        # @param headers [Hash] optional HTTP headers to send with the request
+        #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list
         #
-        def list_permissions(content_source_id, arguments = {})
+        def list_permissions(content_source_id, arguments = {}, headers = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
 
           request(
             :get,
             "api/ws/v1/sources/#{content_source_id}/permissions/",
             arguments,
-            {}
+            {},
+            headers
           )
         end
       end
