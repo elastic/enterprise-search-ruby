@@ -29,7 +29,7 @@
 [source,rb]
 ----------------------------
 # Set read-only flag state
-ent_client.put_read_only(enabled: false)
+ent_client.put_read_only(body: { enabled: false })
 
 # Get read-only flag state
 ent_client.read_only

@@ -55,7 +55,7 @@ describe Elastic::EnterpriseSearch::Client do
 
     context 'put_read_only' do
       it 'makes PUT request with enabled: true' do
-        response = client.put_read_only(enabled: true)
+        response = client.put_read_only(body: { enabled: true })
 
         expect(response.status).to eq 200
         expect(response.body).to have_key('enabled')
@@ -63,7 +63,7 @@ describe Elastic::EnterpriseSearch::Client do
       end
 
       it 'makes PUT request with enabled: false' do
-        response = client.put_read_only(enabled: false)
+        response = client.put_read_only(body: { enabled: false })
 
         expect(response.status).to eq 200
         expect(response.body).to have_key('enabled')
