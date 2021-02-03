@@ -56,7 +56,7 @@ module Elastic
           #
           # @param [String] api_key the API Key to sign the request with
           # @param [String] api_key_name the unique name for the API Key
-          # @option options see the {App Search API}[https://swiftype.com/documentation/app-search/] for supported search options.
+          # @option options see the {App Search API}[https://www.elastic.co/guide/en/app-search/current/authentication.html#authentication-signed] for supported search options.
           #
           # @return [String] the JWT to use for authentication
           def create_signed_search_key(api_key, api_key_name, options = {})
