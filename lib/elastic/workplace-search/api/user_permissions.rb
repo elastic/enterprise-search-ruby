@@ -26,17 +26,18 @@ module Elastic
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option user [String] The username in context (*Required*)
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [String] :user The username in context (*Required*)
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-document-permissions-api.html#list-one
         #
-        def user_permissions(content_source_id, arguments = {}, headers = {})
+        def user_permissions(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
           raise ArgumentError, "Required parameter 'user' missing" unless arguments[:user]
 
           user = arguments[:user]
+
+          headers = arguments.delete(:headers) || {}
 
           request(
             :get,
