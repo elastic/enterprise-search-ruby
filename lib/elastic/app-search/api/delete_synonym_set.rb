@@ -25,19 +25,19 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option synonym_set_id [String]  (*Required*)
-        # @option body [Hash] The request body
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [String] :synonym_set_id  (*Required*)
+        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-delete
         #
-        def delete_synonym_set(engine_name, arguments = {}, headers = {})
+        def delete_synonym_set(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless arguments[:synonym_set_id]
 
           synonym_set_id = arguments[:synonym_set_id]
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :delete,
