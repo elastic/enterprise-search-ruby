@@ -24,13 +24,14 @@ module Elastic
       # Get information about the resource usage of the application, the state of different internal queues, etc.
       #
       # @param arguments [Hash] endpoint arguments
-      # @option include [Array] Comma-separated list of stats to return
-      #
-      # @param headers [Hash] optional HTTP headers to send with the request
+      # @option arguments [Array] :include Comma-separated list of stats to return
+      # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#stats-api-example
       #
-      def stats(arguments = {}, headers = {})
+      def stats(arguments = {})
+        headers = arguments.delete(:headers) || {}
+
         request(
           :get,
           'api/ent/v1/internal/stats/',
