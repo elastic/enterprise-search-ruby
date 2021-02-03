@@ -25,23 +25,22 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option query_text [String] Search query text (*Required*)
-        # @option document_id [] The ID of the document that was clicked on (*Required*)
-        # @option request_id [String] The request ID returned in the meta tag of a search API response
-        # @option tags [Array] Array of strings representing additional information you wish to track with the clickthrough
-        # @option body [Hash] The request body
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [String] :query_text Search query text (*Required*)
+        # @option arguments [] :document_id The ID of the document that was clicked on (*Required*)
+        # @option arguments [String] :request_id The request ID returned in the meta tag of a search API response
+        # @option arguments [Array] :tags Array of strings representing additional information you wish to track with the clickthrough
+        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clickthrough.html
         #
-        def log_clickthrough(engine_name, arguments = {}, headers = {})
+        def log_clickthrough(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'query_text' missing" unless arguments[:query_text]
           raise ArgumentError, "Required parameter 'document_id' missing" unless arguments[:document_id]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-
+          headers = arguments.delete(:headers) || {}
           arguments['query'] = arguments.delete(:query_text)
 
           request(

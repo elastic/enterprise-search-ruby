@@ -25,16 +25,16 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body [Hash] The request body
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-delete
         #
-        def delete_engine(engine_name, arguments = {}, headers = {})
+        def delete_engine(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :delete,

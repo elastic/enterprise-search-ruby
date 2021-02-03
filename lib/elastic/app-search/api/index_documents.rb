@@ -25,17 +25,17 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option documents [Array] List of document to index (*Required*)
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Array] :documents List of document to index (*Required*)
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-create
         #
-        def index_documents(engine_name, arguments = {}, headers = {})
+        def index_documents(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'documents' missing" unless arguments[:documents]
 
           documents = arguments.delete(:documents) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,
