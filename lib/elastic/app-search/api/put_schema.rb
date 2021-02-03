@@ -25,17 +25,17 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option schema [Object] Schema description (*Required*)
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Object] :schema Schema description (*Required*)
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/schema.html#schema-patch
         #
-        def put_schema(engine_name, arguments = {}, headers = {})
+        def put_schema(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'schema' missing" unless arguments[:schema]
 
           schema = arguments.delete(:schema) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,
