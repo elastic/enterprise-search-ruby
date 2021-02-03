@@ -26,16 +26,16 @@ module Elastic
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option body [Array]
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Array] :body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#destroy
         #
-        def delete_documents(content_source_id, arguments = {}, headers = {})
+        def delete_documents(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
 
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,
