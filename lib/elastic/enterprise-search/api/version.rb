@@ -23,11 +23,13 @@ module Elastic
       # Version - Get version information for this server
       # Get version information for this server
       #
-      # @param headers [Hash] optional HTTP headers to send with the request
+      # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/management-apis.html
       #
-      def version(arguments = {}, headers = {})
+      def version(arguments = {})
+        headers = arguments.delete(:headers) || {}
+
         request(
           :get,
           'api/ent/v1/internal/version/',
