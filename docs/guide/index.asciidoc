@@ -15,3 +15,5 @@ include::enterprise-search-api.asciidoc[]
 include::app-search-api.asciidoc[]
 
 include::workplace-search-api.asciidoc[]
+
+include::release_notes/index.asciidoc[]
