@@ -25,17 +25,17 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option queries [Object] One or more queries to execute in parallel (*Required*)
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Object] :queries One or more queries to execute in parallel (*Required*)
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/multi-search.html
         #
-        def multi_search(engine_name, arguments = {}, headers = {})
+        def multi_search(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'queries' missing" unless arguments[:queries]
 
           queries = arguments.delete(:queries) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,

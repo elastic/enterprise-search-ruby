@@ -24,20 +24,20 @@ module Elastic
         # Engine - Creates a new engine
         #
         # @param arguments [Hash] endpoint arguments
-        # @option name [String] Engine name (*Required*)
-        # @option language [String] Engine language (null for universal)
-        # @option type [String] Engine type
-        # @option source_engines [Array] Sources engines list
-        # @option body [Hash] The request body
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [String] :name Engine name (*Required*)
+        # @option arguments [String] :language Engine language (null for universal)
+        # @option arguments [String] :type Engine type
+        # @option arguments [Array] :source_engines Sources engines list
+        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-create
         #
-        def create_engine(arguments = {}, headers = {})
+        def create_engine(arguments = {})
           raise ArgumentError, "Required parameter 'name' missing" unless arguments[:name]
 
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,
