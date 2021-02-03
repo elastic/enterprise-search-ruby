@@ -26,15 +26,16 @@ module Elastic
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option current_page [Integer] Which page of results to request
-        # @option page_size [Integer] The number of results to return in a page
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Integer] :current_page Which page of results to request
+        # @option arguments [Integer] :page_size The number of results to return in a page
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#list-external-identities
         #
-        def list_external_identities(content_source_id, arguments = {}, headers = {})
+        def list_external_identities(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
+
+          headers = arguments.delete(:headers) || {}
 
           request(
             :get,
