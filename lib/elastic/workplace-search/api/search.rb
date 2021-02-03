@@ -24,12 +24,13 @@ module Elastic
         # Search - search across available sources with various query tuning options
         # Issue a Search Query
         #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html
         #
-        def search(arguments = {}, headers = {})
+        def search(arguments = {})
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,
