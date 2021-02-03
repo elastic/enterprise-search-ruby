@@ -25,17 +25,17 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option source_engines [Array] List of engine names (*Required*)
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [Array] :source_engines List of engine names (*Required*)
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/meta-engines.html#meta-engines-add-source-engines
         #
-        def add_meta_engine_source(engine_name, arguments = {}, headers = {})
+        def add_meta_engine_source(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'source_engines' missing" unless arguments[:source_engines]
 
           source_engines = arguments.delete(:source_engines) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,

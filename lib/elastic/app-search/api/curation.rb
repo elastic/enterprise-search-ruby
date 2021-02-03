@@ -25,19 +25,19 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option curation_id [String]  (*Required*)
-        # @option body [Hash] The request body
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [String] :curation_id  (*Required*)
+        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-read
         #
-        def curation(engine_name, arguments = {}, headers = {})
+        def curation(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'curation_id' missing" unless arguments[:curation_id]
 
           curation_id = arguments[:curation_id]
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :get,

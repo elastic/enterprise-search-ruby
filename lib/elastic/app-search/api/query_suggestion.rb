@@ -25,20 +25,20 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option query [String] A partial query for which to receive suggestions (*Required*)
-        # @option fields [Array] List of fields to use to generate suggestions. Defaults to all text fields
-        # @option size [Integer] Number of query suggestions to return. Must be between 1 and 20. Defaults to 5
-        # @option body [Hash] The request body
-        #
-        # @param headers [Hash] optional HTTP headers to send with the request
+        # @option arguments [String] :query A partial query for which to receive suggestions (*Required*)
+        # @option arguments [Array] :fields List of fields to use to generate suggestions. Defaults to all text fields
+        # @option arguments [Integer] :size Number of query suggestions to return. Must be between 1 and 20. Defaults to 5
+        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/query-suggestion.html
         #
-        def query_suggestion(engine_name, arguments = {}, headers = {})
+        def query_suggestion(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'query' missing" unless arguments[:query]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
+          headers = arguments.delete(:headers) || {}
 
           request(
             :post,
