@@ -23,14 +23,13 @@ module Elastic
       # Read-Only - Update the read-only flag's state
       # Update the read-only flag's state
       #
-      # @param headers [Hash] optional HTTP headers to send with the request
+      # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html#setting-read-only-state
       #
-      def put_read_only(arguments = {}, headers = {})
-        raise ArgumentError, "Required parameter 'body (enabled)' missing" unless arguments[:body]
-
+      def put_read_only(arguments = {})
         body = arguments.delete(:body) || {}
+        headers = arguments.delete(:headers) || {}
 
         request(
           :put,
