@@ -1,0 +1,27 @@
+[[release_notes_711]]
+=== 7.11.0 Release notes
+
+First General Availability Release
+
+[discrete]
+==== General
+
+- All App Search, Workplace Search and Enterprise Search API endpoints have been implemented updated to the 7.11 specification, and have been tested and documented.
+- Docs were moved from the README file to asciidocs.
+- Some endpoints both in App Search and Workplace Search have changed to have named parameters for `body` when it makes sense.
+- Support for per request custom HTTP headers was added. See docs.
+- Support for per request http authentication was added when using OAuth. See docs.
+- Tested with Ruby 3.
+- Sends the `X-Elastic-Client-Meta` HTTP header which is used by Elastic Cloud and can be disabled with the `enable_meta_header` parameter.
+
+[discrete]
+==== App Search
+
+- Added support for signed search key in App Search.
+
+[discrete]
+==== Workplace Search
+
+- `content_source_key` was deprecated in favour of `content_source_id`.
+- Added support for OAuth.
+- With OAuth support, `search` and `create_analytics` APIs are now also available.

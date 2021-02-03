@@ -1,0 +1,4 @@
+[[release_notes_710]]
+=== 7.10.0.beta.1 Release notes
+
+First beta release. It supports the 7.10.0 API for Elastic Enterprise Search, App Search and Workplace Search.
