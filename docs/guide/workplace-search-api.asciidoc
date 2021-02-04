@@ -48,6 +48,8 @@ access_token = client.request_access_token(client_id, client_secret, authorizati
 client.search(body: {query: 'search query'}, access_token: access_token)
 ----------------------------
 
+See https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html#search-api-overview[Search API Overview] for more search parameters.
+
 === Permissions
 
 [source,rb]
@@ -99,3 +101,21 @@ client.put_external_identity(content_source_id, user: 'elastic_user', body: body
 client.delete_external_identity(content_source_id, user: 'elastic_user')
 ----------------------------
 
+=== Create Analytics Event
+
+You need to set up OAuth Authentication for analytics events.
+
+[source,rb]
+----------------------------
+body = {
+  type: 'click',
+  query_id: 'search_query_id',
+  document_id: 'document_id',
+  page: 1,
+  content_source_id: 'content_source_id',
+  rank: 1,
+  event: 'api'
+}
+
+client.create_analytics_event(access_token: oauth_access_token, body: body)
+----------------------------
