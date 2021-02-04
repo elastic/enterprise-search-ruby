@@ -21,11 +21,11 @@ require 'spec_helper'
 
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   let(:host) { 'https://localhost:8080' }
+  let(:access_token) { 'access_token' }
 
   context 'dependant on EnterpriseSearch' do
     let(:ent_client) { Elastic::EnterpriseSearch::Client.new(host: host) }
     let(:workplace_client) { ent_client.workplace_search }
-    let(:access_token) { 'access_token' }
 
     it 'initializes a workplace search client' do
       expect(workplace_client).not_to be nil
@@ -47,7 +47,6 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
   context 'independent from EnterpriseSearch client' do
     let(:workplace_client) { Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(host: host) }
-    let(:access_token) { 'access_token' }
 
     it 'initializes a workplace search client' do
       expect(workplace_client).not_to be nil
@@ -64,6 +63,15 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     it 'sets up authentication as a parameter' do
       workplace_client.http_auth = access_token
       expect(workplace_client.http_auth).to eq access_token
+    end
+  end
+
+  context 'OAuth' do
+    let(:client) { Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(host: host) }
+
+    it 'generates an authorization url' do
+      authorization_url = 'https://localhost:8080/ws/oauth/authorize?response_type=code&client_id=client_id&redirect_uri=https%3A%2F%2Flocalhost%3A3002'
+      expect(client.authorization_url('client_id', 'https://localhost:3002')).to eq authorization_url
     end
   end
 end
