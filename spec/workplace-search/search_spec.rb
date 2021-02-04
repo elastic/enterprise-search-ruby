@@ -31,17 +31,19 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   end
 
   it 'goes through the search OAuth ' do
-    VCR.use_cassette('workplace_search/oauth_request_access_token_for_search') do
+    VCR.use_cassette('workplace_search/oauth_request_token') do
       client_id = 'client_id'
       client_secret = 'client_secret'
       redirect_uri = 'http://localhost:9393'
 
       # gets authorization code via  client.authorization_url(client_id, redirect_uri)
       authorization_code = 'authorization_code'
+      @oauth_access_token = client.request_access_token(client_id, client_secret, authorization_code, redirect_uri)
+    end
 
-      access_token = client.request_access_token(client_id, client_secret, authorization_code, redirect_uri)
+    VCR.use_cassette('workplace_search/search_request') do
+      response = client.search(body: { query: '1984' }, access_token: @oauth_access_token)
 
-      response = client.search(body: {query: '1984'}, access_token: access_token)
       expect(response.status).to eq 200
       expect(response.body['results'].count).to be > 1
       expect(response.body['results'][0]['title']['raw']).to eq '1984'
