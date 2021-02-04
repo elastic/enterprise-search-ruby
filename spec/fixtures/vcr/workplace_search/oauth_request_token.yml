@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/ws/oauth/token?client_id=client_id&client_secret=client_secret&code=authorization_code&grant_type=authorization_code&redirect_uri=http://localhost:9393
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      X-Elastic-Client-Meta:
+      - es=7.11.0.pre.1,rb=2.7.2,t=7.11.0.pre.1,fd=1.3.0,nh=1.1
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.11.0.pre.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer authorization_code
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message:  OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-store
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json;charset=utf-8
+      Etag:
+      - W/"5328608ddb7afff05662a7292d3c9726--gzip"
+      X-Request-Id:
+      - 3056fc4d-5c75-4681-917c-a691322dc91c
+      X-Runtime:
+      - '0.046821'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"9c1e9abc5f240f49b29612a9d3a0dd2b20870d859983d9e2dd0488aed5e8b08d","token_type":"Bearer","expires_in":7200,"refresh_token":"96f222b89cfaed8fb62f61998fbc4e6708f2877cee6b7d8e8cefef62bf43a9e1","scope":"search"}'
+    http_version: 
+  recorded_at: Thu, 04 Feb 2021 17:50:56 GMT
+recorded_with: VCR 3.0.3
