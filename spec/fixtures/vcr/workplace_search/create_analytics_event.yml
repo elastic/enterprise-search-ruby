@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/api/ws/v1/analytics/event/
+    body:
+      encoding: UTF-8
+      string: '{"type":"click","query_id":"search_query_id","document_id":"document_id","page":1,"content_source_id":"601c0ee3a2fa0410731ab185","rank":1,"event":"api"}'
+    headers:
+      X-Elastic-Client-Meta:
+      - es=7.11.0.pre.1,rb=2.7.2,t=7.11.0.pre.1,fd=1.3.0,nh=1.1
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/7.11.0.pre (RUBY_VERSION: 2.7.2; linux x86_64;
+        elasticsearch-transport: 7.11.0.pre.1)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer 9c1e9abc5f240f49b29612a9d3a0dd2b20870d859983d9e2dd0488aed5e8b08d
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json;charset=utf-8
+      Etag:
+      - W/"99914b932bd37a50b983c5e7c90ae93b--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - d2a351ad-d482-472b-86ad-e714189b1c35
+      X-Runtime:
+      - '0.016249'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: "{}"
+    http_version: 
+  recorded_at: Thu, 04 Feb 2021 18:01:31 GMT
+recorded_with: VCR 3.0.3
