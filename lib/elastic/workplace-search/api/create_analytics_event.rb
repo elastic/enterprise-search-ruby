@@ -24,11 +24,24 @@ module Elastic
         # Analytics - capture click and feedback analytic events
         # Capture Analytic Events
         #
+        # @param arguments [Hash] endpoint arguments
+        # @option arguments [String] :access_token OAuth Access Token (*Required*)
+        # @option arguments [Object] :body
+        # @option body [String] :type
+        # @option body [String] :query_id query identifier for the event
+        # @option body [Integer] :page page number of the document in the query result set
+        # @option body [String] :content_source_id content source identifier for the event document
+        # @option body [String] :document_id document identifier for the event
+        # @option body [Integer] :rank rank of the document in the overall result set
+        # @option body [String] :event the target identifier for a click event
+        # @option body [Integer] :score the feedback score, constrained to the values -1 or 1
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-analytics-api.html
         #
         def create_analytics_event(arguments = {})
+          raise ArgumentError, "Required parameter 'access_token' missing" unless arguments[:access_token]
+
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
 
