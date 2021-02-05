@@ -101,7 +101,7 @@ describe Elastic::EnterpriseSearch::Client do
 
     it 'sends the correct meta header to transport' do
       expect(subject['x-elastic-client-meta']).to match(regexp)
-      expect(subject['x-elastic-client-meta']).to start_with("ent=#{Elastic::EnterpriseSearch::VERSION}")
+      expect(subject['x-elastic-client-meta']).to match(/^ent=[0-9]+\.[0-9]+\.[0-9]+(p)?,/)
     end
   end
 end
