@@ -22,7 +22,16 @@ require 'elastic/enterprise-search/utils'
 require 'elasticsearch-transport'
 
 module Elastic
-  META_HEADER_SERVICE_VERSION = [:ent, Elastic::EnterpriseSearch::VERSION].freeze
+  # If the version is X.X.X.pre/alpha/beta, use X.X.Xp for the meta-header:
+  def self.client_meta_version
+    regexp = /^([0-9]+\.[0-9]+\.[0-9]+)\.?([a-z0-9.-]+)?$/
+    match = Elastic::EnterpriseSearch::VERSION.match(regexp)
+    return "#{match[1]}p" if match[2]
+
+    Elastic::EnterpriseSearch::VERSION
+  end
+
+  META_HEADER_SERVICE_VERSION = [:ent, client_meta_version].freeze
 
   module EnterpriseSearch
     # API client for the {Elastic Enterprise Search API}[https://www.elastic.co/enterprise-search].
