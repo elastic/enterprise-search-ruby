@@ -26,8 +26,8 @@ module Elastic
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Array] :queries List of affected search queries (*Required*)
-        # @option arguments [] :promoted_doc_ids List of promoted document IDs
-        # @option arguments [] :hidden_doc_ids List of hidden document IDs
+        # @option arguments :promoted_doc_ids List of promoted document IDs
+        # @option arguments :hidden_doc_ids List of hidden document IDs
         # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
