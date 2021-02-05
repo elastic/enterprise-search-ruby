@@ -26,7 +26,7 @@ module Elastic
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :query_text Search query text (*Required*)
-        # @option arguments [] :document_id The ID of the document that was clicked on (*Required*)
+        # @option arguments :document_id The ID of the document that was clicked on (*Required*)
         # @option arguments [String] :request_id The request ID returned in the meta tag of a search API response
         # @option arguments [Array] :tags Array of strings representing additional information you wish to track with the clickthrough
         # @option arguments [Hash] :body The request body
