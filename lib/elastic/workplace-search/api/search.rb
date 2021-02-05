@@ -24,11 +24,25 @@ module Elastic
         # Search - search across available sources with various query tuning options
         # Issue a Search Query
         #
+        # @param arguments [Hash] endpoint arguments
+        # @option arguments [String] :access_token OAuth Access Token (*Required*)
+        # @option arguments [Object] :body
+        # @option body [String] :query A string or number used to find related documents
+        # @option body [Boolean] :automatic_query_refinement Set to false to not automatically refine the query by keywords
+        # @option body [Object] :page Paging controls for the result set
+        # @option body [Object] :search_fields Restrict the fulltext search to only specific fields
+        # @option body [Object] :result_fields Restrict the result fields for each item to the specified fields
+        # @option body :filters
+        # @option body :sort
+        # @option body [Object] :facets
+        # @option body [Object] :boosts
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html
         #
         def search(arguments = {})
+          raise ArgumentError, "Required parameter 'access_token' missing" unless arguments[:access_token]
+
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
 
