@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'elasticsearch-transport', '>= 7.11.0.pre'
+  s.add_dependency 'elasticsearch-transport', '~> 7.11'
   s.add_runtime_dependency 'jwt', '>= 1.5', '< 3.0'
   s.add_development_dependency 'awesome_print'
   s.add_development_dependency 'byebug' unless defined?(JRUBY_VERSION)
