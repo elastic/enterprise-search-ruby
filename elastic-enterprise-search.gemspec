@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
 
   s.metadata = {
     'bug_tracker_uri' => 'https://github.com/elastic/enterprise-search-ruby/issues',
-    'documentation_uri' => 'https://github.com/elastic/enterprise-search-ruby/blob/master/README.md',
+    'documentation_uri' => 'https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/index.html',
     'homepage_uri' => 'https://www.elastic.co/enterprise-search',
     'source_code_uri' => 'https://github.com/elastic/enterprise-search-ruby'
   }
