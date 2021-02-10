@@ -8,7 +8,7 @@ Official Ruby API client for [Elastic Enterprise Search](https://www.elastic.co/
 
 ## Documentation
 
-[See the documentation](https://github.com/elastic/enterprise-search-ruby/tree/master/docs/guide) for compatibility info, configuring, and an API reference.
+[See the documentation](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/index.html) for compatibility info, configuring, and an API reference.
 
 ## Development
 
