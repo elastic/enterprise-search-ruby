@@ -9,6 +9,6 @@ STACK_VERSION:
   - 7.x-SNAPSHOT
 
 TEST_SUITE:
-  - xpack
+  - platinum
 
 exclude: ~
