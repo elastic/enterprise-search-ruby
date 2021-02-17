@@ -3,9 +3,7 @@
 # Version 1.1
 # - Moved to .ci folder and seperated out `run-repository.sh`
 # - Add `$RUNSCRIPTS` env var for running Elasticsearch dependent products
-
-# Enterprise Search requires a licensed Elasticsearch instance
-export TEST_SUITE=xpack
+export TEST_SUITE=platinum
 export CONTAINER_NAME=enterprise-search
 export RUNSCRIPTS=enterprise-search
 
@@ -17,12 +15,12 @@ echo -e "\033[1m>>>>> Start [$STACK_VERSION container] >>>>>>>>>>>>>>>>>>>>>>>>>
 DETACH=true bash .ci/run-elasticsearch.sh
 
 if [[ -n "$RUNSCRIPTS" ]]; then
-    for RUNSCRIPT in ${RUNSCRIPTS//,/ } ; do
-        echo -e "\033[1m>>>>> Running run-$RUNSCRIPT.sh >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
-        CONTAINER_NAME=${RUNSCRIPT} \
-                      DETACH=true \
-                      bash .ci/run-${RUNSCRIPT}.sh
-    done
+  for RUNSCRIPT in ${RUNSCRIPTS//,/ } ; do
+    echo -e "\033[1m>>>>> Running run-$RUNSCRIPT.sh >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+    CONTAINER_NAME=${RUNSCRIPT} \
+      DETACH=true \
+      bash .ci/run-${RUNSCRIPT}.sh
+  done
 fi
 
 echo -e "\033[1m>>>>> Repository specific tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
