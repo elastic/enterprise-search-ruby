@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-export TEST_SUITE=xpack
+export TEST_SUITE=platinum
 export CONTAINER_NAME=enterprise-search
 
 script_path=$(dirname $(realpath -s $0))
