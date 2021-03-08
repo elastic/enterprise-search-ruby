@@ -33,10 +33,12 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   context 'documents' do
     let(:documents) do
       [
-        { 'id' => '4e696e74656e646f203634',
+        {
+          'id' => '4e696e74656e646f203634',
           'url' => 'https://www.elastic.co/blog/introducing-quick-start-guides-getting-started-with-elastic-enterprise-search-for-free',
           'title' => 'Getting started with Elastic Enterprise Search for free',
-          'body' => 'this is a test' },
+          'body' => 'this is a test'
+        },
         {
           'id' => '47616d6520426f7920436f6c6f72',
           'url' => 'https://www.elastic.co/workplace-search',
@@ -64,7 +66,8 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'deletes' do
       VCR.use_cassette('workplace_search/delete_documents') do
-        response = client.delete_documents(content_source_id, body: documents.map { |doc| doc['id'] })
+        response = client.delete_documents(content_source_id, document_ids: documents.map { |doc| doc['id'] })
+
         expect(response.status).to eq 200
         expect(response.body)
           .to eq(
