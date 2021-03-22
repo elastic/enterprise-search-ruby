@@ -38,7 +38,8 @@ Gem::Specification.new do |s|
     'bug_tracker_uri' => 'https://github.com/elastic/enterprise-search-ruby/issues',
     'documentation_uri' => 'https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/index.html',
     'homepage_uri' => 'https://www.elastic.co/enterprise-search',
-    'source_code_uri' => 'https://github.com/elastic/enterprise-search-ruby'
+    'source_code_uri' => 'https://github.com/elastic/enterprise-search-ruby',
+    'changelog_uri' => 'https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/release_notes.html'
   }
 
   s.files         = `git ls-files`.split("\n")
