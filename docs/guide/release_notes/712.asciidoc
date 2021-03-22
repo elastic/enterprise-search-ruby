@@ -1,0 +1,16 @@
+[[release_notes_712]]
+=== 7.12.0 Release notes
+
+[discrete]
+==== General
+
+- Tested with Elastic Enterprise Search API version 7.12.0.
+- https://www.elastic.co/guide/en/enterprise-search-clients/ruby/7.12/app-search-api.html#_search[Adds multi filter example to App Search docs].
+- Bumps `elasticsearch-transport` dependency to version 7.11 and up.
+- Updates `run-local` script to fix rake `stack` task.
+
+[discrete]
+==== App Search
+
+- Updates source code documentation for `current_page` and `page_size` parameters from type `String` to `Integer`.
+- In `multi_search`, the body parameter is renamed to `body` from `queries` to avoid repetition and potential confusion.
