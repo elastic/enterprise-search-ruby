@@ -5,8 +5,10 @@
 [discrete]
 === 7.x
 
+* <<release_notes_712, 7.12.0 Release Notes>>
 * <<release_notes_711, 7.11.0 Release Notes>>
 * <<release_notes_710, 7.10.0.beta.1 Release Notes>>
 
+include::712.asciidoc[]
 include::711.asciidoc[]
 include::710.asciidoc[]
