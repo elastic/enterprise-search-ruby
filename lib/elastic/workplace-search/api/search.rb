@@ -21,7 +21,7 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        # Search - search across available sources with various query tuning options
+        # Search - Search across available sources with various query tuning options
         # Issue a Search Query
         #
         # @param arguments [Hash] endpoint arguments

@@ -64,7 +64,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'deletes' do
       VCR.use_cassette('workplace_search/delete_documents') do
-        response = client.delete_documents(content_source_id, body: documents.map { |doc| doc['id'] })
+        response = client.delete_documents(content_source_id, document_ids: documents.map { |doc| doc['id'] })
         expect(response.status).to eq 200
         expect(response.body)
           .to eq(
