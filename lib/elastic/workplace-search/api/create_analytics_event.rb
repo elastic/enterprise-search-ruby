@@ -21,7 +21,7 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        # Analytics - capture click and feedback analytic events
+        # Analytics - Capture click and feedback analytic events
         # Capture Analytic Events
         #
         # @param arguments [Hash] endpoint arguments
