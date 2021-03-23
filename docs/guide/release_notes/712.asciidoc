@@ -14,3 +14,13 @@
 
 - Updates source code documentation for `current_page` and `page_size` parameters from type `String` to `Integer`.
 - In `multi_search`, the body parameter is renamed to `body` from `queries` to avoid repetition and potential confusion.
+
+[discrete]
+==== Workplace Search
+
+- Body parameter renamed to `document_ids` in `delete_documents`:
+
+[source,rb]
+----------------------------
+client.delete_documents(content_source_id, document_ids: ['e68fbc2688f1', 'c535e226aee3'])
+----------------------------
