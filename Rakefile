@@ -19,6 +19,7 @@
 
 require 'rspec/core/rake_task'
 require 'bundler/gem_tasks'
+import 'rake_tasks/unified_release_tasks.rake'
 
 desc 'Open an irb session preloaded with this library'
 task :console do
