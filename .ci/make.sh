@@ -46,9 +46,7 @@ echo -e "\033[34;1mINFO:\033[0m PRODUCT ${product}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m VERSION ${STACK_VERSION}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m OUTPUT_DIR ${OUTPUT_DIR}\033[0m"
 
-# ------------------------------------------------------- #
-# Parse Command
-# ------------------------------------------------------- #
+RUBY_TEST_VERSION=${RUBY_TEST_VERSION-2.7}
 
 case $CMD in
     clean)
@@ -63,7 +61,7 @@ case $CMD in
             exit 1
         fi
         echo -e "\033[36;1mTARGET: assemble artefact $VERSION\033[0m"
-        TASK=release
+        TASK=assemble
         TASK_ARGS=("$VERSION" "$output_folder")
         ;;
     codegen)
@@ -114,7 +112,7 @@ esac
 
 echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-docker build --file .ci/DockerFile --tag ${product} \
+docker build --file .ci/Dockerfile --tag ${product} \
   --build-arg USER_ID="$(id -u)" \
   --build-arg GROUP_ID="$(id -g)" .
 
@@ -125,6 +123,10 @@ docker build --file .ci/DockerFile --tag ${product} \
 
 echo -e "\033[34;1mINFO: running $product container\033[0m"
 
+# Convert ARGS to comma separated string for Rake:
+args_string="${TASK_ARGS[*]}"
+args_string="${args_string// /,}"
+
 docker run \
        --env "RUBY_TEST_VERSION=${RUBY_TEST_VERSION}" \
        --name test-runner \
@@ -132,7 +134,7 @@ docker run \
        --volume $repo:/usr/src/app \
        --rm \
        $product \
-       # bundle exec rake unified_release:"$TASK"["$args_string"]
+       bundle exec rake unified_release:"$TASK"["$args_string"]
 
 # ------------------------------------------------------- #
 # Post Command tasks & checks
@@ -145,10 +147,6 @@ if [[ "$CMD" == "assemble" ]]; then
 		echo -e "\033[31;1mTARGET: assemble failed, empty workspace!\033[0m"
 		exit 1
 	fi
-fi
-
-if [[ "$CMD" == "bump" ]]; then
-    echo "TODO"
 fi
 
 if [[ "$CMD" == "codegen" ]]; then
