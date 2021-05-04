@@ -26,7 +26,12 @@ module Elastic
       # authentication.
       module Request
         def setup_authentication_header
-          "Bearer #{http_auth}"
+          case http_auth
+          when Hash
+            basic_auth_header
+          when String
+            "Bearer #{http_auth}"
+          end
         end
       end
 
