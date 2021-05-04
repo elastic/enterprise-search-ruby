@@ -19,6 +19,8 @@ response = client.index_documents(content_source_id, body: documents)
 response = client.delete_documents(content_source_id, document_ids: ['e68fbc2688f1', 'c535e226aee3'])
 ----------------------------
 
+[discrete]
+[[ws-oauth-authentication]]
 === OAuth Authentication
 
 You need to configure the OAuth Application for Search in order to use the Workplace Search client's `search` and `create_analytics` endpoints. You need to follow the steps in https://www.elastic.co/guide/en/workplace-search/current/building-custom-search-workplace-search.html#configuring-search-oauth[Configuring the OAuth Application for Search] to retrieve the credentials: Client ID and Client Secret to request access tokens from the authentication server.
