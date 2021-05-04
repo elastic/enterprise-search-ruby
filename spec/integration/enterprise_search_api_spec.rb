@@ -31,6 +31,10 @@ describe Elastic::EnterpriseSearch::Client do
     Elastic::EnterpriseSearch::Client.new(host: host, http_auth: http_auth)
   end
 
+  after do
+    client.put_read_only(body: { enabled: false })
+  end
+
   context 'API' do
     context 'health' do
       it 'makes GET request' do
