@@ -14,6 +14,7 @@ set -euo pipefail
 
 echo -e "\033[34;1mINFO:\033[0m VERSION: ${STACK_VERSION}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m TEST_SUITE: ${TEST_SUITE}\033[0m"
+echo -e "\033[34;1mINFO:\033[0m RUBY_VERSION: ${RUBY_VERSION}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m RUNSCRIPTS: ${RUNSCRIPTS}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m URL: ${elasticsearch_url}\033[0m"
 
@@ -33,6 +34,7 @@ echo -e "\033[32;1mBUILD: \033[31mRuby \e[0m container.\033[0m"
 docker build \
        --file .ci/Dockerfile \
        --tag elastic/enterprise-search-ruby \
+       --build-arg RUBY_VERSION=${RUBY_VERSION} \
        .
 
 echo -e "\033[32;1mRUN: \033[31mRuby \e[0m container.\033[0m"
