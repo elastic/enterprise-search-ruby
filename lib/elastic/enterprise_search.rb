@@ -33,6 +33,17 @@ require 'elastic/workplace-search/workplace_search'
 require 'elastic/app-search/app_search'
 
 module Elastic
+  # If the version is X.X.X.pre/alpha/beta, use X.X.Xp for the meta-header:
+  def self.client_meta_version
+    regexp = /^([0-9]+\.[0-9]+\.[0-9]+)\.?([a-z0-9.-]+)?$/
+    match = Elastic::EnterpriseSearch::VERSION.match(regexp)
+    return "#{match[1]}p" if match[2]
+
+    Elastic::EnterpriseSearch::VERSION
+  end
+
+  ENTERPRISE_SERVICE_VERSION = [:ent, client_meta_version].freeze
+
   module EnterpriseSearch
   end
 end
