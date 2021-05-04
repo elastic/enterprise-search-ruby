@@ -60,6 +60,10 @@ module Elastic
       end
 
       def setup_authentication_header
+        basic_auth_header
+      end
+
+      def basic_auth_header
         credentials = Base64.strict_encode64("#{http_auth[:user]}:#{http_auth[:password]}")
         "Basic #{credentials}"
       end
