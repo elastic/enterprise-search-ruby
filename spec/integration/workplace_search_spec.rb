@@ -196,4 +196,58 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       end
     end
   end
+
+  context 'Permissions' do
+    let(:content_source_id) { client.create_content_source(name: 'my_content').body['id'] }
+    let(:user) { 'enterprise_search' }
+    let(:permissions) { ['permission1', 'permission2'] }
+
+    after do
+      client.put_user_permissions(content_source_id, { permissions: [], user: user })
+    end
+
+    it 'adds permissions to a user' do
+      response = client.add_user_permissions(
+        content_source_id,
+        { permissions: permissions, user: user }
+      )
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'user' => 'enterprise_search', 'permissions' => ['permission1', 'permission2'] })
+    end
+
+    it 'removes permissions from a user' do
+      client.add_user_permissions(content_source_id, { permissions: permissions, user: user })
+
+      # Removes Permissions
+      response = client.remove_user_permissions(
+        content_source_id,
+        { permissions: permissions, user: user }
+      )
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'user' => 'enterprise_search', 'permissions' => [] })
+    end
+
+    it 'lists permissions' do
+      response = client.list_permissions(content_source_id)
+      expect(response.status).to eq 200
+    end
+
+    it 'gets a user\'s permissions' do
+      client.add_user_permissions(content_source_id, { permissions: permissions, user: user })
+      response = client.user_permissions(content_source_id, { user: user })
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'user' => 'enterprise_search', 'permissions' => permissions })
+    end
+
+    it 'updates a user\'s permissions' do
+      permissions = ['testing', 'more', 'permissions']
+      response = client.add_user_permissions(content_source_id, { permissions: permissions, user: user })
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'user' => 'enterprise_search', 'permissions' => permissions })
+
+      response = client.put_user_permissions(content_source_id, { permissions: [], user: user })
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'user' => 'enterprise_search', 'permissions' => [] })
+    end
+  end
 end
