@@ -28,6 +28,8 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :user The username in context (*Required*)
         # @option arguments [Object] :body  (Required: source_user_id, user)
+        # @option body [String] :source_user_id
+        # @option body [String] :user
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#update-external-identity
