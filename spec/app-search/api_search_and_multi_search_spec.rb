@@ -36,7 +36,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'multi query search' do
     it 'performs a multi query search' do
       VCR.use_cassette('app_search/multi_query_search') do
-        response = @client.multi_search('books', queries: [{ query: 'Herman' }, { query: 'Edgar' }])
+        response = @client.multi_search('books', body: [{ query: 'Herman' }, { query: 'Edgar' }])
         expect(response.status).to eq 200
         expect(response.body.class).to be Array
         expect(response.body.count).to be 2
