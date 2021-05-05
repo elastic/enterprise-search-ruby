@@ -21,27 +21,25 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        # Documents - Deletes a list of documents from a custom content source
-        # Remove documents from a Custom API Source
+        # ContentSources - Retrieves a content source by ID
+        # Retrieves a content source by ID
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :document_ids
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#delete-by-id
+        # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-content-sources-api.html#get-content-source-api
         #
-        def delete_documents(content_source_id, arguments = {})
+        def content_source(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
 
-          document_ids = arguments.delete(:document_ids) || {}
           headers = arguments.delete(:headers) || {}
 
           request(
-            :post,
-            "api/ws/v1/sources/#{content_source_id}/documents/bulk_destroy/",
+            :get,
+            "api/ws/v1/sources/#{content_source_id}/",
             arguments,
-            document_ids,
+            {},
             headers
           )
         end
