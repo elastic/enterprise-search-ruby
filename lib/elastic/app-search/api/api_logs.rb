@@ -27,8 +27,8 @@ module Elastic
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :from_date Filter date from (*Required*)
         # @option arguments [String] :to_date Filter date to (*Required*)
-        # @option arguments [String] :current_page The page to fetch. Defaults to 1
-        # @option arguments [String] :page_size The number of results per page
+        # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
+        # @option arguments [Integer] :page_size The number of results per page
         # @option arguments [String] :query Use this to specify a particular endpoint, like analytics, search, curations and so on
         # @option arguments [String] :http_status_filter Filter based on a particular status code: 400, 401, 403, 429, 200
         # @option arguments [String] :http_method_filter Filter based on a particular HTTP method: GET, POST, PUT, PATCH, DELETE

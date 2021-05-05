@@ -25,8 +25,8 @@ module Elastic
         #
         # @param engine_name [String]  (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :current_page The page to fetch. Defaults to 1
-        # @option arguments [String] :page_size The number of results per page
+        # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
+        # @option arguments [Integer] :page_size The number of results per page
         # @option arguments [Array] :filters Analytics filters
         # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
