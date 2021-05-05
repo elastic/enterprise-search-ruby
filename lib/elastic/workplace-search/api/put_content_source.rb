@@ -21,27 +21,31 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        # Documents - Deletes a list of documents from a custom content source
-        # Remove documents from a Custom API Source
+        # ContentSources - Update a content source
+        # Update a custom content source
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :document_ids
+        # @option arguments [Object] :body Definition to update a Workplace Search Content Source (Required: name, schema, display, is_searchable)
+        # @option body [String] :name The human readable display name for this Content Source.
+        # @option body :schema The schema that each document in this Content Source will adhere to.
+        # @option body :display The display details which governs which fields will be displayed, and in what order, in the search results.
+        # @option body [Boolean] :is_searchable Whether or not this Content Source will be searchable on the search page.
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#delete-by-id
+        # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-content-sources-api.html#update-content-source-api
         #
-        def delete_documents(content_source_id, arguments = {})
+        def put_content_source(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
 
-          document_ids = arguments.delete(:document_ids) || {}
+          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
 
           request(
-            :post,
-            "api/ws/v1/sources/#{content_source_id}/documents/bulk_destroy/",
+            :put,
+            "api/ws/v1/sources/#{content_source_id}/",
             arguments,
-            document_ids,
+            body,
             headers
           )
         end
