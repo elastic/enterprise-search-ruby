@@ -30,6 +30,22 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   let(:client) do
     Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(host: host, http_auth: http_auth)
   end
+  let(:documents) do
+    [
+      {
+        'id' => '4e696e74656e646f203634',
+        'url' => 'https://www.elastic.co/blog/introducing-quick-start-guides-getting-started-with-elastic-enterprise-search-for-free',
+        'title' => 'Getting started with Elastic Enterprise Search for free',
+        'body' => 'this is a test'
+      },
+      {
+        'id' => '47616d6520426f7920436f6c6f72',
+        'url' => 'https://www.elastic.co/workplace-search',
+        'title' => 'One-stop answer shop for the virtual workplace',
+        'body' => 'this is also a test'
+      }
+    ]
+  end
 
   context 'Content Sources' do
     it 'creates, retrieves and deletes authenticated with basic auth' do
@@ -79,36 +95,33 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   end
 
   context 'Documents' do
-    let(:documents) do
-      [
-        {
-          'id' => '4e696e74656e646f203634',
-          'url' => 'https://www.elastic.co/blog/introducing-quick-start-guides-getting-started-with-elastic-enterprise-search-for-free',
-          'title' => 'Getting started with Elastic Enterprise Search for free',
-          'body' => 'this is a test'
-        },
-        {
-          'id' => '47616d6520426f7920436f6c6f72',
-          'url' => 'https://www.elastic.co/workplace-search',
-          'title' => 'One-stop answer shop for the virtual workplace',
-          'body' => 'this is also a test'
-        }
-      ]
-    end
-
     let(:content_source_id) do
       client.create_content_source(name: 'test').body['id']
     end
 
     it 'indexes' do
       response = client.index_documents(content_source_id, documents: documents)
-
       expect(response.status).to eq 200
     end
 
     it 'deletes' do
       response = client.delete_documents(content_source_id, document_ids: documents.map { |doc| doc['id'] })
+      expect(response.status).to eq 200
+    end
+  end
 
+  context 'Documents in Content Sources' do
+    let(:content_source_id) { client.create_content_source(name: 'books').body['id'] }
+    let(:document_id) { client.index_documents(content_source_id, documents: documents).body['results'].first['id'] }
+
+    it 'Gets a document in a content source' do
+      response = client.document(content_source_id, document_id: document_id)
+      expect(response.status).to eq 200
+      expect(response.body['id']).to eq document_id
+    end
+
+    it 'Deletes all documents in a content source' do
+      response = client.delete_all_documents(content_source_id)
       expect(response.status).to eq 200
     end
   end
