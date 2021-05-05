@@ -21,12 +21,12 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        # Analytics - capture click and feedback analytic events
-        # Capture Analytic Events
+        # Analytics - Capture click and feedback analytic events
+        # Capture Analytic events for click and feedback
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :access_token OAuth Access Token (*Required*)
-        # @option arguments [Object] :body
+        # @option arguments [Object] :body Workplace Search analytics event (Required: type, query_id, page, content_source_id, document_id, rank)
         # @option body [String] :type
         # @option body [String] :query_id query identifier for the event
         # @option body [Integer] :page page number of the document in the query result set
