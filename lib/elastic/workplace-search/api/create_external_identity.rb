@@ -27,6 +27,8 @@ module Elastic
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Object] :body  (Required: source_user_id, user)
+        # @option body [String] :source_user_id
+        # @option body [String] :user
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html#add-external-identity
