@@ -28,7 +28,7 @@ module Elastic
         # @option arguments [Object] :body Search request parameters
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/app-search/current/search.html#search-single
+        # @see https://www.elastic.co/guide/en/app-search/current/search.html
         #
         def search(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
