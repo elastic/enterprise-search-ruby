@@ -15,8 +15,14 @@ documents = [
 
 response = client.index_documents(content_source_id, body: documents)
 
+# Retrieve a document by ID from a specified content source
+client.document(content_source_id, document_id: '75015d85370d')
+
 # Delete Documents
-response = client.delete_documents(content_source_id, document_ids: ['e68fbc2688f1', 'c535e226aee3'])
+client.delete_documents(content_source_id, document_ids: ['e68fbc2688f1', 'c535e226aee3'])
+
+# Delete all documents for a given content source
+client.delete_all_documents(content_source_id)
 ----------------------------
 
 [discrete]
@@ -103,9 +109,18 @@ client.put_external_identity(content_source_id, user: 'elastic_user', body: body
 client.delete_external_identity(content_source_id, user: 'elastic_user')
 ----------------------------
 
+=== Search
+
+You need to set up <<ws-oauth-authentication>> and use the access token for Search. See https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html[Search API Reference] for available parameters and more details about search.
+
+[source,rb]
+----------------------------
+client.search(body: {query: 'search query'}, access_token: access_token)
+----------------------------
+
 === Create Analytics Event
 
-You need to set up OAuth Authentication for analytics events.
+You need to set up <<ws-oauth-authentication>> to use analytics events.
 
 [source,rb]
 ----------------------------
