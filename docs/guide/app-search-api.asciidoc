@@ -91,7 +91,7 @@ client.search('parks', {
 # Multi query search
 queries = [{ query: 'Nicanor'}, { query: 'Iain' }]
 
-client.multi_search(engine_name, queries: queries)
+client.multi_search(engine_name, body: queries)
 
 ----------------------------
 
