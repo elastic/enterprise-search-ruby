@@ -46,11 +46,9 @@ module Elastic
       end
 
       # Construct and send a request to the API.
-      #
-      # @raise [Timeout::Error] when the timeout expires
       def request(method, path, params = {}, body = {}, headers = {})
         meta_headers = { authorization: decide_authorization(params), user_agent: request_user_agent }
-        headers = if headers.nil? || !headers.is_a?(Hash)
+        headers = if !headers.is_a?(Hash)
                     meta_headers
                   else
                     headers.merge(meta_headers)
