@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
-  let(:host) { 'https://localhost:8080' }
+  let(:host) { 'http://localhost:3002' }
   let(:access_token) { 'access_token' }
 
   context 'dependant on EnterpriseSearch' do
@@ -66,11 +66,33 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
   end
 
+  context 'Authentication' do
+    let(:client) { Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(http_auth: http_auth) }
+
+    context 'when using an API token' do
+      let(:http_auth) { 'api_token' }
+
+      it 'initializes a workplace search client' do
+        expect(client.http_auth).to eq http_auth
+        expect(client.setup_authentication_header).to eq "Bearer #{http_auth}"
+      end
+    end
+
+    context 'when using basic auth' do
+      let(:http_auth) { { user: 'elastic', password: 'password' } }
+
+      it 'initializes a workplace search client' do
+        expect(client.http_auth).to eq http_auth
+        expect(client.setup_authentication_header).to eq 'Basic ZWxhc3RpYzpwYXNzd29yZA=='
+      end
+    end
+  end
+
   context 'OAuth' do
     let(:client) { Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(host: host) }
 
     it 'generates an authorization url' do
-      authorization_url = 'https://localhost:8080/ws/oauth/authorize?response_type=code&client_id=client_id&redirect_uri=https%3A%2F%2Flocalhost%3A3002'
+      authorization_url = 'http://localhost:3002/ws/oauth/authorize?response_type=code&client_id=client_id&redirect_uri=https%3A%2F%2Flocalhost%3A3002'
       expect(client.authorization_url('client_id', 'https://localhost:3002')).to eq authorization_url
     end
   end
