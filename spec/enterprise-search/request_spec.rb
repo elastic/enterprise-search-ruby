@@ -112,6 +112,32 @@ describe Elastic::EnterpriseSearch::Client do
         expect(client.put('test', {}, { 'params' => 'test' }, custom_header).status).to eq(200)
       end
     end
+
+    context 'Test headers' do
+      context 'when using an empty header' do
+        let(:custom_header) { {} }
+        it 'builds the right request' do
+          stub_request(:get, "#{host}/test")
+            .with(body: { 'params' => 'test' })
+            .with(headers: headers)
+            .to_return(stub_response)
+
+          expect(client.request(:get, 'test', {}, { 'params' => 'test' }, custom_header).status).to eq(200)
+        end
+      end
+
+      context 'when using invalid header' do
+        let(:custom_header) { 'Test' }
+        it 'builds the right request' do
+          stub_request(:get, "#{host}/test")
+            .with(body: { 'params' => 'test' })
+            .with(headers: headers)
+            .to_return(stub_response)
+
+          expect(client.request(:get, 'test', {}, { 'params' => 'test' }, custom_header).status).to eq(200)
+        end
+      end
+    end
   end
 
   context 'with ssl' do
