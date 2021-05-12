@@ -83,10 +83,6 @@ module Elastic
         @options[:open_timeout] || DEFAULT_TIMEOUT
       end
 
-      def proxy
-        @options[:proxy]
-      end
-
       def overall_timeout
         (@options[:overall_timeout] || DEFAULT_TIMEOUT).to_f
       end
