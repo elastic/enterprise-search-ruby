@@ -1,6 +1,33 @@
 [[workplace-search-api]]
 == Workplace Search API
 
+=== Content Sources
+
+[source,rb]
+----------------------------
+# Create a custom content source
+client.create_content_source(name: 'test')
+
+# Retrieve a content source by ID
+content_source_id = client.create_content_source(name: 'books').body['id']
+client.content_source(content_source_id)
+
+# Delete a content source by ID
+client.delete_content_source(content_source_id)
+
+# Retrieve all content sources
+client.list_content_sources
+
+# Update a custom content source
+body = {
+  name: new_name,
+  schema: { title: 'text', body: 'text', url: 'text' },
+  display: { title_field: 'title', url_field: 'url', color: '#f00f00' },
+  is_searchable: true
+}
+client.put_content_source(id, body: body)
+----------------------------
+
 === Documents
 
 [source,rb]
