@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/api/as/v1/credentials/
+    body:
+      encoding: UTF-8
+      string: '{"name":"my-api-key","type":"private","read":true,"write":true,"access_all_engines":true}'
+    headers:
+      X-Elastic-Client-Meta:
+      - ent=8.0.0,rb=3.0.1,t=7.13.3,fd=1.5.1,nh=0.1.1
+      User-Agent:
+      - 'elastic-enteprise-search-ruby/8.0.0 (RUBY_VERSION: 3.0.1; linux x86_64; elasticsearch-transport:
+        7.13.3)'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-App-Search-Version:
+      - 7.14.0
+      Content-Type:
+      - application/json;charset=utf-8
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Origin
+      Etag:
+      - W/"cb88f57feab926c9f2fc911133296c96--gzip"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - aa3678b1-f5cb-4b6a-b699-076420dd908d
+      X-Runtime:
+      - '0.124357'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(9.4.33.v20201020)
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"loco_moco_account_id:60ed920e613281f096273599|name:my-api-key","key":"private-q1fom1cnf2cdsr2wa91vpqs4","name":"my-api-key","type":"private","read":true,"write":true,"access_all_engines":true}'
+    http_version: 
+  recorded_at: Tue, 13 Jul 2021 13:30:34 GMT
+recorded_with: VCR 3.0.3
