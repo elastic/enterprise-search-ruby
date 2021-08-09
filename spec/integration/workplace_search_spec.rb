@@ -134,6 +134,26 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       response = client.delete_all_documents(content_source_id)
       expect(response.status).to eq 200
     end
+
+    it 'Deletes documents by query' do
+      content_source_id = client.create_content_source(name: 'asimov').body['id']
+      documents = [
+        { title: 'Foundation', year: 1951 },
+        { title: 'Foundation and Empire', year: 1952 },
+        { title: 'Second Foundation', year: 1953 }
+      ]
+      response = client.index_documents(content_source_id, documents: documents)
+
+      expect(response.status).to eq 200
+      expect(response.body['results'].count).to eq 3
+
+      # Give time to index the documents so we can delete them:
+      sleep 2
+
+      response = client.delete_documents_by_query(content_source_id, query: 'Foundation')
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'total' => 3, 'deleted' => 3, 'failures' => [] })
+    end
   end
 
   context 'External Identities' do
