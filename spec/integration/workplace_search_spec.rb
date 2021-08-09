@@ -250,4 +250,24 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.body).to eq({ 'user' => 'enterprise_search', 'permissions' => [] })
     end
   end
+
+  context 'Synonym sets' do
+    let(:body) do
+      {
+        synonym_sets: [
+          { 'synonyms' => ['house', 'home', 'abode'] },
+          { 'synonyms' => ['cat', 'feline', 'kitty'] },
+          { 'synonyms' => ['mouses', 'mice'] }
+        ]
+      }
+    end
+
+    it 'creates a batch synonym set' do
+      response = client.create_batch_synonym_sets(body: body)
+
+      expect(response.status).to eq 200
+      expect(response.body['has_errors']).to eq false
+      expect(response.body['synonym_sets'].count).to eq 3
+    end
+  end
 end
