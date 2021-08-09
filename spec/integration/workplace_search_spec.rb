@@ -315,4 +315,18 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       client.delete_synonym_set(synonym_set_id: id)
     end
   end
+
+  context 'Users' do
+    it 'gets the current user' do
+      response = client.current_user
+      expect(response.status).to eq 200
+      expect(response.body.keys).to eq ['email', 'username']
+    end
+
+    it 'gets the current user with an access token' do
+      response = client.current_user(get_token: true)
+      expect(response.status).to eq 200
+      expect(response.body.keys).to eq ['email', 'username', 'access_token']
+    end
+  end
 end
