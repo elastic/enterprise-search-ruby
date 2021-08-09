@@ -268,6 +268,18 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.status).to eq 200
       expect(response.body['has_errors']).to eq false
       expect(response.body['synonym_sets'].count).to eq 3
+
+      response.body['synonym_sets'].map { |s| client.delete_synonym_set(document_id: s['id']) }
+    end
+
+    it 'lists synonym sets' do
+      client.create_batch_synonym_sets(body: body)
+      response = client.list_synonym_sets
+
+      expect(response.status).to eq 200
+      expect(response.body['results'].count).to eq 3
+
+      response.body['results'].map { |syn| client.delete_synonym_set(document_id: syn['id']) }
     end
   end
 end
