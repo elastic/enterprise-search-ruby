@@ -25,18 +25,23 @@ module Elastic
         # Retrieve a list of synonym sets
         #
         # @param arguments [Hash] endpoint arguments
+        # @option arguments [Hash] :body
+        # @option body :page
+        # @option body :sort
+        # @option body :filter
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-synonyms-api.html#list-synonyms
         #
         def list_synonym_sets(arguments = {})
+          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
 
           request(
             :get,
             'api/ws/v1/synonyms/',
             arguments,
-            {},
+            body,
             headers
           )
         end
