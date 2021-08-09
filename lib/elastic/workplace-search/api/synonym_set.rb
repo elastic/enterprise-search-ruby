@@ -25,21 +25,21 @@ module Elastic
         # Retrieve a synonym set by ID
         #
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :document_id Unique ID for a content source document. Provided upon or returned at creation. (*Required*)
+        # @option arguments [String] :synonym_set_id Unique ID for a content source document. Provided upon or returned at creation. (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-synonyms-api.html#show-synonym
         #
         def synonym_set(arguments = {})
-          raise ArgumentError, "Required parameter 'document_id' missing" unless arguments[:document_id]
+          raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless arguments[:synonym_set_id]
 
-          document_id = arguments[:document_id]
+          synonym_set_id = arguments[:synonym_set_id]
 
           headers = arguments.delete(:headers) || {}
 
           request(
             :get,
-            "api/ws/v1/synonyms/#{document_id}/",
+            "api/ws/v1/synonyms/#{synonym_set_id}/",
             arguments,
             {},
             headers
