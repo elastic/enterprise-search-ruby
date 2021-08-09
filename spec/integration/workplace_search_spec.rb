@@ -262,7 +262,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       }
     end
 
-    it 'creates a batch synonym set' do
+    it 'creates and deletes a batch synonym set' do
       response = client.create_batch_synonym_sets(body: body)
 
       expect(response.status).to eq 200
@@ -280,6 +280,39 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.body['results'].count).to eq 3
 
       response.body['results'].map { |syn| client.delete_synonym_set(document_id: syn['id']) }
+    end
+
+    it 'gets a single synonym set' do
+      id = client.create_batch_synonym_sets(
+        body: {
+          synonym_sets: [
+            { 'synonyms' => ['house', 'home', 'abode'] }
+          ]
+        }
+      ).body['synonym_sets'].first['id']
+
+      response = client.synonym_set(document_id: id)
+      expect(response.status).to eq 200
+      expect(response.body['id']).to eq id
+      expect(response.body['synonyms']).to eq ['house', 'home', 'abode']
+      client.delete_synonym_set(document_id: id)
+    end
+
+    it 'updates a synonym set' do
+      id = client.create_batch_synonym_sets(
+        body: {
+          synonym_sets: [
+            { 'synonyms' => ['mouses', 'mice'] }
+          ]
+        }
+      ).body['synonym_sets'].first['id']
+      body = { synonyms: ['mouses', 'mice', 'luch'] }
+
+      response = client.put_synonym_set(synonym_set_id: id, body: body)
+
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'id' => id, 'synonyms' => ['mouses', 'mice', 'luch'] })
+      client.delete_synonym_set(document_id: id)
     end
   end
 end
