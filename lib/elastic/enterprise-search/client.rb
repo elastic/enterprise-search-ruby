@@ -32,6 +32,7 @@ module Elastic
   end
 
   META_HEADER_SERVICE_VERSION = [:ent, client_meta_version].freeze
+  ENTERPRISE_SERVICE_VERSION = [:ent, client_meta_version].freeze
 
   module EnterpriseSearch
     # API client for the {Elastic Enterprise Search API}[https://www.elastic.co/enterprise-search].
