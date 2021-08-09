@@ -26,7 +26,7 @@ module Elastic
         #
         # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :document_id  (*Required*)
+        # @option arguments [String] :document_id Unique ID for a content source document. Provided upon or returned at creation. (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-content-sources-api.html#get-document-by-id-api
