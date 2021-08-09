@@ -92,6 +92,16 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.status).to eq 200
       expect(response.body['name']) == new_name
     end
+
+    it 'syncs jobs' do
+      response = client.create_content_source(name: 'sync_jobs_test')
+      expect(response.status).to eq 200
+      id = response.body['id']
+
+      response = client.command_sync_jobs(id, body: { command: 'interrupt' })
+      expect(response.status).to eq 200
+      expect(response.body['results'].keys).to eq ['interrupted']
+    end
   end
 
   context 'Documents' do
