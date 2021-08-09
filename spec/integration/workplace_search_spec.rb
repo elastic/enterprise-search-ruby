@@ -269,7 +269,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.body['has_errors']).to eq false
       expect(response.body['synonym_sets'].count).to eq 3
 
-      response.body['synonym_sets'].map { |s| client.delete_synonym_set(document_id: s['id']) }
+      response.body['synonym_sets'].map { |s| client.delete_synonym_set(synonym_set_id: s['id']) }
     end
 
     it 'lists synonym sets' do
@@ -279,7 +279,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.status).to eq 200
       expect(response.body['results'].count).to eq 3
 
-      response.body['results'].map { |syn| client.delete_synonym_set(document_id: syn['id']) }
+      response.body['results'].map { |syn| client.delete_synonym_set(synonym_set_id: syn['id']) }
     end
 
     it 'gets a single synonym set' do
@@ -291,11 +291,11 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
         }
       ).body['synonym_sets'].first['id']
 
-      response = client.synonym_set(document_id: id)
+      response = client.synonym_set(synonym_set_id: id)
       expect(response.status).to eq 200
       expect(response.body['id']).to eq id
       expect(response.body['synonyms']).to eq ['house', 'home', 'abode']
-      client.delete_synonym_set(document_id: id)
+      client.delete_synonym_set(synonym_set_id: id)
     end
 
     it 'updates a synonym set' do
@@ -312,7 +312,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
       expect(response.status).to eq 200
       expect(response.body).to eq({ 'id' => id, 'synonyms' => ['mouses', 'mice', 'luch'] })
-      client.delete_synonym_set(document_id: id)
+      client.delete_synonym_set(synonym_set_id: id)
     end
   end
 end
