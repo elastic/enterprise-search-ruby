@@ -18,6 +18,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'base64'
 
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
@@ -101,6 +102,18 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       response = client.command_sync_jobs(id, body: { command: 'interrupt' })
       expect(response.status).to eq 200
       expect(response.body['results'].keys).to eq ['interrupted']
+    end
+
+    context 'Icons' do
+      let(:content_source_id) { client.create_content_source(name: 'with-icon').body['id'] }
+
+      it 'puts an icon' do
+        path = File.expand_path("#{File.dirname(__FILE__)}/icon.png")
+        icon = Base64.strict_encode64(File.read(path))
+        response = client.put_content_source_icons(content_source_id, main_icon: icon, alt_icon: icon)
+        expect(response.status).to eq 200
+        expect(response.body['results']).to eq({ 'main_icon' => 'success', 'alt_icon' => 'success' })
+      end
     end
   end
 
