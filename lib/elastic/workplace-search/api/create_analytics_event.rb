@@ -26,13 +26,13 @@ module Elastic
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :access_token OAuth Access Token (*Required*)
-        # @option arguments [Object] :body Workplace Search analytics event (Required: type, query_id, page, content_source_id, document_id, rank)
-        # @option body [String] :type
-        # @option body [String] :query_id query identifier for the event
-        # @option body [Integer] :page page number of the document in the query result set
-        # @option body [String] :content_source_id content source identifier for the event document
-        # @option body [String] :document_id document identifier for the event
-        # @option body [Integer] :rank rank of the document in the overall result set
+        # @option arguments [Hash] :body Workplace Search analytics event (Required: type, query_id, page, content_source_id, document_id, rank)
+        # @option body [String] :type  (*Required)
+        # @option body [String] :query_id query identifier for the event (*Required)
+        # @option body [Integer] :page page number of the document in the query result set (*Required)
+        # @option body [String] :content_source_id content source identifier for the event document (*Required)
+        # @option body [String] :document_id document identifier for the event (*Required)
+        # @option body [Integer] :rank rank of the document in the overall result set (*Required)
         # @option body [String] :event the target identifier for a click event
         # @option body [Integer] :score the feedback score, constrained to the values -1 or 1
         # @option arguments [Hash] :headers optional HTTP headers to send with the request

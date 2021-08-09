@@ -26,7 +26,7 @@ module Elastic
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :access_token OAuth Access Token (*Required*)
-        # @option arguments [Object] :body
+        # @option arguments [Hash] :body
         # @option body [String] :query A string or number used to find related documents
         # @option body [Boolean] :automatic_query_refinement Set to false to not automatically refine the query by keywords
         # @option body [Object] :page Paging controls for the result set
