@@ -19,6 +19,6 @@
 
 module Elastic
   module EnterpriseSearch
-    VERSION = '7.12.0'
+    VERSION = '7.12.1'
   end
 end
