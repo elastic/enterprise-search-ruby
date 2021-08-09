@@ -1,5 +1,17 @@
 [[release_notes_712]]
+=== 7.12 Release notes
+
+[discrete]
+[[release_notes_7121]]
+=== 7.12.1 Release notes
+
+- Elastic Transport: Locks dependency version to < 7.14
+- Elastic Transport: Adds ENTERPRISE_SERVICE_VERSION constant for compatibility
+
+[discrete]
+[[release_notes_7120]]
 === 7.12.0 Release notes
+
 
 [discrete]
 ==== General
