@@ -146,6 +146,34 @@ client.list_curations(engine_name)
 client.delete_curation(engine_name, curation_id: 'cur-id')
 ----------------------------
 
+=== Api Key
+
+[source,rb]
+----------------------------
+# Create API Key
+body = {
+  name: name,
+  type: 'private',
+  read: true,
+  write: true,
+  access_all_engines: true
+}
+response = client.create_api_key(body: body)
+
+# Get the details of an API Key
+client.api_key(api_key_name: name)
+
+# List API Keys
+client.list_api_keys
+
+# Update an API Key
+body = { name: name, type: 'private', read: true, write: true, engines: ['test'] }
+client.put_api_key(api_key_name: name, body: body)
+
+# Delete an API Key
+client.delete_api_key(api_key_name: name)
+----------------------------
+
 === Other API Endpoints
 
 [source,rb]
