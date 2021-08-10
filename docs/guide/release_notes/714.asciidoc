@@ -1,0 +1,21 @@
+[[release_notes_714]]
+=== 7.14.0 Release notes
+
+[discrete]
+==== General
+
+- Tested with Elastic Enterprise Search API version 7.14.0.
+
+[discrete]
+==== App Search
+
+- Adds API Key endpoints: `api_key`, `create_api_key`, `delete_api_key`, `list_api_keys`, `put_api_key`
+
+[discrete]
+==== Workplace Search
+
+- Adds synonym set endpoints: `create_batch_synonym_sets`, `delete_synonym_set`, `list_synonym_sets`, `put_synonym_set`, `synonym_set`
+- Adds `current_user` endpoint
+- Adds `command_sync_jobs` endpoint
+- Adds `delete_documents_by_query` endpoint
+- Adds `put_content_source_icons` endpoint
