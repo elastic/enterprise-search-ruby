@@ -26,6 +26,17 @@ body = {
   is_searchable: true
 }
 client.put_content_source(id, body: body)
+
+# Issue commands to a Content Source's sync jobs
+client.command_sync_jobs(content_source_id, body: { command: 'interrupt' })
+
+# Update a content source icon
+# You need to encode the file with Base64:
+require 'base64'
+
+path = File.expand_path("#{File.dirname(__FILE__)}/icon.png")
+icon = Base64.strict_encode64(File.read(path))
+response = client.put_content_source_icons(content_source_id, main_icon: icon, alt_icon: icon)
 ----------------------------
 
 === Documents
@@ -50,6 +61,9 @@ client.delete_documents(content_source_id, document_ids: ['e68fbc2688f1', 'c535e
 
 # Delete all documents for a given content source
 client.delete_all_documents(content_source_id)
+
+# Delete documents by query
+client.delete_documents_by_query(content_source_id, query: query)
 ----------------------------
 
 [discrete]
@@ -162,4 +176,45 @@ body = {
 }
 
 client.create_analytics_event(access_token: oauth_access_token, body: body)
+----------------------------
+
+=== Synonym Sets
+
+[source,rb]
+----------------------------
+body = {
+  synonym_sets: [
+    { 'synonyms' => ['house', 'home', 'abode'] },
+    { 'synonyms' => ['cat', 'feline', 'kitty'] },
+    { 'synonyms' => ['mouses', 'mice'] }
+  ]
+}
+
+# Create batch synonym set
+client.create_batch_synonym_sets(body: body)
+
+# Delete synonym set
+client.delete_synonym_set(synonym_set_id: id)
+
+# List synonym sets
+client.list_synonym_sets
+
+# Get a synonym set
+client.synonym_set(synonym_set_id: id)
+
+# Update a synonym set
+body = { synonyms: ['mouses', 'mice', 'luch'] }
+client.put_synonym_set(synonym_set_id: id, body: body)
+----------------------------
+
+
+=== Current User
+
+[source,rb]
+----------------------------
+# Get the current user
+client.current_user
+
+# Get the current user and return the access token
+client.current_user(get_token: true)
 ----------------------------
