@@ -1,6 +1,6 @@
 # Elastic Enterprise Search Client
 
-![build](https://github.com/elastic/enterprise-search-ruby/workflows/master/badge.svg)
+![build](https://github.com/elastic/enterprise-search-ruby/workflows/main/badge.svg)
 ![rubocop](https://github.com/elastic/enterprise-search-ruby/workflows/rubocop/badge.svg)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
 
