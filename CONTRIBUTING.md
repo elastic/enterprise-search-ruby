@@ -22,7 +22,7 @@
 
 3. Rebase your changes. Update your local repository with the most recent code
    from the main `enterprise-search-ruby` repository and rebase your branch
-   on top of the latest `master` branch. All of your changes will be squashed
+   on top of the latest `main` branch. All of your changes will be squashed
    into a single commit so don't worry about pushing multiple times.
    
 4. Submit a pull request. Push your local changes to your forked repository
