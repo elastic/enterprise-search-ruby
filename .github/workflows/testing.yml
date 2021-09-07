@@ -1,4 +1,4 @@
-name: master
+name: 7.x
 on: [push, pull_request]
 
 jobs:
