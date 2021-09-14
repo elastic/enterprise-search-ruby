@@ -19,7 +19,7 @@
 
 require 'elastic/enterprise-search/request'
 require 'elastic/enterprise-search/utils'
-require 'elasticsearch-transport'
+require 'elastic-transport'
 
 module Elastic
   module EnterpriseSearch
@@ -67,7 +67,7 @@ module Elastic
 
       def transport
         @options[:transport] ||
-          Elasticsearch::Client.new(
+          Elastic::Transport::Client.new(
             host: host,
             log: log,
             logger: logger,
