@@ -21,25 +21,10 @@ module Elastic
   module EnterpriseSearch
     # Workplace Search client for Enterprise Search.
     module WorkplaceSearch
-      # The Request module is included in the WorkplaceSearch Client to override
-      # EnterpriseSearch client's authentication method with Workplace's
-      # authentication.
-      module Request
-        def setup_authentication_header
-          case http_auth
-          when Hash
-            basic_auth_header
-          when String
-            "Bearer #{http_auth}"
-          end
-        end
-      end
-
       # The Workplace Search Client
       # Extends EnterpriseSearch client but overrides authentication to use access token.
       class Client < Elastic::EnterpriseSearch::Client
         include Elastic::EnterpriseSearch::WorkplaceSearch::Actions
-        include Elastic::EnterpriseSearch::WorkplaceSearch::Request
         include Elastic::EnterpriseSearch::Utils
 
         # Create a new Elastic::EnterpriseSearch::WorkplaceSearch::Client client
