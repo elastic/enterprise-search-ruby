@@ -58,7 +58,16 @@ module Elastic
       end
 
       def setup_authentication_header
-        basic_auth_header
+        if instance_of? Elastic::EnterpriseSearch::Client
+          basic_auth_header
+        else
+          case http_auth
+          when Hash
+            basic_auth_header
+          when String
+            "Bearer #{http_auth}"
+          end
+        end
       end
 
       def basic_auth_header

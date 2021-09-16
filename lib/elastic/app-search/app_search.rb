@@ -25,20 +25,10 @@ module Elastic
     #
     # @see https://www.elastic.co/guide/en/app-search/current/index.html
     module AppSearch
-      # The Request module is included in the AppSearch Client to override
-      # EnterpriseSearch client's authentication method with App's
-      # authentication.
-      module Request
-        def setup_authentication_header
-          "Bearer #{http_auth}"
-        end
-      end
-
       # The App Search Client
       # Extends EnterpriseSearch client but overrides authentication to use access token.
       class Client < Elastic::EnterpriseSearch::Client
         include Elastic::EnterpriseSearch::AppSearch::Actions
-        include Elastic::EnterpriseSearch::AppSearch::Request
 
         # Create a new Elastic::EnterpriseSearch::AppSearch::Client client
         #
