@@ -34,13 +34,19 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       sleep 1
     end
 
-    it 'creates a domain' do
+    it 'creates and gets a crawler domain' do
       body = { name: name }
       response = client.create_crawler_domain(engine_name, body: body)
       @domain = response.body
 
       expect(response.status).to eq 200
-      expect(response.body.keys).to include('id')
+      expect(response.body['id']).to eq @domain['id']
+      expect(response.body).to include('name' => name)
+
+      # client.crawler_domain
+      response = client.crawler_domain(engine_name, domain_id: @domain['id'])
+      expect(response.status).to eq 200
+      expect(response.body['id']).to eq @domain['id']
       expect(response.body).to include('name' => name)
     end
 
