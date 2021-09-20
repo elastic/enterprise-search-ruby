@@ -17,18 +17,25 @@
 
 # frozen_string_literal: true
 
-require 'spec_helper'
-require_relative './api_spec_helper'
-
+require_relative "#{__dir__}/app_search_helper.rb"
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  context 'api_logs' do
-    it 'returns api logs' do
-      VCR.use_cassette('app_search/count_analytics') do
-        response = @client.count_analytics('videogames')
+  context 'Count Analytics' do
+    let(:engine_name) { 'videogames' }
 
-        expect(response.status).to eq 200
-        expect(response.body['results'].count).to be > 1
-      end
+    before do
+      client.create_engine(name: engine_name)
+      sleep 1
+    end
+
+    after do
+      client.delete_engine(engine_name)
+    end
+
+    it 'returns count analytics' do
+      response = client.count_analytics(engine_name)
+
+      expect(response.status).to eq 200
+      expect(response.body['results'].count).to be > 1
     end
   end
 end
