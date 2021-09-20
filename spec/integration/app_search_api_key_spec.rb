@@ -80,11 +80,26 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       client.create_engine(name: engine_name)
 
       body = { name: key_name, type: 'private', read: true, write: true, engines: [engine_name] }
-      response = client.put_api_key(api_key_name: key_name, body: body)
+      attempts = 0
+      begin
+        response = put_api_key(key_name, body)
+      # Since we're creating the API key and trying to update it right away, we sometimes get a 404
+      # if the transaction hasn't been confirmed. We give it a second and try again for a few times:
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        attempts += 1
+        raise e if attempts > 5
+
+        sleep 1
+        response = put_api_key(key_name, body)
+      end
       expect(response.status).to eq 200
       expect(response.body['engines']).to eq [engine_name]
       client.delete_engine(engine_name)
       client.delete_api_key(api_key_name: key_name)
+    end
+
+    def put_api_key(key_name, body)
+      client.put_api_key(api_key_name: key_name, body: body)
     end
 
     it 'lists API keys' do
