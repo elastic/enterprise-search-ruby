@@ -17,20 +17,9 @@
 
 # frozen_string_literal: true
 
-require 'spec_helper'
+require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  let(:host) { ENV['ELASTIC_ENTERPRISE_HOST'] || 'http://localhost:3002' }
-  let(:http_auth) do
-    {
-      user: ENV['ELASTIC_ENTERPRISE_USER'] || 'enterprise_search',
-      password: ENV['ELASTIC_ENTERPRISE_PASSWORD'] || 'changeme'
-    }
-  end
-  let(:client) do
-    Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, http_auth: http_auth)
-  end
-
   context 'API Key' do
     it 'creates and deletes an API key' do
       name = 'created-key'
@@ -87,7 +76,10 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       # if the transaction hasn't been confirmed. We give it a second and try again for a few times:
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         attempts += 1
-        raise e if attempts > 5
+        if attempts > 5
+          Logger.new($stdout).log('Attempted 6 times')
+          raise e
+        end
 
         sleep 1
         response = put_api_key(key_name, body)
