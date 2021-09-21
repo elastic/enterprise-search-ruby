@@ -242,6 +242,9 @@ client.delete_crawler_entry_point(
 # Retrieve crawler metrics
 client.crawler_metrics
 
+# Retrieve crawler configuration overview
+client.crawler_overview(engine_name)
+
 # Create a crawler sitemap
 body = { url: 'https://www.elastic.co/sitemap.xml' }
 client.create_crawler_sitemap(engine_name, domain_id: domain_id, body: body)
