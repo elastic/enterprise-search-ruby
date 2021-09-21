@@ -221,6 +221,23 @@ client.crawler_crawl_schedule(engine_name)
 # Delete a crawler crawl schedule
 client.delete_crawler_crawl_schedule(engine_name)
 
+# Create a crawler entry point
+client.create_crawler_entry_point(engine_name, domain_id: domain_id, body: { value: '/elastic-stack' })
+
+# Update a crawler entry point
+client.put_crawler_entry_point(
+  engine_name,
+  domain_id: domain_id,
+  entry_point_id: entry_point_id,
+  body: { value: '/enterprise-search' }
+)
+
+# Delete a crawler entry point
+client.delete_crawler_entry_point(
+  engine_name,
+  domain_id: domain_id,
+  entry_point_id: entry_point_id
+)
 ----------------------------
 
 === Other API Endpoints
