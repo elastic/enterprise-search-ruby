@@ -87,7 +87,6 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       expect(response.status).to eq 200
       expect(response.body['engines']).to eq [engine_name]
       client.delete_engine(engine_name)
-      client.delete_api_key(api_key_name: key_name)
     end
 
     def put_api_key(key_name, body)
