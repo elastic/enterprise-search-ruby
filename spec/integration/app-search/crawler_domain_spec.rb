@@ -20,7 +20,7 @@
 require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  context 'Web Crawler' do
+  context 'Crawler Domain' do
     let(:engine_name) { 'crawler' }
     let(:name) { 'https://www.elastic.co' }
 
