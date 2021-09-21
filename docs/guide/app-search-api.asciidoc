@@ -232,6 +232,15 @@ client.put_crawler_entry_point(
   body: { value: '/enterprise-search' }
 )
 
+# Validate a URL
+client.crawler_url_validation_result(engine_name,  url: name)
+
+# Extract ccontent from a URL
+client.crawler_url_extraction_result(engine_name, url: name)
+
+# Retrieve tracing history for a crawler URL
+client.crawler_url_tracing_result(engine_name, url: name)
+
 # Delete a crawler entry point
 client.delete_crawler_entry_point(
   engine_name,
