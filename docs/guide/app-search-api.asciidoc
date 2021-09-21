@@ -176,7 +176,9 @@ client.put_api_key(api_key_name: name, body: body)
 client.delete_api_key(api_key_name: name)
 ----------------------------
 
-=== Crawler
+=== Web Crawler
+
+See https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html[Web Crawler API reference] for more information.
 
 [source,rb]
 ----------------------------
@@ -208,6 +210,17 @@ client.list_crawler_crawl_requests(engine_name)
 
 # Delete an active crawl request
 client.delete_active_crawl_request(engine_name)
+
+# Set a crawler crawl schedule
+body = { frequency: 1, unit: 'day' }
+client.put_crawler_crawl_schedule(engine_name, body: body)
+
+# Retrieve crawler crawl schedule
+client.crawler_crawl_schedule(engine_name)
+
+# Delete a crawler crawl schedule
+client.delete_crawler_crawl_schedule(engine_name)
+
 ----------------------------
 
 === Other API Endpoints
