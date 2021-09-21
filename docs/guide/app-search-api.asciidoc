@@ -275,6 +275,18 @@ client.put_crawler_crawl_rule(engine_name, domain_id: domain_id, crawl_rule_id: 
 
 # Delete a crawler crawl rule
 client.delete_crawler_crawl_rule(engine_name, domain_id: domain_id, crawl_rule_id: rule_id)
+
+# Create a process crawl
+client.create_crawler_process_crawl(engine_name, body: { dry_run: true })
+
+# Retrieve a process crawl
+client.crawler_process_crawl(engine_name, process_crawl_id: id)
+
+# Retrieve denied URLs cor a process crawl
+client.denied_urls(engine_name, process_crawl_id: id)
+
+# List process crawls
+client.list_crawler_process_crawls(engine_name)
 ----------------------------
 
 === Other API Endpoints
