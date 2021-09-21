@@ -1,6 +1,8 @@
 [[app-search-api]]
 == App Search API
 
+This document includes examples for different API requests. Please refer to the https://www.elastic.co/guide/en/app-search/current/index.html[Elastic App Search Documentation] for more information, particularly the https://www.elastic.co/guide/en/app-search/current/api-reference.html[API Reference].
+
 === Engines
 
 [source,rb]
@@ -191,6 +193,21 @@ client.put_crawler_domain(engine_name, domain_id: domain_id, domain: body)
 
 # Delete a crawler domain
 client.delete_crawler_domain(engine_name, domain_id: domain_id)
+
+# Create a crawler crawl request
+client.create_crawler_crawl_request(engine_name)
+
+# Retrieve a crawl request
+client.crawler_crawl_request(engine_name, crawl_request_id: request_id)
+
+# Retrieve active crawl request details
+client.crawler_active_crawl_request(engine_name)
+
+# List crawl requests
+client.list_crawler_crawl_requests(engine_name)
+
+# Delete an active crawl request
+client.delete_active_crawl_request(engine_name)
 ----------------------------
 
 === Other API Endpoints
