@@ -238,6 +238,9 @@ client.delete_crawler_entry_point(
   domain_id: domain_id,
   entry_point_id: entry_point_id
 )
+
+# Retrieve crawler metrics
+client.crawler_metrics
 ----------------------------
 
 === Other API Endpoints
