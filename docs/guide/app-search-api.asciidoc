@@ -252,6 +252,17 @@ client.put_crawler_sitemap(engine_name, domain_id: domain_id, sitemap_id: sitema
 
 # Delete a crawler sitemap
 client.delete_crawler_sitemap(engine_name, domain_id: domain_id, sitemap_id: sitemap_id)
+
+# Create a crawler crawl rule
+body = { order: 1, policy: 'allow', rule: 'contains', pattern: '/stack' }
+client.create_crawler_crawl_rule(engine_name, domain_id: domain_id, body: body)
+
+# Update a crawler crawl rule
+body = { order: 2, policy: 'allow', rule: 'begins', pattern: '/stack' }
+client.put_crawler_crawl_rule(engine_name, domain_id: domain_id, crawl_rule_id: rule_id, body: body)
+
+# Delete a crawler crawl rule
+client.delete_crawler_crawl_rule(engine_name, domain_id: domain_id, crawl_rule_id: rule_id)
 ----------------------------
 
 === Other API Endpoints
