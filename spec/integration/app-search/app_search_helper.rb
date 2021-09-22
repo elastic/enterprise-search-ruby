@@ -29,3 +29,11 @@ def client
     }
   )
 end
+
+def delete_engines
+  engines = client.list_engines.body['results']
+  engines.each do |engine|
+    client.delete_engine(engine['name'])
+  end
+  sleep 1
+end
