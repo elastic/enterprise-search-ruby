@@ -21,11 +21,12 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Curations - Retrieve a curation by ID
+        # Curations - Retrieve a curation
+        # Retrieves a curation by ID
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :curation_id  (*Required*)
+        # @option arguments [String] :curation_id Curation ID (*Required*)
         # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #

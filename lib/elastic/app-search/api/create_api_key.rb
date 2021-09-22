@@ -22,9 +22,17 @@ module Elastic
     module AppSearch
       module Actions
         # Credentials - Create an API key
+        # Creates an App Search API key
         #
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Object] :body API key details (*Required*)
+        # @option arguments [Hash] :body Details of an API key (Required: name, type)
+        # @option body [String] :id
+        # @option body [String] :name  (*Required)
+        # @option body [String] :type  (*Required)
+        # @option body [Boolean] :access_all_engines
+        # @option body :engines
+        # @option body [Boolean] :write
+        # @option body [Boolean] :read
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-create
