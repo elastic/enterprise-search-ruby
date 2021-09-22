@@ -37,11 +37,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     after do
-      engines = client.list_engines.body['results']
-      engines.each do |engine|
-        client.delete_engine(engine['name'])
-      end
-      sleep 1
+      delete_engines
     end
 
     it 'creates a meta engine' do
