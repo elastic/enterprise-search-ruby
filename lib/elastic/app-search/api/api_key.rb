@@ -21,7 +21,8 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Credentials - Get the details of an API key
+        # Credentials - Retrieve an API key
+        # Retrieves details of an API key
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :api_key_name Name of an API key (*Required*)

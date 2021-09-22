@@ -21,9 +21,10 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Documents - Retrieves one or more documents by ID
+        # Documents - Retrieve one or more documents
+        # Retrieves one or more documents by id
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Array] :document_ids List of document IDs (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
