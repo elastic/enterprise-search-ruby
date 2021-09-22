@@ -29,7 +29,7 @@ module Elastic
         # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html
+        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-get-crawler-process-crawls
         #
         def list_crawler_process_crawls(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name

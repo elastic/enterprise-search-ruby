@@ -22,8 +22,9 @@ module Elastic
     module AppSearch
       module Actions
         # Documents - Delete documents by ID
+        # Deletes documents for given Document IDs
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Array] :document_ids List of document IDs (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
