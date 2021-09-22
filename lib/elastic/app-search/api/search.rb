@@ -21,11 +21,22 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Search - Allows you to search over, facet and filter your data
+        # Search - Submit a search
+        # Submit a search and receive a set of results with meta data
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Object] :body Search request parameters
+        # @option arguments [Hash] :body  (Required: query)
+        # @option body [String] :query  (*Required)
+        # @option body :analytics
+        # @option body :boost
+        # @option body :facets
+        # @option body :filters
+        # @option body :group
+        # @option body :page
+        # @option body :result_fields
+        # @option body :search_fields
+        # @option body :sort
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search.html
