@@ -22,6 +22,7 @@ require_relative "#{__dir__}/app_search_helper.rb"
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'Curations' do
     let(:engine_name) { 'books' }
+
     before do
       client.create_engine(name: engine_name)
       documents = [
