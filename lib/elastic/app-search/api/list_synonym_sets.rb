@@ -21,9 +21,10 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Synonyms - Retrieve available synonym sets for the engine
+        # Synonyms - Retrieve all synonym sets
+        # Retrieves all available synonym sets for the engine
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
         # @option arguments [Integer] :page_size The number of results per page

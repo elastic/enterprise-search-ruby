@@ -22,6 +22,7 @@ module Elastic
     module AppSearch
       module Actions
         # Credentials - Delete an API key
+        # Deletes a given API key
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :api_key_name Name of an API key (*Required*)
