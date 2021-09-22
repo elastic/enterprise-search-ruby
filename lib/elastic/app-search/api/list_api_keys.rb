@@ -21,7 +21,8 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Credentials - List the details of all API keys
+        # Credentials - Retrieve all API keys
+        # List the details of all API keys
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
