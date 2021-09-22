@@ -21,9 +21,10 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Add a source engine to an existing meta engine
+        # Engines - Add a source engine
+        # Adds a source engine to a given meta engine
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Array] :source_engines List of engine names (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
