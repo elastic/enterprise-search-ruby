@@ -21,27 +21,25 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Click - Send data about clicked results
+        # Click - Tracks results that were clicked after a query
+        # Tracks results that were clicked after a query
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :query_text Search query text (*Required*)
-        # @option arguments :document_id The ID of the document that was clicked on (*Required*)
-        # @option arguments [String] :request_id The request ID returned in the meta tag of a search API response
-        # @option arguments [Array] :tags Array of strings representing additional information you wish to track with the clickthrough
-        # @option arguments [Hash] :body The request body
+        # @option arguments :body Search request parameters
+        # @option body [String] :query Search query text (*Required*)
+        # @option body [String] :document_id The id of the document that was clicked on (*Required*)
+        # @option body [String] :request_id The request id returned in the meta tag of a search API response
+        # @option body [Array] :tags Array of strings representing additional information you wish to track with the clickthrough. You may submit up to 16 tags, and each may be up to 64 characters in length.
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clickthrough.html
         #
         def log_clickthrough(engine_name, arguments = {})
-          raise ArgumentError, "Required parameter 'query_text' missing" unless arguments[:query_text]
-          raise ArgumentError, "Required parameter 'document_id' missing" unless arguments[:document_id]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-          arguments['query'] = arguments.delete(:query_text)
 
           request(
             :post,
