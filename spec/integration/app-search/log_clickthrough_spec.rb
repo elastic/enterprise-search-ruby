@@ -17,18 +17,25 @@
 
 # frozen_string_literal: true
 
-require_relative './api_spec_helper'
+require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  context 'api_log_clickthrough' do
-    let(:engine_name) { 'films' }
+  context 'Log Click through' do
+    let(:engine_name) { 'videogames' }
+
+    before do
+      client.create_engine(name: engine_name)
+    end
+
+    after do
+      client.delete_engine(engine_name)
+    end
 
     it 'logs clicked results' do
-      VCR.use_cassette('app_search/api_log_clickthrough') do
-        response = @client.log_clickthrough(engine_name, query_text: 'moon', document_id: 'doc-id')
+      body = { query: 'moon', document_id: 'doc_id' }
+      response = client.log_clickthrough(engine_name, body: body)
 
-        expect(response.status).to eq 200
-      end
+      expect(response.status).to eq 200
     end
   end
 end
