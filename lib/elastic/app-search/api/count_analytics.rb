@@ -21,13 +21,14 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Analytics - Returns the number of clicks and total number of queries over a period
+        # Analytics - Query for analytics counts data
+        # Returns the number of clicks and total number of queries over a period
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :filters Analytics filters
-        # @option arguments [String] :interval You can define an interval along with your date range. Can be either hour or day
-        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :body
+        # @option body :filters Analytics filters
+        # @option body [String] :interval You can define an interval along with your date range. Can be either hour or day
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/counts.html
@@ -39,7 +40,7 @@ module Elastic
           headers = arguments.delete(:headers) || {}
 
           request(
-            :get,
+            :post,
             "api/as/v1/engines/#{engine_name}/analytics/counts/",
             arguments,
             body,
