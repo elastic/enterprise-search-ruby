@@ -21,7 +21,8 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Retrieves all engines with optional pagination support
+        # Engines - Retrieve all engines
+        # Retrieves all engines with optional pagination support
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
