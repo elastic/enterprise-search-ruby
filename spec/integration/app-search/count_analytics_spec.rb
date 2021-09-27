@@ -20,7 +20,7 @@
 require_relative "#{__dir__}/app_search_helper.rb"
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'Count Analytics' do
-    let(:engine_name) { 'videogames' }
+    let(:engine_name) { 'count-analytics' }
 
     before do
       client.create_engine(name: engine_name)
@@ -28,12 +28,18 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     after do
-      client.delete_engine(engine_name)
+      delete_engines
     end
 
     it 'returns count analytics' do
       response = client.count_analytics(engine_name)
 
+      expect(response.status).to eq 200
+      expect(response.body['results'].count).to be > 1
+    end
+
+    it 'returns count analytics with filters' do
+      response = client.count_analytics(engine_name, body: { filters: { tag: 'web' } })
       expect(response.status).to eq 200
       expect(response.body['results'].count).to be > 1
     end
