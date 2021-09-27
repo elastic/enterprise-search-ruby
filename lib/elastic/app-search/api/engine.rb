@@ -21,9 +21,10 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Retrieves an engine by name
+        # Engines - Retrieve an engine
+        # Retrieves details of a given engine by its name
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
