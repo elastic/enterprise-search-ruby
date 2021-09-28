@@ -23,8 +23,9 @@ module Elastic
       # Read-Only - Update the read-only flag's state
       # Update the read-only flag's state
       #
-      # @option arguments [Object] :body
-      # @option body [Boolean] :enabled
+      # @param arguments [Hash] endpoint arguments
+      # @option arguments [Hash] :body  (Required: enabled)
+      # @option body [Boolean] :enabled  (*Required)
       # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/read-only-api.html#setting-read-only-state
