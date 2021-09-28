@@ -21,14 +21,14 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Analytics - Returns queries analytics by usage count
+        # Analytics - Query for analytics query data
+        # Returns queries analytics by usage count
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
-        # @option arguments [Integer] :page_size The number of results per page
-        # @option arguments [Array] :filters Analytics filters
-        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :body
+        # @option body :filters
+        # @option body [Object] :page
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/queries.html#queries-top-queries
@@ -40,7 +40,7 @@ module Elastic
           headers = arguments.delete(:headers) || {}
 
           request(
-            :get,
+            :post,
             "api/as/v1/engines/#{engine_name}/analytics/queries/",
             arguments,
             body,
