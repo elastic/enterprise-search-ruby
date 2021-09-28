@@ -32,7 +32,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     after do
-      client.delete_engine(engine_name)
+      delete_engines
     end
 
     it 'creates, gets, lists and deletes a crawl request' do
@@ -70,6 +70,16 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       # delete active crawl request
       response = client.delete_active_crawl_request(engine_name)
       expect(response.status).to eq 200
+    end
+
+    it 'creates, starts and stops a crawl request' do
+      response = client.create_crawler_crawl_request(engine_name)
+      request_id = response.body['id']
+
+      response = client.delete_crawler_active_crawl_request(engine_name)
+      expect(response.status).to eq 200
+      expect(response.body['id']).to eq request_id
+      expect(response.body['status']).to eq('canceling')
     end
   end
 end
