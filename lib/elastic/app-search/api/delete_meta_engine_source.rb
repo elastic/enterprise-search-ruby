@@ -33,7 +33,6 @@ module Elastic
         #
         def delete_meta_engine_source(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
-          raise ArgumentError, "Required parameter 'source_engines' missing" unless arguments[:source_engines]
 
           source_engines = arguments.delete(:source_engines) || {}
           headers = arguments.delete(:headers) || {}
