@@ -21,20 +21,22 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Engine - Creates a new engine
+        # Engines - Create an Engine
+        # Creates an App Search Engine
         #
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :name Engine name (*Required*)
-        # @option arguments [String] :language Engine language (null for universal)
-        # @option arguments [String] :type Engine type
-        # @option arguments [Array] :source_engines Sources engines list
-        # @option arguments [Hash] :body The request body
+        # @option arguments [Hash] :body  (Required: name)
+        # @option body :name  (*Required)
+        # @option body [String] :language Engine language (null for universal)
+        # @option body :type
+        # @option body :source_engines
+        # @option body [Integer] :document_count
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-create
         #
         def create_engine(arguments = {})
-          raise ArgumentError, "Required parameter 'name' missing" unless arguments[:name]
+          raise ArgumentError, "Required parameter 'body (name)' missing" unless arguments[:body] || arguments[:name]
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
