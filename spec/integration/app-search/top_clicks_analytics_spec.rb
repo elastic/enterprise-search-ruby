@@ -17,28 +17,34 @@
 
 # frozen_string_literal: true
 
-require_relative './api_spec_helper'
+require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  context 'api_top_clicks_analytics' do
-    it 'returns api_top_clicks_analytics with no query' do
-      VCR.use_cassette('app_search/api_top_clicks_analytics') do
-        response = @client.top_clicks_analytics('books')
-        expect(response.status).to eq 200
+  context 'top clicks analytics' do
+    let(:engine_name) { 'top-clicks-analytics' }
 
-        expect(response.body['results'])
-        expect(response.body['meta'])
-      end
+    before do
+      client.create_engine(name: engine_name)
+    end
+
+    after do
+      delete_engines
+    end
+
+    it 'returns api_top_clicks_analytics with no query' do
+      response = client.top_clicks_analytics(engine_name)
+      expect(response.status).to eq 200
+
+      expect(response.body['results'])
+      expect(response.body['meta'])
     end
 
     it 'returns api_top_clicks_analytics with query' do
-      VCR.use_cassette('app_search/api_top_clicks_analytics_query') do
-        response = @client.top_clicks_analytics('books', query: 'test')
-        expect(response.status).to eq 200
+      response = client.top_clicks_analytics(engine_name, query: 'test')
+      expect(response.status).to eq 200
 
-        expect(response.body['results'])
-        expect(response.body['meta'])
-      end
+      expect(response.body['results'])
+      expect(response.body['meta'])
     end
   end
 end
