@@ -17,23 +17,34 @@
 
 # frozen_string_literal: true
 
-require_relative './api_spec_helper'
+require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
-  context 'api_query_suggestion' do
-    let(:engine_name) { 'films' }
+  context 'Query Suggestion' do
+    let(:engine_name) { 'query-suggestions' }
+
+    before do
+      client.create_engine(name: engine_name)
+    end
+
+    after do
+      delete_engines
+    end
 
     it 'provides query suggestions' do
-      VCR.use_cassette('app_search/api_query_suggestion') do
-        response = @client.query_suggestion(engine_name, query: 'moo')
+      client.index_documents(engine_name, documents: [{ title: 'A trip to the moon' }])
+      attempts = 0
+      response = client.query_suggestion(engine_name, query: 'moo')
 
-        expect(response.status).to eq 200
-
-        expect(response.body['results']['documents']).to include(
-          { 'suggestion' => 'moon' },
-          { 'suggestion' => 'moon men' }
-        )
+      while response.body['results']['documents'].count < 1 && attempts < 20
+        sleep 1
+        attempts += 1
+        response = client.query_suggestion(engine_name, query: 'moo')
       end
+      expect(response.status).to eq 200
+      expect(response.body['results']['documents']).to include(
+        { 'suggestion' => 'moon' }
+      )
     end
   end
 end
