@@ -23,6 +23,7 @@ module Elastic
       # Version - Get version information for this server
       # Get version information for this server
       #
+      # @param arguments [Hash] endpoint arguments
       # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/management-apis.html

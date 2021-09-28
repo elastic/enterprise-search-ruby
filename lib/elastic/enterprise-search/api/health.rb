@@ -23,6 +23,7 @@ module Elastic
       # Health - Get information on the health of a deployment and basic statistics around resource usage
       # Get information on the health of a deployment and basic statistics around resource usage
       #
+      # @param arguments [Hash] endpoint arguments
       # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
       # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#health-api-example
