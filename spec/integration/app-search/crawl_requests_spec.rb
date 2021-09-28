@@ -32,6 +32,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     after do
+      client.delete_crawler_active_crawl_request(engine_name)
       delete_engines
     end
 
