@@ -21,21 +21,22 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Curations - Update an existing curation
+        # Curations - Update a curation
+        # Updates an existing curation
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :queries List of affected search queries (*Required*)
-        # @option arguments [String] :curation_id  (*Required*)
-        # @option arguments :promoted_doc_ids List of promoted document IDs
-        # @option arguments :hidden_doc_ids List of hidden document IDs
-        # @option arguments [Hash] :body The request body
+        # @option arguments [String] :curation_id Curation ID (*Required*)
+        # @option arguments [Hash] :body  (Required: queries)
+        # @option body [String] :id
+        # @option body [Array] :queries List of affected search queries (*Required)
+        # @option body [Array] :promoted List of promoted document IDs
+        # @option body [Array] :hidden List of hidden document IDs
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-update
         #
         def put_curation(engine_name, arguments = {})
-          raise ArgumentError, "Required parameter 'queries' missing" unless arguments[:queries]
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'curation_id' missing" unless arguments[:curation_id]
 
