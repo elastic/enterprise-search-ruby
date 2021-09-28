@@ -22,17 +22,24 @@ module Elastic
     module AppSearch
       module Actions
         # Credentials - Update an API key
+        # Updates an API key
         #
         # @param arguments [Hash] endpoint arguments
         # @option arguments [String] :api_key_name Name of an API key (*Required*)
-        # @option arguments [Object] :body API key details (*Required*)
+        # @option arguments [Hash] :body Details of an API key (Required: name, type)
+        # @option body [String] :id
+        # @option body [String] :name  (*Required)
+        # @option body [String] :type  (*Required)
+        # @option body [Boolean] :access_all_engines
+        # @option body :engines
+        # @option body [Boolean] :write
+        # @option body [Boolean] :read
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-update
         #
         def put_api_key(arguments = {})
           raise ArgumentError, "Required parameter 'api_key_name' missing" unless arguments[:api_key_name]
-          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
 
           api_key_name = arguments[:api_key_name]
           body = arguments.delete(:body) || {}
