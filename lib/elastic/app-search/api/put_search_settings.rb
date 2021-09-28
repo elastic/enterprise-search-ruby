@@ -23,9 +23,13 @@ module Elastic
       module Actions
         # Searchsettings - Update search settings for the engine
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Object] :body Search settings (*Required*)
+        # @option arguments [Hash] :body
+        # @option body :boosts
+        # @option body :search_fields
+        # @option body :result_fields
+        # @option body [Integer] :precision
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update
