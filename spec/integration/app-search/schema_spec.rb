@@ -17,32 +17,37 @@
 
 # frozen_string_literal: true
 
-require 'spec_helper'
-require_relative './api_spec_helper'
+require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
+  let(:engine_name) { 'schema' }
+
+  before do
+    client.create_engine(name: engine_name)
+    client.index_documents(engine_name, documents: [{ title: 'test', director: 'someone' }])
+  end
+
+  after do
+    client.delete_engine(engine_name)
+    sleep 1
+  end
+
   context 'schema' do
-    let(:engine_name) { 'films' }
-
     it 'returns an engine schema' do
-      VCR.use_cassette('app_search/api_schema') do
-        response = @client.schema(engine_name)
+      response = client.schema(engine_name)
 
-        expect(response.status).to eq 200
-        expect(response.body).to eq({ 'title' => 'text', 'year' => 'number', 'director' => 'text' })
-      end
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'title' => 'text', 'director' => 'text' })
     end
 
     it 'updates a schema for an engine' do
-      VCR.use_cassette('app_search/api_put_schema') do
-        response = @client.put_schema(engine_name, schema: { year: 'text' })
+      response = client.put_schema(engine_name, schema: { year: 'number' })
 
-        expect(response.status).to eq 200
-        expect(response.body).to eq({ 'title' => 'text', 'year' => 'text', 'director' => 'text' })
+      expect(response.status).to eq 200
+      expect(response.body).to eq({ 'title' => 'text', 'year' => 'number', 'director' => 'text' })
 
-        response = @client.schema(engine_name)
-        expect(response.body).to eq({ 'title' => 'text', 'year' => 'text', 'director' => 'text' })
-      end
+      response = client.schema(engine_name)
+      expect(response.body).to eq({ 'title' => 'text', 'year' => 'number', 'director' => 'text' })
     end
   end
 end
