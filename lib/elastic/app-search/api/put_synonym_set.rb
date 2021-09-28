@@ -21,12 +21,15 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Synonyms - Update a synonym set by ID
+        # Synonyms - Update a synonym set
+        # Updates a synonym set by ID
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :synonym_set_id  (*Required*)
-        # @option arguments [Object] :body Synonym set description (*Required*)
+        # @option arguments [String] :synonym_set_id Synonym Set ID (*Required*)
+        # @option arguments [Hash] :body  (Required: synonyms)
+        # @option body [String] :id
+        # @option body :synonyms  (*Required)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-update
@@ -34,7 +37,7 @@ module Elastic
         def put_synonym_set(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless arguments[:synonym_set_id]
-          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
+          raise ArgumentError, "Required parameter 'body (synonyms)' missing" unless arguments[:body] || arguments[:synonyms]
 
           synonym_set_id = arguments[:synonym_set_id]
           body = arguments.delete(:body) || {}
