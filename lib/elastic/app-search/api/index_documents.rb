@@ -21,9 +21,10 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Documents - Create or update documents
+        # Documents - Create a new document
+        # Create or update documents
         #
-        # @param engine_name [String]  (*Required*)
+        # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
         # @option arguments [Array] :documents List of document to index (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
