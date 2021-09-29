@@ -25,7 +25,7 @@ module Elastic
         # Update a synonym set
         #
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :synonym_set_id Unique ID for a content source document. Provided upon or returned at creation. (*Required*)
+        # @option arguments [String] :synonym_set_id Synonym Set ID (*Required*)
         # @option arguments [Hash] :body  (Required: synonyms)
         # @option body [Array] :synonyms A list of terms for this synonym set (*Required)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
