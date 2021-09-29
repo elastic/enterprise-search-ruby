@@ -37,6 +37,9 @@ require 'base64'
 path = File.expand_path("#{File.dirname(__FILE__)}/icon.png")
 icon = Base64.strict_encode64(File.read(path))
 response = client.put_content_source_icons(content_source_id, main_icon: icon, alt_icon: icon)
+
+# Retrieves a content source's automatic query refinement details
+client.auto_query_refinement_details(content_source_id)
 ----------------------------
 
 === Documents

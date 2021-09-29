@@ -80,7 +80,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.body['results'].keys).to eq ['interrupted']
     end
 
-    context 'Icons' do
+    context 'icons' do
       let(:content_source_id) { client.create_content_source(name: 'with-icon').body['id'] }
 
       it 'puts an icon' do
@@ -89,6 +89,17 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
         response = client.put_content_source_icons(content_source_id, main_icon: icon, alt_icon: icon)
         expect(response.status).to eq 200
         expect(response.body['results']).to eq({ 'main_icon' => 'success', 'alt_icon' => 'success' })
+      end
+    end
+
+    context 'auto query refinements details' do
+      let(:content_source_id) { client.create_content_source(name: 'refinements').body['id'] }
+
+      it 'retrieves details' do
+        response = client.auto_query_refinement_details(content_source_id)
+
+        expect(response.status).to eq 200
+        expect(response.body.keys.sort).to eq ['defaults', 'overrides', 'results']
       end
     end
   end
