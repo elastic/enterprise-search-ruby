@@ -21,6 +21,10 @@ require_relative "#{__dir__}/workplace_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   context 'External Identities' do
+    after do
+      delete_content_sources
+    end
+
     let(:content_source_id) { client.create_content_source(name: 'my_content').body['id'] }
     let(:user) { 'elastic_user' }
     let(:source_user_id) { 'example@elastic.co' }
