@@ -29,3 +29,11 @@ def client
     }
   )
 end
+
+def delete_content_sources
+  sources = client.list_content_sources.body['results']
+  sources.each do |source|
+    client.delete_content_source(source['id'])
+  end
+  sleep 1
+end
