@@ -27,6 +27,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     after do
       client.put_user_permissions(content_source_id, { permissions: [], user: user })
+      delete_content_sources
     end
 
     it 'adds permissions to a user' do
