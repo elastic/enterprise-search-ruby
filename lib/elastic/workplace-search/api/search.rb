@@ -36,6 +36,9 @@ module Elastic
         # @option body :sort
         # @option body [Object] :facets
         # @option body [Object] :boosts
+        # @option body :source_type Optional parameter to search standard, remote only, or all available sources
+        # @option body [Integer] :timeout Optional timeout in ms for searching remote sources
+        # @option body [Array] :content_sources Optional list of content source ids to only return results from
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-search-api.html
