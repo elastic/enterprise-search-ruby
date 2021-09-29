@@ -1,0 +1,36 @@
+[[release_notes_715]]
+=== 7.15.0 Release notes
+
+[discrete]
+==== General
+
+- Tested with Elastic Enterprise Search API version 7.15.0.
+- Better source code documentation in general for API endpoints.
+
+[discrete]
+==== App Search
+
+- The test suite was migrated to full integration testing https://clients-ci.elastic.co/view/Ruby/[in Jenkins]. We were using VCR for testing the API, but now we're running the API tests against an instance of Elastic Enterprise Search.
+
+- Some APIs that used to work with `GET` query parameters in App Search are now `POST` and the parameters being sent with the body. We'll use the body from `7.15`, but we'll keep supporting arguments parameters in 7.x for backwards compatibility. Some parameters previously required through the generated code don't throw an exception anymore and the error is delegated to server. As mentioned, these should go through the body instead of part of the query parameters, but we still support sending them as query parameters in `7.x` to keep backwards compatibility.
+
+[discrete]
+===== Web Crawler API
+
+[CAUTION]
+====
+The Elastic Enterprise Search web crawler API is a *beta* feature.
+Beta features are subject to change and are not covered by the support SLA of general release (GA) features.
+Elastic plans to promote this feature to GA in a future release.
+====
+
+New Web Crawler API endpoints:
+
+`crawler_active_crawl_request`, `crawler_crawl_request`, `crawler_crawl_schedule`, `crawler_domain`, `crawler_domain_validation_result`, `crawler_metrics`, `crawler_overview`, `crawler_process_crawl_denied_urls`, `crawler_process_crawl`, `crawler_url_extraction_result`, `crawler_url_tracing_result`, `crawler_url_validation_result`, `crawler_user_agent`, `create_crawler_crawl_request`, `create_crawler_crawl_rule`, `create_crawler_domain`, `create_crawler_entry_point`, `create_crawler_process_crawl`, `create_crawler_sitemap`, `delete_active_crawl_request`, `delete_crawler_active_crawl_request`, `delete_crawler_crawl_rule`, `delete_crawler_crawl_schedule`, `delete_crawler_domain`, `delete_crawler_entry_point`, `delete_crawler_sitemap`, `list_crawler_crawl_requests`, `list_crawler_process_crawls`, `put_crawler_crawl_rule`, `put_crawler_crawl_schedule`, `put_crawler_domain`, `put_crawler_entry_point`, `put_crawler_sitemap`.
+
+Refer to https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/app-search-api.html[App Search API] for more information and examples.
+
+[discrete]
+==== Workplace Search
+
+- New APIs: `auto_query_refinement_details`, `triggers_blocklist` and `put_triggers_blocklist`. See https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/workplace-search-api.html[Workplace Search API] for more information and examples.
