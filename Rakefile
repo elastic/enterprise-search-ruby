@@ -31,6 +31,7 @@ task :stack, [:version] do |_, params|
   sh "STACK_VERSION=#{params[:version]} ./.ci/run-local.sh"
 end
 
+# rubocop:disable Metrics/BlockLength
 namespace :spec do
   desc 'Run client tests'
   task :client do
@@ -46,4 +47,22 @@ namespace :spec do
   task :all do
     sh 'rspec spec'
   end
+
+  namespace :integration do
+    desc 'Run App Search integration tests'
+    task :appsearch do
+      sh 'rspec spec/integration/app-search'
+    end
+
+    desc 'Run Enterprise Search integration tests'
+    task :enterprisesearch do
+      sh 'rspec spec/integration/enterprise_search_api_spec.rb'
+    end
+
+    desc 'Run Workplace Search integration tests'
+    task :workplacesearch do
+      sh 'rspec spec/integration/app-search/workplace-search'
+    end
+  end
 end
+# rubocop:enable Metrics/BlockLength
