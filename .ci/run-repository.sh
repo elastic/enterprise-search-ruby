@@ -17,6 +17,7 @@ echo -e "\033[34;1mINFO:\033[0m TEST_SUITE: ${TEST_SUITE}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m RUBY_VERSION: ${RUBY_VERSION}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m RUNSCRIPTS: ${RUNSCRIPTS}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m URL: ${elasticsearch_url}\033[0m"
+echo -e "\033[34;1mINFO:\033[0m SERVICE: ${SERVICE}\033[0m"
 
 echo -e "\033[34;1mINFO:\033[0m pinging Elasticsearch ..\033[0m"
 curl --insecure --fail $external_elasticsearch_url/_cluster/health?pretty
@@ -46,4 +47,4 @@ docker run \
        --rm \
        --volume `pwd`:/code/enterprise-search-ruby \
        elastic/enterprise-search-ruby \
-       rake spec:integration
+       rake spec:integration:${SERVICE}
