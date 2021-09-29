@@ -61,7 +61,7 @@ namespace :spec do
 
     desc 'Run Workplace Search integration tests'
     task :workplacesearch do
-      sh 'rspec spec/integration/app-search/workplace-search'
+      sh 'rspec spec/integration/workplace-search'
     end
   end
 end
