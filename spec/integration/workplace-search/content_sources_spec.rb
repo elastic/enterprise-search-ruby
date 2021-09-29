@@ -21,6 +21,10 @@ require_relative "#{__dir__}/workplace_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   context 'Content Sources' do
+    after do
+      delete_content_sources
+    end
+
     it 'creates, retrieves and deletes authenticated with basic auth' do
       # Create a content source and get its id
       response = client.create_content_source(name: 'test')
