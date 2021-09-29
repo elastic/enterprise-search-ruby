@@ -21,6 +21,10 @@ require_relative "#{__dir__}/workplace_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   context 'Synonym sets' do
+    after do
+      delete_content_sources
+    end
+
     let(:body) do
       {
         synonym_sets: [
