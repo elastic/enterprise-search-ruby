@@ -25,7 +25,7 @@ module Elastic
         # Delete a synonym set
         #
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :synonym_set_id Unique ID for a content source document. Provided upon or returned at creation. (*Required*)
+        # @option arguments [String] :synonym_set_id Synonym Set ID (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-synonyms-api.html#delete-synonym
