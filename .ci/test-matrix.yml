@@ -8,7 +8,9 @@ RUBY_VERSION:
 STACK_VERSION:
   - 7.15-SNAPSHOT
 
-TEST_SUITE:
-  - platinum
+SERVICE:
+  - appsearch
+  - enterprisesearch
+  - workplacesearch
 
 exclude: ~
