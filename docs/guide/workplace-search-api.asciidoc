@@ -221,3 +221,14 @@ client.current_user
 # Get the current user and return the access token
 client.current_user(get_token: true)
 ----------------------------
+
+=== Triggers Blocklist
+
+[source,rb]
+----------------------------
+# Get current triggers blocklist
+client.triggers_blocklist
+
+# Update current triggers blocklist
+client.put_triggers_blocklist(body: { blocklist: ['in', 'it', 'page'] })
+----------------------------
