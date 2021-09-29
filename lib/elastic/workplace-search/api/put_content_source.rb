@@ -33,6 +33,7 @@ module Elastic
         # @option body [Boolean] :is_searchable Whether or not this Content Source will be searchable on the search page. (*Required)
         # @option body :indexing
         # @option body :facets
+        # @option body :automatic_query_refinement
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-content-sources-api.html#update-content-source-api
