@@ -6,6 +6,7 @@
 export TEST_SUITE=platinum
 export CONTAINER_NAME=enterprise-search
 export RUNSCRIPTS=enterprise-search
+echo -e "SERVICE: ${SERVICE}"
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh

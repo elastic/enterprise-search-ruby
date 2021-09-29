@@ -47,4 +47,4 @@ docker run \
        --rm \
        --volume `pwd`:/code/enterprise-search-ruby \
        elastic/enterprise-search-ruby \
-       rake spec:integration:${SERVICE}
+       rake spec:integration
