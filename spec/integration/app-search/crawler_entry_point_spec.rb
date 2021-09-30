@@ -25,26 +25,14 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:name) { 'https://www.elastic.co' }
 
     before do
-      attempts = 0
-      loop do
-        attempts += 1
-        client.create_engine(name: engine_name)
-        break if attempts > 9
-      rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
-        if e.message.match?(/Name is already taken/)
-          sleep 1
-          next
-        end
-      else
-        break
-      end
+      client.create_engine(name: engine_name)
       body = { name: name }
       response = client.create_crawler_domain(engine_name, body: body)
       @domain = response.body
     end
 
     after do
-      client.delete_engine(engine_name)
+      delete_engines
     end
 
     it 'creates an entry point' do
