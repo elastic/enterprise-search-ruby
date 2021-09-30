@@ -39,7 +39,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     after do
-      client.delete_engine(engine_name)
+      delete_engines
       client.delete_api_key(api_key_name: api_key_name)
     end
 
