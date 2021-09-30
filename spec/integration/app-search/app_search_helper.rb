@@ -34,6 +34,6 @@ def delete_engines
   engines = client.list_engines.body['results']
   engines.each do |engine|
     client.delete_engine(engine['name'])
+    sleep 1
   end
-  sleep 1
 end
