@@ -23,7 +23,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:engine_name) { 'count-analytics' }
 
     before do
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
       sleep 1
     end
 
