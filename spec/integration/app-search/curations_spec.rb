@@ -24,7 +24,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:engine_name) { 'books' }
 
     before do
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
       documents = [
         { title: 'Jungle Tales', author: 'Horacio Quiroga' },
         { title: 'The Jungle Book', author: 'Rudyard Kipling' }
