@@ -58,9 +58,9 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'retrieves an engine by name' do
+      engine_name = 'retrieve-engine'
       client.create_engine(name: engine_name)
       response = client.engine(engine_name)
-
       expect(response.status).to eq 200
       expect(response.body).to eq(
         { 'name' => engine_name, 'type' => 'default', 'language' => nil, 'document_count' => 0 }
@@ -68,6 +68,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'deletes an engine' do
+      engine_name = 'delete-engine'
       client.create_engine(name: engine_name)
       response = client.delete_engine(engine_name)
       expect(response.status).to eq 200

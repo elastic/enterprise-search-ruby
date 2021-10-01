@@ -25,7 +25,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:name) { 'https://www.elastic.co' }
 
     before do
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
       body = { name: name }
       response = client.create_crawler_domain(engine_name, body: body)
       @domain = response.body
