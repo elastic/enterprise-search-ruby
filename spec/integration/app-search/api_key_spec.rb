@@ -66,7 +66,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       engine_name = 'update-engine'
       body = { name: key_name, type: 'private', read: true, write: true, access_all_engines: true }
       client.create_api_key(body: body)
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
 
       body = { name: key_name, type: 'private', read: true, write: true, engines: [engine_name] }
       attempts = 0

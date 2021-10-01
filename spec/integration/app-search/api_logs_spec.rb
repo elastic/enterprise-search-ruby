@@ -25,7 +25,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:api_key_name) { 'logs-api-key' }
 
     before do
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
       # Create API Key Client to log events:
       body = { name: api_key_name, type: 'private', read: true, write: true, access_all_engines: true }
       api_key = client.create_api_key(body: body).body['key']
