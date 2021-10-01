@@ -18,6 +18,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'logger'
 
 # App Search Integration tests Client Configuration
 def client
@@ -34,6 +35,17 @@ def delete_engines
   engines = client.list_engines.body['results']
   engines.each do |engine|
     client.delete_engine(engine['name'])
-    sleep 1
+    # Gives time to the server to sync:
+    sleep 2
   end
+end
+
+def create_engine(name)
+  client.create_engine(name: name)
+rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
+  raise e unless e.message.match(/Name is already taken/)
+
+  Logger.new($stdout).info("Engine '#{name}' had already been created, giving time for the server to sync.")
+  sleep 5
+  client.create_engine(name: name)
 end

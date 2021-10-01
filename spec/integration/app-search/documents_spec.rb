@@ -32,7 +32,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     before do
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
     end
 
     after do

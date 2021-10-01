@@ -24,7 +24,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:engine_name) { 'query-suggestions' }
 
     before do
-      client.create_engine(name: engine_name)
+      create_engine(engine_name)
     end
 
     after do

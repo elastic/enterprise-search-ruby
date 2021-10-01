@@ -23,7 +23,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
   let(:engine_name) { 'schema' }
 
   before do
-    client.create_engine(name: engine_name)
+    create_engine(engine_name)
     client.index_documents(engine_name, documents: [{ title: 'test', director: 'someone' }])
   end
 
