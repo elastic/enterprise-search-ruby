@@ -67,7 +67,7 @@ module Elastic
 
       def transport
         @options[:transport] ||
-          Elasticsearch::Client.new(
+          transport_klass.new(
             host: host,
             log: log,
             logger: logger,
@@ -109,6 +109,17 @@ module Elastic
         raise URI::InvalidURIError unless @options[:host] =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/
 
         @options[:host]
+      end
+
+      private
+
+      def transport_klass
+        case Elasticsearch::Transport::VERSION
+        when /7\.1[123]/
+          Elasticsearch::Client
+        else
+          Elasticsearch::Transport::Client
+        end
       end
     end
   end
