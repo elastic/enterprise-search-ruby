@@ -1,4 +1,16 @@
 [[release_notes_714]]
+=== 7.14 Release notes
+
+[discrete]
+[[release_notes_7141]]
+=== 7.14.1 Release notes
+
+==== Dependency fix
+
+Updates dependency on `elasticsearch-transport` to be more open. At least 7.11 is required, but this way it can be used with different versions of the `elasticsearch` gem (bigger than or equal to `7.11`) in the same project, without a conflict in `elasticsearch-transport`. When instantiating transport, we now check if version is `< 7.14` so we use the right class.
+
+[discrete]
+[[release_notes_7140]]
 === 7.14.0 Release notes
 
 [discrete]
