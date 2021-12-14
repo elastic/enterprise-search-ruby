@@ -67,6 +67,13 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.body['id']).to eq document_id
     end
 
+    it 'Lists documents in a content source' do
+      response = client.list_documents(content_source_id)
+      expect(response.status).to eq 200
+      expect(response.body['results'])
+      expect(response.body['meta'])
+    end
+
     it 'Deletes all documents in a content source' do
       response = client.delete_all_documents(content_source_id)
       expect(response.status).to eq 200
