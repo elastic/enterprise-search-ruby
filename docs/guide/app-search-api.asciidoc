@@ -196,6 +196,9 @@ client.create_crawler_domain(engine_name, body: body)
 # Get crawler domain information
 client.crawler_domain(engine_name, domain_id: domain_id)
 
+# List crawler domains
+client.list_crawler_domains(engine_name)
+
 # Update a crawler domain
 body = { name: 'https://www.wikipedia.org' }
 client.put_crawler_domain(engine_name, domain_id: domain_id, domain: body)
