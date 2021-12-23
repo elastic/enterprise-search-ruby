@@ -304,6 +304,29 @@ client.crawler_process_crawl_denied_urls(engine_name, process_crawl_id: id)
 # Cancel an active crawl request, stopping a running crawl if needed.
 client.delete_crawler_active_crawl_request(engine_name)
 ----------------------------
+=== Adaptive Relevance
+
+
+The adaptive relevance API is a **beta** feature. Beta features are subject to change and are not covered by the support SLA of general release (GA) features. Elastic plans to promote this feature to GA in a future release. The adaptive relevance API is not available at all Elastic subscription levels. Refer to the Elastic subscriptions pages for https://www.elastic.co/subscriptions/cloud[Elastic Cloud] and https://www.elastic.co/subscriptions[self-managed] deployments.
+
+[source,rb]
+----------------------------
+# Retrieve adaptive relevance settings
+client.adaptive_relevance_settings(engine_name)
+
+# Update adaptive relevance settings for an engine
+body = { curation: { enabled: true } }
+client.put_adaptive_relevance_settings(engine_name, body: body)
+
+# List suggestions
+client.list_adaptive_relevance_suggestions(engine_name)
+
+# Update adaptive relevance
+client.put_adaptive_relevance_suggestions(engine_name, body: body)
+
+# Retrive adaptive relevance
+client.adaptive_relevance_suggestions(engine_name, search_suggestion_query: 'suggestion')
+----------------------------
 
 === Other API Endpoints
 
