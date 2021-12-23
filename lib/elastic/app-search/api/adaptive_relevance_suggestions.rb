@@ -36,9 +36,7 @@ module Elastic
         #
         def adaptive_relevance_suggestions(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
-          unless arguments[:search_suggestion_query]
-            raise ArgumentError, "Required parameter 'search_suggestion_query' missing"
-          end
+          raise ArgumentError, "Required parameter 'search_suggestion_query' missing" unless arguments[:search_suggestion_query]
 
           search_suggestion_query = arguments[:search_suggestion_query]
           body = arguments.delete(:body) || {}

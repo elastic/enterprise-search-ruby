@@ -33,6 +33,7 @@ module Elastic
         # @option body [String] :policy  (*Required)
         # @option body [String] :rule  (*Required)
         # @option body [String] :pattern  (*Required)
+        # @option body [String] :created_at
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawl-rules

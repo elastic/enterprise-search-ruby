@@ -28,7 +28,7 @@ module Elastic
         # @option arguments [String] :body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html
+        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawler-validate-domain
         #
         def crawler_domain_validation_result(arguments = {})
           body = arguments.delete(:body) || {}

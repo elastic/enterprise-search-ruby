@@ -26,11 +26,11 @@ module Elastic
         #
         # @param engine_name [String] Name of the engine (*Required*)
         # @param arguments [Hash] endpoint arguments
-        # @option arguments :body Search request parameters
-        # @option body [String] :query Search query text (*Required*)
-        # @option body [String] :document_id The id of the document that was clicked on (*Required*)
-        # @option body [String] :request_id The request id returned in the meta tag of a search API response
-        # @option body [Array] :tags Array of strings representing additional information you wish to track with the clickthrough. You may submit up to 16 tags, and each may be up to 64 characters in length.
+        # @option arguments [Hash] :body  (Required: query, document_id)
+        # @option body [String] :query  (*Required)
+        # @option body [String] :request_id
+        # @option body :document_id  (*Required)
+        # @option body [Array] :tags
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clickthrough.html
