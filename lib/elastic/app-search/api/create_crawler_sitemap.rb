@@ -30,6 +30,7 @@ module Elastic
         # @option arguments [Hash] :body  (Required: url)
         # @option body [String] :id
         # @option body [String] :url  (*Required)
+        # @option body [String] :created_at
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-sitemaps
