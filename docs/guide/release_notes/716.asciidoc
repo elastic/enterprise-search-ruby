@@ -1,0 +1,16 @@
+[[release_notes_716]]
+=== 7.16 Release notes
+
+[discrete]
+==== General
+
+- Tested with Elastic Enterprise Search API version 7.16.0.
+
+[discrete]
+==== App Search
+
+- Adds Adaptive Relevance APIs. The adaptive relevance API is a **beta** feature. Beta features are subject to change and are not covered by the support SLA of general release (GA) features. Elastic plans to promote this feature to GA in a future release. The adaptive relevance API is not available at all Elastic subscription levels. Refer to the Elastic subscriptions pages for https://www.elastic.co/subscriptions/cloud[Elastic Cloud] and https://www.elastic.co/subscriptions[self-managed] deployments: `adaptive_relevance_settings`, `adaptive_relevance_suggestions`, `list adaptive_relevance_suggestions`, `put_adaptive_relevance_settings`, `put_adaptive_relevance_suggestions`.
+- Adds `list_crawler_domains` - Returns a list of crawler domains
+
+==== Workplace Search
+- Adds `list_documents` -  List documents from a custom content source
