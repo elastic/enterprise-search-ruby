@@ -6,48 +6,34 @@
 
 Official Ruby API client for [Elastic Enterprise Search](https://www.elastic.co/enterprise-search). Use this gem to integrate App Search and Workplace Search into your Ruby code.
 
+## Installation
+
+Install the `elastic-enterprise-search` gem from [Rubygems](https://rubygems.org/gems/elastic-enterprise-search):
+
+```
+$ gem install elastic-enterprise-search
+```
+
+Or add it to your project's Gemfile:
+
+```ruby
+gem 'elastic-enterprise-search', 'VERSION'
+```
+
 ## Documentation
 
-[See the documentation](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/index.html) for compatibility info, configuring, and an API reference.
+[See the documentation](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/index.html) for usage, code examples, configuring the client, and an API reference.
+
+See code examples of usage for the [Enteprise Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/enterprise-search-api.html), [App Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/app-search-api.html) and [Workplace Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/workplace-search-api.html) APIs.
+
+## Compatibility
+
+We follow Ruby’s own maintenance policy and officially support all currently maintained versions per [Ruby Maintenance Branches](https://www.ruby-lang.org/en/downloads/branches/).
 
 ## Development
 
-### Run Stack locally
-
-A rake task is included to run the Elastic Enterprise Search stack locally via Docker:
-
-```
-$ rake stack[7.10.0]
-```
-
-This will run Elastic Enterprise Search in http://localhost:3002
-- Username: `enterprise_search`
-- Password: `changeme`
-
-The version of the Elastic Enterprise Search Stack to use should be the same as tags of `https://www.docker.elastic.co/r/enterprise-search`. You can also use SNAPSHOT builds such as `8.0.0-SNAPSHOT`, `7.11-SNAPSHOT`, etc.
-
-### Running Tests
-
-Unit tests for the clients:
-
-```
-$ rake spec:client
-```
-
-Integration tests: you need to have an instance of Enterprise Search running either locally or remotely, and specify the host and credentials in environment variables (see below for a complete dockerized setup). If you're using the included rake task `rake stack[:version]`, you can run the integration tests with the following command:
-
-```
-$ ELASTIC_ENTERPRISE_HOST='http://localhost:3002' \
-  ELASTIC_ENTERPRISE_USER='elastic' \
-  ELASTIC_ENTERPRISE_PASSWORD='changeme' \
-  rake spec:integration
-```
-
-Run integration tests completely within containers, the way we run them on our CI:
-```
-RUNSCRIPTS=enterprise-search STACK_VERSION=7.10.0 ./.ci/run-tests
-```
+See [CONTRIBUTING](https://github.com/elastic/enterprise-search-ruby/blob/main/CONTRIBUTING.md).
 
 ## License
 
-Apache-2.0
+This software is licensed under the [Apache 2 license](./LICENSE). See [NOTICE](./NOTICE).
