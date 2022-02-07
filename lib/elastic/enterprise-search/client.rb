@@ -58,6 +58,7 @@ module Elastic
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
       # @option options [Boolean] :log Use the default logger (disabled by default)
       # @option arguments [Object] :logger An instance of a Logger-compatible object
+      # @option arguments [Symbol] :adapter A specific adapter for Faraday (e.g. `:patron`)
       # @option enable_meta_header [Boolean] :enable_meta_header Enable sending the meta data header to Cloud.
       #                                                          (Default: true)
       def initialize(options = {})
@@ -72,6 +73,7 @@ module Elastic
             log: log,
             logger: logger,
             request_timeout: overall_timeout,
+            adapter: adapter,
             transport_options: {
               request: { open_timeout: open_timeout }
             },
@@ -101,6 +103,10 @@ module Elastic
 
       def logger
         @options[:logger]
+      end
+
+      def adapter
+        @options[:adapter]
       end
 
       def host
