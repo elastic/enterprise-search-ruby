@@ -96,4 +96,33 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(client.authorization_url('client_id', 'https://localhost:3002')).to eq authorization_url
     end
   end
+
+  context 'adapters' do
+    let(:client) { described_class.new }
+    let(:adapter) { client.transport.transport.connections.all.first.connection.builder.adapter }
+
+    context 'when no adapter is specified' do
+      it 'uses Faraday NetHttp' do
+        expect(adapter).to eq Faraday::Adapter::NetHttp
+      end
+    end
+
+    context 'when the adapter is patron' do
+      let(:client) { described_class.new(adapter: :patron) }
+
+      it 'uses Faraday with the adapter' do
+        expect(adapter).to eq Faraday::Adapter::Patron
+      end
+    end
+
+    unless defined?(JRUBY_VERSION)
+      context 'when the adapter is typhoeus' do
+        let(:client) { described_class.new(adapter: :patron) }
+
+        it 'uses Faraday with the adapter' do
+          expect(adapter).to eq Faraday::Adapter::Patron
+        end
+      end
+    end
+  end
 end
