@@ -6,7 +6,7 @@ RUBY_VERSION:
   - 2.5
 
 STACK_VERSION:
-  - 7.16-SNAPSHOT
+  - 7.17-SNAPSHOT
 
 SERVICE:
   - appsearch
