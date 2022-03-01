@@ -7,13 +7,13 @@ jobs:
       ES_VERSION: ${{ matrix.es_version }}
     strategy:
       matrix:
-        es_version: [ 7.11, 7.12, 7.13, 7.14, 7.15 ]
+        es_version: [ 7.11, 7.12, 7.13, 7.14, 7.15, 7.16 ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: 3.1
     - name: Build Gemfile with Elasticsearch gem
       run: |
         ruby -v
