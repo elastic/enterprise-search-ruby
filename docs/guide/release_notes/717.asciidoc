@@ -1,0 +1,9 @@
+[[release_notes_717]]
+=== 7.17 Release notes
+
+[discrete]
+==== General
+
+- Tested with Elastic Enterprise Search API version 7.17.0.
+- Last release in the `7.x` branch.
+- Tested with Ruby 2.6, 2.7, 3.0, 3.1
