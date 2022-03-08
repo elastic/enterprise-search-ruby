@@ -22,6 +22,14 @@ require_relative "#{__dir__}/app_search_helper.rb"
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'Engines' do
     let(:engine_name) { 'test-create-engines' }
+    let(:engine_response) do
+      {
+        'type' => 'default',
+        'language' => nil,
+        'document_count' => 0,
+        'index_create_settings_override' => {}
+      }
+    end
 
     after do
       delete_engines
@@ -31,14 +39,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       response = client.create_engine(name: engine_name)
 
       expect(response.status).to eq 200
-      expect(response.body).to eq(
-        {
-          'name' => engine_name,
-          'type' => 'default',
-          'language' => nil,
-          'document_count' => 0
-        }
-      )
+      expect(response.body).to eq(engine_response.merge({ 'name' => engine_name }))
     end
 
     it 'lists engines' do
@@ -49,22 +50,19 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       expect(response.status).to eq 200
 
       expect(response.body.dig('meta', 'page', 'total_results')).to eq 2
-      expect(response.body['results']).to include(
-        { 'name' => 'engine1', 'type' => 'default', 'language' => nil, 'document_count' => 0 }
-      )
-      expect(response.body['results']).to include(
-        { 'name' => 'engine2', 'type' => 'default', 'language' => nil, 'document_count' => 0 }
-      )
+      expect(response.body['results']).to include(engine_response.merge({ 'name' => 'engine1' }))
+      expect(response.body['results']).to include(engine_response.merge({ 'name' => 'engine2' }))
     end
 
-    it 'retrieves an engine by name' do
-      engine_name = 'retrieve-engine'
-      client.create_engine(name: engine_name)
-      response = client.engine(engine_name)
-      expect(response.status).to eq 200
-      expect(response.body).to eq(
-        { 'name' => engine_name, 'type' => 'default', 'language' => nil, 'document_count' => 0 }
-      )
+    context 'get engines' do
+      let(:engine_name) { 'retrieve-engine' }
+      it 'retrieves an engine by name' do
+        engine_name = 'retrieve-engine'
+        client.create_engine(name: engine_name)
+        response = client.engine(engine_name)
+        expect(response.status).to eq 200
+        expect(response.body).to eq(engine_response.merge({ 'name' => engine_name }))
+      end
     end
 
     it 'deletes an engine' do
