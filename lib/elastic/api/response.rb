@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensed to Elasticsearch B.V. under one or more contributor
 # license agreements. See the NOTICE file distributed with
 # this work for additional information regarding copyright
@@ -23,7 +25,7 @@ module Elastic
     # This class is based on Elasticsearch::API::Response in the Elasticsearch client. For future
     # versions, we'll want this to live in elastic-transport instead.
     class Response
-      RESPONSE_METHODS = [:status, :body, :headers]
+      RESPONSE_METHODS = [:status, :body, :headers].freeze
 
       def initialize(response)
         @response = response
