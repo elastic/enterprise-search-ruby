@@ -19,6 +19,7 @@
 
 require 'net/https'
 require 'json'
+require 'elastic/api/response'
 require 'elastic/enterprise-search/exceptions'
 require 'base64'
 
@@ -53,8 +54,9 @@ module Elastic
                   else
                     headers.merge(meta_headers)
                   end
-
-        @transport.perform_request(method.to_s.upcase, path, params, body, headers)
+        Elastic::API::Response.new(
+          @transport.perform_request(method.to_s.upcase, path, params, body, headers)
+        )
       end
 
       def setup_authentication_header
