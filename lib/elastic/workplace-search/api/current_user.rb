@@ -25,7 +25,6 @@ module Elastic
         # Get the authenticated user
         #
         # @param arguments [Hash] endpoint arguments
-        # @option arguments [Boolean] :get_token Whether or not to include an access token in the response.
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-user-api.html#get-current-user-api
