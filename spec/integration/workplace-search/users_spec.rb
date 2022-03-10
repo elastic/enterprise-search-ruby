@@ -26,11 +26,5 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.status).to eq 200
       expect(response.body.keys).to eq ['email', 'username']
     end
-
-    it 'gets the current user with an access token' do
-      response = client.current_user(get_token: true)
-      expect(response.status).to eq 200
-      expect(response.body.keys).to eq ['email', 'username', 'access_token']
-    end
   end
 end
