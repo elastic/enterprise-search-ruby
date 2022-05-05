@@ -28,12 +28,12 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
         type: 'meta',
         source_engines: ['books', 'videogames']
       }
-      client.create_engine(name: engine_name, body: body)
+      client.create_engine(body: body)
     end
 
     before do
-      client.create_engine(name: 'books')
-      client.create_engine(name: 'videogames')
+      client.create_engine({ body: { name: 'books' } })
+      client.create_engine({ body: { name: 'videogames' } })
     end
 
     after do
@@ -51,7 +51,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     it 'adds a new source engine to a meta engine' do
       create_meta_engine
       # Create new source engine to add:
-      client.create_engine(name: 'add-source')
+      client.create_engine({ body: { name: 'add-source' } })
       response = client.add_meta_engine_source(engine_name, source_engines: ['add-source'])
 
       expect(response.status).to eq 200
@@ -62,7 +62,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'removes a source engine from a meta engine' do
       create_meta_engine
-      client.create_engine(name: 'remove-source')
+      client.create_engine({ body: { name: 'remove-source' } })
       client.add_meta_engine_source(engine_name, source_engines: ['remove-source'])
       response = client.delete_meta_engine_source(engine_name, source_engines: ['remove-source'])
 
