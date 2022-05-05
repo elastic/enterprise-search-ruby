@@ -24,23 +24,24 @@ module Elastic
         # Engines - Create an Engine
         # Creates an App Search Engine
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body  (Required: name)
-        # @option body :name  (*Required)
-        # @option body [String] :language Engine language (null for universal)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: name)
+        # @option body :name
+        # @option body :language [string]
         # @option body :type
         # @option body :source_engines
-        # @option body [Integer] :document_count
+        # @option body :document_count [integer]
+        # @option body :index_create_settings_override
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-create
         #
         def create_engine(arguments = {})
-          raise ArgumentError, "Required parameter 'body (name)' missing" unless arguments[:body] || arguments[:name]
+          raise ArgumentError, "Required parameter 'body (name)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             'api/as/v1/engines/',
