@@ -41,7 +41,7 @@ def delete_engines
 end
 
 def create_engine(name)
-  client.create_engine(name: name)
+  client.create_engine({ body: { name: name } })
 rescue Elastic::Transport::Transport::Errors::BadRequest => e
   raise e unless e.message.match(/Name is already taken/)
 
