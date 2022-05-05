@@ -36,15 +36,15 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'creates a new engine' do
-      response = client.create_engine(name: engine_name)
+      response = client.create_engine({ body: { name: engine_name } })
 
       expect(response.status).to eq 200
       expect(response.body).to eq(engine_response.merge({ 'name' => engine_name }))
     end
 
     it 'lists engines' do
-      client.create_engine(name: 'engine1')
-      client.create_engine(name: 'engine2')
+      client.create_engine({ body: { name: 'engine1' } })
+      client.create_engine({ body: { name: 'engine2' } })
 
       response = client.list_engines
       expect(response.status).to eq 200
@@ -58,7 +58,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       let(:engine_name) { 'retrieve-engine' }
       it 'retrieves an engine by name' do
         engine_name = 'retrieve-engine'
-        client.create_engine(name: engine_name)
+        client.create_engine({ body: { name: engine_name } })
         response = client.engine(engine_name)
         expect(response.status).to eq 200
         expect(response.body).to eq(engine_response.merge({ 'name' => engine_name }))
@@ -67,7 +67,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
     it 'deletes an engine' do
       engine_name = 'delete-engine'
-      client.create_engine(name: engine_name)
+      client.create_engine({ body: { name: engine_name } })
       response = client.delete_engine(engine_name)
       expect(response.status).to eq 200
       expect(response.body).to eq({ 'deleted' => true })
