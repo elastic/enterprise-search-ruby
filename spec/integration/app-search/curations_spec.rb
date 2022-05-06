@@ -44,7 +44,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       expect(response.status).to eq 200
       expect(response.body['id']).to match(/cur-[0-9a-f]+/)
 
-      response = client.search(engine_name, query: 'jungle')
+      response = client.search(engine_name, body: { query: 'jungle' })
       expect(response.status).to eq 200
       expect(response.body['results'].count).to eq 1
       expect(response.body['results'].first['title']['raw']).to eq 'Jungle Tales'
@@ -65,9 +65,11 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     def create_curation(name, query, promoted_id, hidden_id)
       response = client.create_curation(
         name,
-        queries: [query],
-        promoted: [promoted_id],
-        hidden: [hidden_id]
+        body: {
+          queries: [query],
+          promoted: [promoted_id],
+          hidden: [hidden_id]
+        }
       )
       # Give the server a second
       sleep 1
@@ -79,16 +81,20 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
       response = client.put_curation(
         engine_name,
-        curation_id: id,
-        queries: ['jungle'],
-        promoted: [@hidden['id']],
-        hidden: [@promoted['id']]
+        {
+          curation_id: id,
+          body: {
+            queries: ['jungle'],
+            promoted: [@hidden['id']],
+            hidden: [@promoted['id']]
+          }
+        }
       )
 
       expect(response.status).to eq 200
       expect(response.body['id']).to match(/cur-[0-9a-f]+/)
 
-      response = @client.search(engine_name, query: 'jungle')
+      response = @client.search(engine_name, body: { query: 'jungle' })
       expect(response.status).to eq 200
       expect(response.body['results'].count).to eq 1
       expect(response.body['results'].first['title']['raw']).to eq 'The Jungle Book'
