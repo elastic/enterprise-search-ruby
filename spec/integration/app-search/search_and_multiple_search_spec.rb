@@ -44,7 +44,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
 
   context 'search' do
     it 'performs a single query search' do
-      response = client.search(engine_name, query: 'Ibarbourou')
+      response = client.search(engine_name, body: { query: 'Ibarbourou' })
       expect(response.status).to eq 200
       expect(response.body).not_to be nil
       expect(response.body['results'].count).to be 1
