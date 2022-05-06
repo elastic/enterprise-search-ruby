@@ -24,10 +24,10 @@ module Elastic
         # Search - Submit a search
         # Submit a search and receive a set of results with meta data
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body  (Required: query)
-        # @option body [String] :query  (*Required)
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: query)
+        # @option body [string] :query
         # @option body :analytics
         # @option body :boost
         # @option body :facets
@@ -43,10 +43,11 @@ module Elastic
         #
         def search(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+          raise ArgumentError, "Required parameter 'body (query)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/search/",
