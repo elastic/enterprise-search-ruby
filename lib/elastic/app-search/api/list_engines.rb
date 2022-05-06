@@ -24,23 +24,20 @@ module Elastic
         # Engines - Retrieve all engines
         # Retrieves all engines with optional pagination support
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
         # @option arguments [Integer] :page_size The number of results per page
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/engines.html#engines-list
         #
         def list_engines(arguments = {})
-          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             'api/as/v1/engines/',
             arguments,
-            body,
+            nil,
             headers
           )
         end
