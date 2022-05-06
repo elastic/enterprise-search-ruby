@@ -24,11 +24,11 @@ module Elastic
         # Synonyms - Create a synonym set
         # Creates a new synonym set for the engine
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body  (Required: synonyms)
-        # @option body [String] :id
-        # @option body :synonyms  (*Required)
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: synonyms)
+        # @option body [string] :id
+        # @option body :synonyms
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/synonyms.html#synonyms-create
@@ -38,8 +38,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'body (synonyms)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/synonyms/",
