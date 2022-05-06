@@ -24,9 +24,8 @@ module Elastic
         # Credentials - Retrieve an API key
         # Retrieves details of an API key
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :api_key_name Name of an API key (*Required*)
-        # @option arguments [Hash] :body The request body
+        # @param [Hash] arguments endpoint arguments
+        # @param [String] api_key_name Name of an API key (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-single
@@ -34,15 +33,14 @@ module Elastic
         def api_key(arguments = {})
           raise ArgumentError, "Required parameter 'api_key_name' missing" unless arguments[:api_key_name]
 
-          api_key_name = arguments[:api_key_name]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          api_key_name = arguments.delete(:api_key_name)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :get,
             "api/as/v1/credentials/#{api_key_name}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end
