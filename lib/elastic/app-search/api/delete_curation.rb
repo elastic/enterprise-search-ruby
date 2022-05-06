@@ -24,10 +24,9 @@ module Elastic
         # Curations - Delete a curation
         # Deletes a curation set by ID
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :curation_id Curation ID (*Required*)
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-destroy
@@ -36,15 +35,14 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'curation_id' missing" unless arguments[:curation_id]
 
-          curation_id = arguments[:curation_id]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          curation_id = arguments.delete(:curation_id)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :delete,
             "api/as/v1/engines/#{engine_name}/curations/#{curation_id}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end
