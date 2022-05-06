@@ -24,23 +24,20 @@ module Elastic
         # Credentials - Retrieve all API keys
         # List the details of all API keys
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
         # @option arguments [Integer] :page_size The number of results per page
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-all
         #
         def list_api_keys(arguments = {})
-          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             'api/as/v1/credentials/',
             arguments,
-            body,
+            nil,
             headers
           )
         end
