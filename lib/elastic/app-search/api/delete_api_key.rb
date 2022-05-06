@@ -25,7 +25,7 @@ module Elastic
         # Deletes a given API key
         #
         # @param [Hash] arguments endpoint arguments
-        # @param [String] api_key_name Name of an API key (*Required*)
+        # @option arguments [String] :api_key_name Name of an API key (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-destroy

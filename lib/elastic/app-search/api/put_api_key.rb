@@ -25,7 +25,7 @@ module Elastic
         # Updates an API key
         #
         # @param [Hash] arguments endpoint arguments
-        # @param [String] api_key_name Name of an API key (*Required*)
+        # @option arguments [String] :api_key_name Name of an API key (*Required*)
         # @option arguments [Hash] :body (Required: name, type)
         # @option body [string] :id
         # @option body [string] :name
