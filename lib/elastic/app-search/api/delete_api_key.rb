@@ -24,9 +24,8 @@ module Elastic
         # Credentials - Delete an API key
         # Deletes a given API key
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :api_key_name Name of an API key (*Required*)
-        # @option arguments [Hash] :body The request body
+        # @param [Hash] arguments endpoint arguments
+        # @param [String] api_key_name Name of an API key (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-destroy
@@ -34,15 +33,14 @@ module Elastic
         def delete_api_key(arguments = {})
           raise ArgumentError, "Required parameter 'api_key_name' missing" unless arguments[:api_key_name]
 
-          api_key_name = arguments[:api_key_name]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          api_key_name = arguments.delete(:api_key_name)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :delete,
             "api/as/v1/credentials/#{api_key_name}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end
