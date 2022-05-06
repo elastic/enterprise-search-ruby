@@ -24,20 +24,20 @@ module Elastic
         # Documents - Retrieve one or more documents
         # Retrieves one or more documents by id
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :document_ids List of document IDs (*Required*)
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Array] :ids[] List of Document IDs to fetch
+        # @option arguments [Array<String>] :document_ids
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-get
         #
         def documents(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
-          raise ArgumentError, "Required parameter 'document_ids' missing" unless arguments[:document_ids]
 
           document_ids = arguments.delete(:document_ids) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :get,
             "api/as/v1/engines/#{engine_name}/documents/",
