@@ -24,23 +24,25 @@ module Elastic
         # Curations - Create a new curation
         # Create a new curation for the engine
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body  (Required: queries)
-        # @option body [String] :id
-        # @option body [Array] :queries List of affected search queries (*Required)
-        # @option body [Array] :promoted List of promoted document IDs
-        # @option body [Array] :hidden List of hidden document IDs
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: queries)
+        # @option body [string] :id
+        # @option body [Array<string>] :queries List of affected search queries
+        # @option body [Array<string>] :promoted List of promoted document IDs
+        # @option body [Array<string>] :hidden List of hidden document IDs
+        # @option body [Hash] :suggestion
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-create
         #
         def create_curation(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
+          raise ArgumentError, "Required parameter 'body (queries)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/curations/",
