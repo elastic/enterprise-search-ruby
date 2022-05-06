@@ -27,10 +27,10 @@ module Elastic
         # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body (Required: name)
         # @option body :name
-        # @option body :language [string]
+        # @option body [string] :language Engine language (null for universal)
         # @option body :type
         # @option body :source_engines
-        # @option body :document_count [integer]
+        # @option body [integer] :document_count
         # @option body :index_create_settings_override
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
