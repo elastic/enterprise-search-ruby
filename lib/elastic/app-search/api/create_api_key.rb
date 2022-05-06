@@ -24,25 +24,25 @@ module Elastic
         # Credentials - Create an API key
         # Creates an App Search API key
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body Details of an API key (Required: name, type)
-        # @option body [String] :id
-        # @option body [String] :name  (*Required)
-        # @option body [String] :type  (*Required)
-        # @option body [Boolean] :access_all_engines
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: name, type)
+        # @option body [string] :id
+        # @option body [string] :name
+        # @option body [string] :type
+        # @option body [boolean] :access_all_engines
         # @option body :engines
-        # @option body [Boolean] :write
-        # @option body [Boolean] :read
+        # @option body [boolean] :write
+        # @option body [boolean] :read
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-create
         #
         def create_api_key(arguments = {})
-          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
+          raise ArgumentError, "Required parameter 'body (name,type)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             'api/as/v1/credentials/',
