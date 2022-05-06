@@ -25,8 +25,8 @@ module Elastic
         # List the details of all API keys
         #
         # @param [Hash] arguments endpoint arguments
-        # @param [Integer] current_page The page to fetch. Defaults to 1
-        # @param [Integer] page_size The number of results per page
+        # @option arguments [Integer] :current_page The page to fetch. Defaults to 1
+        # @option arguments [Integer] :page_size The number of results per page
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/credentials.html#credentials-all
