@@ -24,9 +24,9 @@ module Elastic
         # Documents - Partial update of documents
         # Update specific document fields by id and field
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :documents
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Array<Hash> { id: [string] }] :documents
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/documents.html#documents-partial
@@ -35,8 +35,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           documents = arguments.delete(:documents) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :patch,
             "api/as/v1/engines/#{engine_name}/documents/",
