@@ -1,0 +1,14 @@
+[[release_notes_80]]
+=== 8.0.0.pre Release notes
+
+[discrete]
+==== General
+
+This is a pre-release for the upcoming `8.x` versions of the client.
+
+- Tested with Elastic Enterprise Search API version 8.0-SNAPSHOT.
+- Tested with Ruby 2.7, 3.0, 3.1, JRuby 9.3.
+- Updates request to return an Elastic::API::Response object.
+
+Full release notes will be released with 8.0.0 GA.
+
