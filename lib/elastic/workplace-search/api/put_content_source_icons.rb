@@ -24,21 +24,21 @@ module Elastic
         # ContentSources - Upload content source icons
         # Upload content source icons
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body Definition to upload Workplace Search Custom Source icons
-        # @option body [String] :main_icon
-        # @option body [String] :alt_icon
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body *Required*
+        # @option body [string] :main_icon
+        # @option body [string] :alt_icon
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-content-sources-api.html#upload-content-source-icon-api
         #
         def put_content_source_icons(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
+          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :put,
             "api/ws/v1/sources/#{content_source_id}/icon/",

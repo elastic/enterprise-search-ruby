@@ -21,22 +21,21 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
-        #  - Get the authenticated user
+        # getCurrentUser - Get the authenticated user
         # Get the authenticated user
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-user-api.html#get-current-user-api
         #
         def current_user(arguments = {})
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             'api/ws/v1/whoami/',
             arguments,
-            {},
+            nil,
             headers
           )
         end
