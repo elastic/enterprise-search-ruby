@@ -24,9 +24,9 @@ module Elastic
         # Documents - Indexes one or more new documents into a custom content source, or updates one or more existing documents
         # Indexes one or more new documents into a custom content source, or updates one or more existing documents
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Array] :documents (*Required*)
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Array<Hash> { id: [] }, { last_updated: [] }, { _allow_permissions: [] }, { _deny_permissions: [] }] :documents *Required*
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-custom-sources-api.html#index-and-update
@@ -37,7 +37,6 @@ module Elastic
 
           documents = arguments.delete(:documents) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :post,
             "api/ws/v1/sources/#{content_source_id}/documents/bulk_create/",

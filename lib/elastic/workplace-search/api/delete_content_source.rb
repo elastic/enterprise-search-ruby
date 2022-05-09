@@ -24,8 +24,8 @@ module Elastic
         # ContentSources - Deletes a content source by ID
         # Deletes a content source by ID
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-content-sources-api.html#remove-content-source-api
@@ -34,12 +34,11 @@ module Elastic
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
 
           headers = arguments.delete(:headers) || {}
-
           request(
             :delete,
             "api/ws/v1/sources/#{content_source_id}/",
             arguments,
-            {},
+            nil,
             headers
           )
         end

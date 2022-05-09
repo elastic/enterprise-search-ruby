@@ -24,8 +24,8 @@ module Elastic
         # ExternalIdentities - Retrieves all external identities
         # Retrieves all external identities
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Integer] :current_page Which page of results to request
         # @option arguments [Integer] :page_size The number of results to return in a page
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
@@ -36,12 +36,11 @@ module Elastic
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
 
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             "api/ws/v1/sources/#{content_source_id}/external_identities/",
             arguments,
-            {},
+            nil,
             headers
           )
         end
