@@ -24,11 +24,11 @@ module Elastic
         # Analytics - Query for analytics counts data
         # Returns the number of clicks and total number of queries over a period
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
-        # @option body :filters Analytics filters
-        # @option body [String] :interval You can define an interval along with your date range. Can be either hour or day
+        # @option body :filters
+        # @option body [string] :interval
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/counts.html
@@ -37,8 +37,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/analytics/counts/",
