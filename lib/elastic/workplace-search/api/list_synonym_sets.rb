@@ -24,7 +24,7 @@ module Elastic
         # Synonyms - Retrieves all synonym sets
         # Retrieve a list of synonym sets
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
         # @option body :page
         # @option body :sort
@@ -36,7 +36,6 @@ module Elastic
         def list_synonym_sets(arguments = {})
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             'api/ws/v1/synonyms/',
