@@ -21,7 +21,7 @@ require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'Log Click through' do
-    let(:engine_name) { 'videogames' }
+    let(:engine_name) { 'log-click-through' }
 
     before do
       create_engine(engine_name)
