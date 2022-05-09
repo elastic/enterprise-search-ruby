@@ -43,7 +43,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
   context 'Documents' do
     let(:content_source_id) do
-      client.create_content_source(name: 'test').body['id']
+      client.create_content_source(body: { name: 'test' }).body['id']
     end
 
     it 'indexes' do
@@ -58,7 +58,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   end
 
   context 'Documents in Content Sources' do
-    let(:content_source_id) { client.create_content_source(name: 'books').body['id'] }
+    let(:content_source_id) { client.create_content_source(body: { name: 'books' }).body['id'] }
     let(:document_id) { client.index_documents(content_source_id, documents: documents).body['results'].first['id'] }
 
     it 'Gets a document in a content source' do
@@ -73,7 +73,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
 
     it 'Deletes documents by query' do
-      content_source_id = client.create_content_source(name: 'asimov').body['id']
+      content_source_id = client.create_content_source(body: { name: 'asimov' }).body['id']
       documents = [
         { title: 'Foundation', year: 1951 },
         { title: 'Foundation and Empire', year: 1952 },
