@@ -91,5 +91,22 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       expect(response.status).to eq 200
       expect(response.body).to eq({ 'total' => 3, 'deleted' => 3, 'failures' => [] })
     end
+
+    it 'Lists documents' do
+      content_source_id = client.create_content_source(body: { name: 'quiroga' }).body['id']
+      documents = [
+        { title: 'Stories of Love, Madness and Death', year: 1917 },
+        { title: 'Drifting', year: 1937 },
+        { title: 'The Beheaded Hen', year: 1925 }
+      ]
+      client.index_documents(content_source_id, documents: documents)
+      # Give time to index the documents
+      sleep 2
+
+      response = client.list_documents(content_source_id)
+      expect(response.status).to eq 200
+      expect(response.body['results'].count).to eq 3
+      expect(response.body['results'].map { |a| a['year'] }).to eq ['1917', '1937', '1925']
+    end
   end
 end
