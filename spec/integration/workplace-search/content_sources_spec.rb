@@ -27,7 +27,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     it 'creates, retrieves and deletes authenticated with basic auth' do
       # Create a content source and get its id
-      response = client.create_content_source(name: 'test')
+      response = client.create_content_source(body: { name: 'test' })
       expect(response.status).to eq 200
       expect(response.body['id'])
       id = response.body['id']
@@ -47,7 +47,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
 
     it 'creates and updates' do
-      response = client.create_content_source(name: 'ruby_client_app')
+      response = client.create_content_source(body: { name: 'ruby_client_app' })
       expect(response.status).to eq 200
       id = response.body['id']
 
@@ -71,7 +71,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
 
     it 'syncs jobs' do
-      response = client.create_content_source(name: 'sync_jobs_test')
+      response = client.create_content_source(body: { name: 'sync_jobs_test' })
       expect(response.status).to eq 200
       id = response.body['id']
 
@@ -81,19 +81,19 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
     end
 
     context 'icons' do
-      let(:content_source_id) { client.create_content_source(name: 'with-icon').body['id'] }
+      let(:content_source_id) { client.create_content_source(body: { name: 'with-icon' }).body['id'] }
 
       it 'puts an icon' do
         path = File.expand_path("#{File.dirname(__FILE__)}/icon.png")
         icon = Base64.strict_encode64(File.read(path))
-        response = client.put_content_source_icons(content_source_id, main_icon: icon, alt_icon: icon)
+        response = client.put_content_source_icons(content_source_id, body: { main_icon: icon, alt_icon: icon })
         expect(response.status).to eq 200
         expect(response.body['results']).to eq({ 'main_icon' => 'success', 'alt_icon' => 'success' })
       end
     end
 
     context 'auto query refinements details' do
-      let(:content_source_id) { client.create_content_source(name: 'refinements').body['id'] }
+      let(:content_source_id) { client.create_content_source(body: { name: 'refinements' }).body['id'] }
 
       it 'retrieves details' do
         response = client.auto_query_refinement_details(content_source_id)
