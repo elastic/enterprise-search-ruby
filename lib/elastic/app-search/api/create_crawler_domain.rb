@@ -24,13 +24,13 @@ module Elastic
         # Crawler - Create a crawler domain
         # Creates a crawler domain configuration for a given engine
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
-        # @option body [String] :name
-        # @option body [Array] :entry_points
-        # @option body [Array] :crawl_rules
-        # @option body [Array] :sitemaps
+        # @option body [string] :name
+        # @option body [Array<object>] :entry_points
+        # @option body [Array<object>] :crawl_rules
+        # @option body [Array<object>] :sitemaps
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawler-domains
@@ -39,11 +39,11 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/",
             arguments,
             body,
             headers

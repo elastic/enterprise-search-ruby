@@ -24,11 +24,10 @@ module Elastic
         # Crawler - Delete a sitemap
         # Deletes a sitemap from a given domain
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :domain_id Crawler Domain ID (*Required*)
         # @option arguments [String] :sitemap_id Sitemap ID (*Required*)
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-delete-sitemap
@@ -38,16 +37,15 @@ module Elastic
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
           raise ArgumentError, "Required parameter 'sitemap_id' missing" unless arguments[:sitemap_id]
 
-          domain_id = arguments[:domain_id]
-          sitemap_id = arguments[:sitemap_id]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          domain_id = arguments.delete(:domain_id)
+          sitemap_id = arguments.delete(:sitemap_id)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :delete,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/#{domain_id}/sitemaps/#{sitemap_id}/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/#{domain_id}/sitemaps/#{sitemap_id}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end

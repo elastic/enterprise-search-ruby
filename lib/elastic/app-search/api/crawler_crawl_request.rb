@@ -24,10 +24,9 @@ module Elastic
         # Crawler - Get crawl request details
         # Returns crawl request details.
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :crawl_request_id Crawl Request ID (*Required*)
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-get-crawler-crawl-requests-id
@@ -36,15 +35,14 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'crawl_request_id' missing" unless arguments[:crawl_request_id]
 
-          crawl_request_id = arguments[:crawl_request_id]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          crawl_request_id = arguments.delete(:crawl_request_id)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :get,
-            "api/as/v0/engines/#{engine_name}/crawler/crawl_requests/#{crawl_request_id}/",
+            "api/as/v1/engines/#{engine_name}/crawler/crawl_requests/#{crawl_request_id}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end
