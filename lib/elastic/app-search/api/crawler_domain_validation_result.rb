@@ -24,19 +24,20 @@ module Elastic
         # Crawler - Validate Domain with Crawler
         # Performs a number of checks on a given domain name to make sure it is ready to be crawled and ingested into App Search.
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :body
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [string] :body
+        # @option body [string] :url *Required*
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html
+        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawler-validate-domain
         #
         def crawler_domain_validation_result(arguments = {})
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
-            'api/as/v0/crawler/validate_url/',
+            'api/as/v1/crawler/validate_url/',
             arguments,
             body,
             headers

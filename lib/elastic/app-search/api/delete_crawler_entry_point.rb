@@ -24,11 +24,10 @@ module Elastic
         # Crawler - Delete an entry point
         # Deletes a crawler entry point
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :domain_id Crawler Domain ID (*Required*)
         # @option arguments [String] :entry_point_id Crawler Entry Point identifier (*Required*)
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-delete-crawler-domain
@@ -38,16 +37,15 @@ module Elastic
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
           raise ArgumentError, "Required parameter 'entry_point_id' missing" unless arguments[:entry_point_id]
 
-          domain_id = arguments[:domain_id]
-          entry_point_id = arguments[:entry_point_id]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          domain_id = arguments.delete(:domain_id)
+          entry_point_id = arguments.delete(:entry_point_id)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :delete,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/#{domain_id}/entry_points/#{entry_point_id}/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/#{domain_id}/entry_points/#{entry_point_id}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end

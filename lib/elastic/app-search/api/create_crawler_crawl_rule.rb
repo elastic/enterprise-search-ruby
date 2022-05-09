@@ -24,15 +24,16 @@ module Elastic
         # Crawler - Create a crawl rule
         # Creates a crawl rule for a given engine and domain
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :domain_id Crawler Domain ID (*Required*)
-        # @option arguments [Hash] :body  (Required: order, policy, rule, pattern)
-        # @option body [String] :id
-        # @option body [Integer] :order  (*Required)
-        # @option body [String] :policy  (*Required)
-        # @option body [String] :rule  (*Required)
-        # @option body [String] :pattern  (*Required)
+        # @option arguments [Hash] :body (Required: order, policy, rule, pattern)
+        # @option body [string] :id
+        # @option body [integer] :order
+        # @option body [string] :policy
+        # @option body [string] :rule
+        # @option body [string] :pattern
+        # @option body [string] :created_at
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawl-rules
@@ -40,14 +41,15 @@ module Elastic
         def create_crawler_crawl_rule(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
+          raise ArgumentError, "Required parameter 'body (order,policy,rule,pattern)' missing" unless arguments[:body]
 
-          domain_id = arguments[:domain_id]
+          domain_id = arguments.delete(:domain_id)
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/#{domain_id}/crawl_rules/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/#{domain_id}/crawl_rules/",
             arguments,
             body,
             headers

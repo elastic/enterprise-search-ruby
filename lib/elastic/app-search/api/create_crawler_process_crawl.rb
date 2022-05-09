@@ -24,11 +24,11 @@ module Elastic
         # Crawler - Create a process crawl
         # Queues a task to reprocess crawled documents with current crawl configuration
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
-        # @option body [Boolean] :dry_run
-        # @option body [Array] :domains
+        # @option body [boolean] :dry_run
+        # @option body [Array<string>] :domains
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawler-process-crawls
@@ -37,11 +37,11 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/crawler/process_crawls/",
+            "api/as/v1/engines/#{engine_name}/crawler/process_crawls/",
             arguments,
             body,
             headers
