@@ -21,7 +21,7 @@ require_relative "#{__dir__}/app_search_helper.rb"
 
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   context 'API logs' do
-    let(:engine_name) { 'videogames' }
+    let(:engine_name) { 'api-logs' }
     let(:api_key_name) { 'logs-api-key' }
 
     before do
