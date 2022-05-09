@@ -24,7 +24,7 @@ module Elastic
         # Synonyms - Delete a synonym set
         # Delete a synonym set
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :synonym_set_id Synonym Set ID (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
@@ -33,15 +33,13 @@ module Elastic
         def delete_synonym_set(arguments = {})
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless arguments[:synonym_set_id]
 
-          synonym_set_id = arguments[:synonym_set_id]
-
+          synonym_set_id = arguments.delete(:synonym_set_id)
           headers = arguments.delete(:headers) || {}
-
           request(
             :delete,
             "api/ws/v1/synonyms/#{synonym_set_id}/",
             arguments,
-            {},
+            nil,
             headers
           )
         end

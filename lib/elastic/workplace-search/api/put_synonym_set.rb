@@ -24,21 +24,21 @@ module Elastic
         # Synonyms - Update a synonym set
         # Update a synonym set
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :synonym_set_id Synonym Set ID (*Required*)
-        # @option arguments [Hash] :body  (Required: synonyms)
-        # @option body [Array] :synonyms A list of terms for this synonym set (*Required)
+        # @option arguments [Hash] :body (Required: synonyms)
+        # @option body [Array<string>] :synonyms A list of terms for this synonym set
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-synonyms-api.html#update-synonym
         #
         def put_synonym_set(arguments = {})
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless arguments[:synonym_set_id]
+          raise ArgumentError, "Required parameter 'body (synonyms)' missing" unless arguments[:body]
 
           synonym_set_id = arguments.delete(:synonym_set_id)
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :put,
             "api/ws/v1/synonyms/#{synonym_set_id}/",

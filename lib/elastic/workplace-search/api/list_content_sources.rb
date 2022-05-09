@@ -24,7 +24,7 @@ module Elastic
         # ContentSources - Retrieves all content sources
         # Retrieves all content sources
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Integer] :current_page Which page of results to request
         # @option arguments [Integer] :page_size The number of results to return in a page
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
@@ -33,12 +33,11 @@ module Elastic
         #
         def list_content_sources(arguments = {})
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             'api/ws/v1/sources/',
             arguments,
-            {},
+            nil,
             headers
           )
         end

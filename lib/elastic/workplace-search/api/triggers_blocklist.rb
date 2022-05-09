@@ -21,21 +21,21 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
+        # getTriggersBlocklist - Get current triggers blocklist
         # Get current triggers blocklist
         #
-        # @param arguments [Hash] endpoint arguments
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/automatic-query-refinement-blocklist.html
         #
         def triggers_blocklist(arguments = {})
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             'api/ws/v1/automatic_query_refinement/',
             arguments,
-            {},
+            nil,
             headers
           )
         end
