@@ -24,9 +24,8 @@ module Elastic
         # Crawler - Get crawl schedule
         # Returns the current crawl schedule for a given engine
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body The request body
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-get-crawler-crawl-schedule
@@ -34,14 +33,12 @@ module Elastic
         def crawler_crawl_schedule(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
-          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
-            "api/as/v0/engines/#{engine_name}/crawler/crawl_schedule/",
+            "api/as/v1/engines/#{engine_name}/crawler/crawl_schedule/",
             arguments,
-            body,
+            nil,
             headers
           )
         end
