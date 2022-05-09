@@ -28,14 +28,14 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
       original_list = response.body['blocklist']
 
       # Add a term to the block list and check it's been changed
-      response = client.put_triggers_blocklist(body: { blocklist: original_list + ['tests'] })
+      response = client.put_triggers_blocklist(blocklist: original_list + ['tests'])
       expect(response.status).to eq 200
       expect(response.body['blocklist']).to eq(original_list + ['tests'])
       response = client.triggers_blocklist
       expect(response.body['blocklist']).to eq(original_list + ['tests'])
 
       # Restored original list
-      response = client.put_triggers_blocklist(body: { blocklist: original_list })
+      response = client.put_triggers_blocklist(blocklist: original_list)
       expect(response.status).to eq 200
       expect(response.body['blocklist']).to eq(original_list)
     end
