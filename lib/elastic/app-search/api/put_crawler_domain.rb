@@ -24,14 +24,14 @@ module Elastic
         # Crawler - Update domain configuration
         # Updates crawler domain configuration for a given domain
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :domain_id Crawler Domain ID (*Required*)
         # @option arguments [Hash] :body
-        # @option body [String] :name
-        # @option body [Array] :entry_points
-        # @option body [Array] :crawl_rules
-        # @option body [Array] :sitemaps
+        # @option body [string] :name
+        # @option body [Array<object>] :entry_points
+        # @option body [Array<object>] :crawl_rules
+        # @option body [Array<object>] :sitemaps
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-put-crawler-domain
@@ -40,13 +40,13 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
 
-          domain_id = arguments[:domain_id]
+          domain_id = arguments.delete(:domain_id)
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :put,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/#{domain_id}/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/#{domain_id}/",
             arguments,
             body,
             headers
