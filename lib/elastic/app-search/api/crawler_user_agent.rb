@@ -24,21 +24,18 @@ module Elastic
         # Crawler - Get the User-Agent header value for the crawler
         # Retrieves the currently configured value for the User-Agent header used for all Crawler HTTP requests
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body The request body
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-user-agent
         #
         def crawler_user_agent(arguments = {})
-          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
-            'api/as/v0/crawler/user_agent/',
+            'api/as/v1/crawler/user_agent/',
             arguments,
-            body,
+            nil,
             headers
           )
         end

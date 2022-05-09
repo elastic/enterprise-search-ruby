@@ -24,11 +24,10 @@ module Elastic
         # Crawler - Delete a crawl rule
         # Deletes a crawl rule from a given domain
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :domain_id Crawler Domain ID (*Required*)
         # @option arguments [String] :crawl_rule_id Crawl Rule ID (*Required*)
-        # @option arguments [Hash] :body The request body
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-delete-crawl-rule
@@ -38,16 +37,15 @@ module Elastic
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
           raise ArgumentError, "Required parameter 'crawl_rule_id' missing" unless arguments[:crawl_rule_id]
 
-          domain_id = arguments[:domain_id]
-          crawl_rule_id = arguments[:crawl_rule_id]
-          body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
+          domain_id = arguments.delete(:domain_id)
+          crawl_rule_id = arguments.delete(:crawl_rule_id)
 
+          headers = arguments.delete(:headers) || {}
           request(
             :delete,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/#{domain_id}/crawl_rules/#{crawl_rule_id}/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/#{domain_id}/crawl_rules/#{crawl_rule_id}/",
             arguments,
-            body,
+            nil,
             headers
           )
         end
