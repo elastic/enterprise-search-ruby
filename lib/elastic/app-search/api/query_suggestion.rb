@@ -24,12 +24,12 @@ module Elastic
         # QuerySuggestion - Retrieve query suggestions
         # Provide relevant query suggestions for incomplete queries
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
-        # @option body [String] :query
+        # @option body [string] :query
         # @option body :types
-        # @option body [Integer] :size
+        # @option body [integer] :size
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/query-suggestion.html
@@ -38,8 +38,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/query_suggestion/",
