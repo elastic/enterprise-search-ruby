@@ -21,26 +21,26 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Searchsettings - Update search settings for the engine
+        # Synonyms - Update search settings
+        # Updates search settings for the engine
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
         # @option body :boosts
         # @option body :search_fields
         # @option body :result_fields
-        # @option body [Integer] :precision
+        # @option body [integer] :precision
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update
         #
         def put_search_settings(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
-          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :put,
             "api/as/v1/engines/#{engine_name}/search_settings/",
