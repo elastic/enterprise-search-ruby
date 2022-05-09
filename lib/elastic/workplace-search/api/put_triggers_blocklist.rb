@@ -21,23 +21,21 @@ module Elastic
   module EnterpriseSearch
     module WorkplaceSearch
       module Actions
+        # putTriggersBlocklist - Update current triggers blocklist
         # Update current triggers blocklist
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body The request body
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/automatic-query-refinement-blocklist.html
         #
         def put_triggers_blocklist(arguments = {})
-          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :put,
             'api/ws/v1/automatic_query_refinement/',
             arguments,
-            body,
+            nil,
             headers
           )
         end
