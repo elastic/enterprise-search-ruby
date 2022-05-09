@@ -24,12 +24,12 @@ module Elastic
         # Analytics - Query for analytics click data
         # Returns the number of clicks received by a document in descending order
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
-        # @option body [String] :query
+        # @option body [string] :query
         # @option body :filters
-        # @option body [Object] :page
+        # @option body [Hash] :page (Required: size)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/clicks.html
@@ -38,8 +38,8 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/analytics/clicks/",
