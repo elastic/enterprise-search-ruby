@@ -44,14 +44,22 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'returns api logs' do
-      response = client.api_logs(engine_name, from_date: Date.today - 1, to_date: Date.today + 1)
+      body = {
+        filters: {
+          date: {
+            from: client.date_to_rfc3339(Date.today - 1),
+            to: client.date_to_rfc3339(Date.today + 1)
+          }
+        }
+      }
+      response = client.api_logs(engine_name, body: body)
       expect(response.status).to eq 200
 
       attempts = 0
       while response.body['results'].count < 1 && attempts < 20
         sleep 1
         attempts += 1
-        response = client.api_logs(engine_name, from_date: Date.today - 1, to_date: Date.today + 1)
+        response = client.api_logs(engine_name, body: body)
       end
       expect(response.body['results'].count).to be >= 1
     end
