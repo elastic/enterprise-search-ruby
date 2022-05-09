@@ -24,21 +24,20 @@ module Elastic
         # SyncJobs - Issue commands to a Content Source's sync jobs
         # Control a content source's sync jobs
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body Params to command a Workplace Search Content Source's sync jobs (Required: command)
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Array] :job_type The type of sync job to consider
-        # @option body :command  (*Required)
+        # @option arguments [Any of: <Hash> - Command to start a synchronisation job for Content Source (force_interrupt<boolean>, command<string>) or <Hash> - Command to interrupt a synchronisation job for Content Source (command<string>)] :body *Required*
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-search-sync-jobs-api.html#command-sync-jobs-api
         #
         def command_sync_jobs(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
+          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :post,
             "api/ws/v1/sources/#{content_source_id}/sync/jobs/",
