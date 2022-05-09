@@ -24,10 +24,10 @@ module Elastic
         # Crawler - Extract content from a URL
         # Performs an HTTP request to a given URL and extracts content from the page using standard App Search Crawler extraction pipeline.
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [String] :body
-        # @option arguments [String] :url (*Required*)
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [string] :body
+        # @option body [string] :url *Required*
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html
@@ -36,11 +36,11 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/crawler/extract_url/",
+            "api/as/v1/engines/#{engine_name}/crawler/extract_url/",
             arguments,
             body,
             headers

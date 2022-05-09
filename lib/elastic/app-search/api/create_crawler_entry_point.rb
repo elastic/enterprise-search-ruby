@@ -24,12 +24,13 @@ module Elastic
         # Crawler - Create a crawler entry point
         # Creates a crawler domain entry point for a given engine and domain
         #
-        # @param engine_name [String] Name of the engine (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :domain_id Crawler Domain ID (*Required*)
-        # @option arguments [Hash] :body  (Required: value)
-        # @option body [String] :id
-        # @option body [String] :value  (*Required)
+        # @option arguments [Hash] :body (Required: value)
+        # @option body [string] :id
+        # @option body [string] :value
+        # @option body [string] :created_at
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-entry-points
@@ -37,14 +38,15 @@ module Elastic
         def create_crawler_entry_point(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
+          raise ArgumentError, "Required parameter 'body (value)' missing" unless arguments[:body]
 
-          domain_id = arguments[:domain_id]
+          domain_id = arguments.delete(:domain_id)
           body = arguments.delete(:body) || {}
-          headers = arguments.delete(:headers) || {}
 
+          headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/crawler/domains/#{domain_id}/entry_points/",
+            "api/as/v1/engines/#{engine_name}/crawler/domains/#{domain_id}/entry_points/",
             arguments,
             body,
             headers

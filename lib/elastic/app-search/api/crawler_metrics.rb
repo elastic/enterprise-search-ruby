@@ -24,21 +24,18 @@ module Elastic
         # Crawler - Retrieve a snapshot of crawler metrics
         # Retrieves a momentary snapshot of key crawler metrics, including global and node-level crawler health
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body The request body
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html
         #
         def crawler_metrics(arguments = {})
-          body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
-            'api/as/v0/crawler/metrics/',
+            'api/as/v1/crawler/metrics/',
             arguments,
-            body,
+            nil,
             headers
           )
         end
