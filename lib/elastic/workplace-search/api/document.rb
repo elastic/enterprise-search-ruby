@@ -24,8 +24,8 @@ module Elastic
         # Documents - Retrieves a document by ID from the specified content source
         # Retrieves a document by ID from the specified content source
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
         # @option arguments [String] :document_id Unique ID for a content source document. Provided upon or returned at creation. (*Required*)
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
@@ -35,15 +35,13 @@ module Elastic
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
           raise ArgumentError, "Required parameter 'document_id' missing" unless arguments[:document_id]
 
-          document_id = arguments[:document_id]
-
+          document_id = arguments.delete(:document_id)
           headers = arguments.delete(:headers) || {}
-
           request(
             :get,
             "api/ws/v1/sources/#{content_source_id}/documents/#{document_id}/",
             arguments,
-            {},
+            nil,
             headers
           )
         end

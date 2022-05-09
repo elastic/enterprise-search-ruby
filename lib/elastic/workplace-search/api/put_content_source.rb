@@ -24,13 +24,13 @@ module Elastic
         # ContentSources - Update a content source
         # Update a content source
         #
-        # @param content_source_id [String] Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body Definition to update a Workplace Search Content Source (Required: name, is_searchable)
-        # @option body [String] :name The human readable display name for this Content Source. (*Required)
+        # @param [String] content_source_id Unique ID for a Custom API source, provided upon creation of a Custom API Source (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: name, is_searchable)
+        # @option body [string] :name The human readable display name for this Content Source.
         # @option body :schema The schema that each document in this Content Source will adhere to.
         # @option body :display The display details which governs which fields will be displayed, and in what order, in the search results.
-        # @option body [Boolean] :is_searchable Whether or not this Content Source will be searchable on the search page. (*Required)
+        # @option body [boolean] :is_searchable Whether or not this Content Source will be searchable on the search page.
         # @option body :indexing
         # @option body :facets
         # @option body :automatic_query_refinement
@@ -40,10 +40,10 @@ module Elastic
         #
         def put_content_source(content_source_id, arguments = {})
           raise ArgumentError, "Required parameter 'content_source_id' missing" unless content_source_id
+          raise ArgumentError, "Required parameter 'body (name,is_searchable)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :put,
             "api/ws/v1/sources/#{content_source_id}/",

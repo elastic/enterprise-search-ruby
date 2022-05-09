@@ -24,8 +24,8 @@ module Elastic
         # Synonyms - Create a batch of synonym sets
         # Create batched synonym sets
         #
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Hash] :body
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body *Required*
         # @option body :synonyms
         # @option body :synonym_sets
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
@@ -33,9 +33,10 @@ module Elastic
         # @see https://www.elastic.co/guide/en/workplace-search/current/workplace-synonyms-api.html#create-synonyms
         #
         def create_batch_synonym_sets(arguments = {})
+          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
+
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :post,
             'api/ws/v1/synonyms/',
