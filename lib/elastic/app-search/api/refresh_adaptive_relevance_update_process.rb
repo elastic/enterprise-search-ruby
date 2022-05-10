@@ -40,7 +40,6 @@ module Elastic
           end
 
           adaptive_relevance_suggestion_type = arguments.delete(:adaptive_relevance_suggestion_type)
-
           headers = arguments.delete(:headers) || {}
           request(
             :post,

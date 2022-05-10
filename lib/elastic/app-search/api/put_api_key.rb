@@ -44,7 +44,6 @@ module Elastic
 
           api_key_name = arguments.delete(:api_key_name)
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :put,
