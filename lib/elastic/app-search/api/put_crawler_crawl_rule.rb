@@ -48,7 +48,6 @@ module Elastic
           domain_id = arguments.delete(:domain_id)
           crawl_rule_id = arguments.delete(:crawl_rule_id)
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :put,

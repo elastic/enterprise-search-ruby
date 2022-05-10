@@ -44,7 +44,6 @@ module Elastic
 
           curation_id = arguments.delete(:curation_id)
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :put,

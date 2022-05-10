@@ -35,7 +35,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
 
           document_ids = arguments.delete(:document_ids) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :delete,

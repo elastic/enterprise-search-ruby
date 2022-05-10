@@ -38,7 +38,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'body (frequency,unit)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :put,
