@@ -36,7 +36,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'curation_id' missing" unless arguments[:curation_id]
 
           curation_id = arguments.delete(:curation_id)
-
           headers = arguments.delete(:headers) || {}
           request(
             :delete,

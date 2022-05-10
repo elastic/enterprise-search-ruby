@@ -34,7 +34,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'api_key_name' missing" unless arguments[:api_key_name]
 
           api_key_name = arguments.delete(:api_key_name)
-
           headers = arguments.delete(:headers) || {}
           request(
             :get,

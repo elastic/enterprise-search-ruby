@@ -36,7 +36,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'synonym_set_id' missing" unless arguments[:synonym_set_id]
 
           synonym_set_id = arguments.delete(:synonym_set_id)
-
           headers = arguments.delete(:headers) || {}
           request(
             :delete,

@@ -41,7 +41,6 @@ module Elastic
 
           synonym_set_id = arguments.delete(:synonym_set_id)
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :put,

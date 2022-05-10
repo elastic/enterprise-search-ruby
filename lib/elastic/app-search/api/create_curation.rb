@@ -41,7 +41,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'body (queries)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :post,
