@@ -34,7 +34,6 @@ module Elastic
         raise ArgumentError, "Required parameter 'body (enabled)' missing" unless arguments[:body]
 
         body = arguments.delete(:body) || {}
-
         headers = arguments.delete(:headers) || {}
         request(
           :put,
