@@ -36,7 +36,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'crawl_request_id' missing" unless arguments[:crawl_request_id]
 
           crawl_request_id = arguments.delete(:crawl_request_id)
-
           headers = arguments.delete(:headers) || {}
           request(
             :get,

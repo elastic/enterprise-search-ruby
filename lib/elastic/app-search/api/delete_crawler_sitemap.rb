@@ -39,7 +39,6 @@ module Elastic
 
           domain_id = arguments.delete(:domain_id)
           sitemap_id = arguments.delete(:sitemap_id)
-
           headers = arguments.delete(:headers) || {}
           request(
             :delete,

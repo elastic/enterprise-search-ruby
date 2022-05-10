@@ -36,7 +36,6 @@ module Elastic
           raise ArgumentError, "Required parameter 'domain_id' missing" unless arguments[:domain_id]
 
           domain_id = arguments.delete(:domain_id)
-
           headers = arguments.delete(:headers) || {}
           request(
             :get,
