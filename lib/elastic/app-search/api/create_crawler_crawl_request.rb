@@ -28,6 +28,7 @@ module Elastic
         # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body
         # @option body [integer] :max_crawl_depth
+        # @option body [boolean] :sitemap_discovery_disabled
         # @option body [Array<string>] :domain_allowlist
         # @option body [Array<string>] :seed_urls
         # @option body [Array<string>] :sitemap_urls

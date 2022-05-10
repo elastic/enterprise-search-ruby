@@ -30,7 +30,7 @@ module Elastic
         # @option body [string] :url *Required*
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
-        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html
+        # @see https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html#web-crawler-apis-post-crawler-extract-url
         #
         def crawler_url_extraction_result(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
