@@ -39,7 +39,6 @@ module Elastic
 
           domain_id = arguments.delete(:domain_id)
           entry_point_id = arguments.delete(:entry_point_id)
-
           headers = arguments.delete(:headers) || {}
           request(
             :delete,
