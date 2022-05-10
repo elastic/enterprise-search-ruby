@@ -32,7 +32,7 @@ module Elastic
         # @option body [Array<string>] :queries List of affected search queries
         # @option body [Array<string>] :promoted List of promoted document IDs
         # @option body [Array<string>] :hidden List of hidden document IDs
-        # @option body [Hash] :suggestion
+        # @option body :suggestion
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/curations.html#curations-update
