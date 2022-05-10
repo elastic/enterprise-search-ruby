@@ -27,7 +27,7 @@ module Elastic
         # @param [String] engine_name Name of the engine (*Required*)
         # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body (Required: curation)
-        # @option body [Hash] :curation (Required: )
+        # @option body [Hash] :curation
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/adaptive-relevance-api-reference.html#adaptive-relevance-api-put-engine-adaptive-relevance-settings

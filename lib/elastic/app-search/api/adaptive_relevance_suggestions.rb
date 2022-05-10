@@ -29,7 +29,7 @@ module Elastic
         # @option arguments [String] :search_suggestion_query Query to obtain suggestions (*Required*)
         # @option arguments [Hash] :body
         # @option body :page
-        # @option body [string] :filters
+        # @option body [Hash] :filters
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/adaptive-relevance-api-reference.html#adaptive-relevance-api-get-engine-adaptive-relevance-suggestions-query
