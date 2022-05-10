@@ -44,7 +44,6 @@ module Elastic
 
           search_suggestion_query = arguments.delete(:search_suggestion_query)
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :post,

@@ -33,7 +33,6 @@ module Elastic
         #
         def crawler_domain_validation_result(arguments = {})
           body = arguments.delete(:body) || {}
-
           headers = arguments.delete(:headers) || {}
           request(
             :post,
