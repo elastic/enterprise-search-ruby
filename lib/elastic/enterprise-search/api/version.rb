@@ -26,7 +26,7 @@ module Elastic
       # @param [Hash] arguments endpoint arguments
       # @option arguments [Hash] :headers optional HTTP headers to send with the request
       #
-      # @see https://www.elastic.co/guide/en/enterprise-search/current/management-apis.html
+      # @see https://www.elastic.co/guide/en/enterprise-search/current/monitoring-apis.html#monitoring-apis-version-api
       #
       def version(arguments = {})
         headers = arguments.delete(:headers) || {}
