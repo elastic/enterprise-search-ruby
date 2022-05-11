@@ -1,0 +1,8 @@
+[[release_notes_81]]
+=== 8.1.0 Release notes
+
+[discrete]
+==== General
+
+- Tested with Elastic Enterprise Search API version 8.1.0.
+- Tested with Ruby 2.7, 3.0, 3.1, JRuby 9.3. Older versions of Ruby have reached end of life and been removed from the testing matrices. Minimum required Ruby version is Ruby 2.6 to keep compatibility with JRuby 9.3, but it may be upgraded to 2.7 once JRuby 9.4 comes out.
