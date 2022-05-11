@@ -8,7 +8,7 @@ This document includes examples for different API requests. Please refer to the 
 [source,rb]
 ----------------------------
 # Create an engine
-client.create_engine(name: 'videogames')
+client.create_engine(body: { name: 'videogames' })
 
 # List all engines
 client.list_engines
@@ -30,7 +30,7 @@ body = {
   type: 'meta',
   source_engines: [ 'books', 'videogames' ]
 }
-client.create_engine(name: engine_name, body: body)
+client.create_engine(body: body)
 
 # Add a source engine to a meta engine:
 client.add_meta_engine_source(meta_engine_name, source_engines: ['engine1', 'engine2'])
@@ -184,13 +184,6 @@ client.delete_api_key(api_key_name: name)
 
 === Web Crawler
 
-[CAUTION]
-====
-The Elastic Enterprise Search web crawler API is a *beta* feature.
-Beta features are subject to change and are not covered by the support SLA of general release (GA) features.
-Elastic plans to promote this feature to GA in a future release.
-====
-
 See https://www.elastic.co/guide/en/app-search/current/web-crawler-api-reference.html[Web Crawler API reference] for more information.
 
 [source,rb]
@@ -201,6 +194,9 @@ client.create_crawler_domain(engine_name, body: body)
 
 # Get crawler domain information
 client.crawler_domain(engine_name, domain_id: domain_id)
+
+# List crawler domains
+client.list_crawler_domains(engine_name)
 
 # Update a crawler domain
 body = { name: 'https://www.wikipedia.org' }
@@ -306,6 +302,38 @@ client.crawler_process_crawl_denied_urls(engine_name, process_crawl_id: id)
 
 # Cancel an active crawl request, stopping a running crawl if needed.
 client.delete_crawler_active_crawl_request(engine_name)
+----------------------------
+
+=== Adaptive Relevance Suggestions
+
+[source,rb]
+----------------------------
+# Update an adaptive relevance suggestion
+body = [{ query: 'forest', type: 'curation', status: 'applied' }]
+client.put_adaptive_relevance_suggestions(engine_name, body: body)
+
+# Retrieve an adaptive relevance suggestion
+client.adaptive_relevance_suggestions(engine_name, search_suggestion_query: 'test')
+
+# List adaptive relevance suggestions
+client.list_adaptive_relevance_suggestions(engine_name)
+----------------------------
+
+=== Adaptive Relevance Settings
+
+[source,rb]
+----------------------------
+# Show the settings for an engine
+client.adaptive_relevance_settings(engine_name)
+
+# Update relevance settings
+ body = {
+        curation: { enabled: true }
+      }
+client.put_adaptive_relevance_settings(engine_name, body: body)
+
+# Refresh adaptive relevance update process
+client.refresh_adaptive_relevance_update_process(engine_name, adaptive_relevance_suggestion_type: 'curation')
 ----------------------------
 
 === Other API Endpoints
