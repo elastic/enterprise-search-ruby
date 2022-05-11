@@ -336,6 +336,27 @@ client.put_adaptive_relevance_settings(engine_name, body: body)
 client.refresh_adaptive_relevance_update_process(engine_name, adaptive_relevance_suggestion_type: 'curation')
 ----------------------------
 
+=== Elasticsearch Search
+
+Utilize the API to passthrough and execute raw Elasticsearch queries against the indices that power Enterprise Search engines.
+
+[source,rb]
+----------------------------
+es_request = { body: { query: { bool: { must: { term: { title: 'test' } } } } } }
+client.search_es_search(engine_name, body: { request: es_request })
+----------------------------
+
+=== Search Explain
+
+Submit a search and retrieve an Elasticsearch query.
+
+[source,rb]
+----------------------------
+response = client.search_explain(engine_name, body: { query: 'test' })
+response.body['query_string']
+# => "GET enterprise-search-engine-app-search-explain/_search"
+----------------------------
+
 === Other API Endpoints
 
 [source,rb]
