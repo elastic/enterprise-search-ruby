@@ -1,0 +1,117 @@
+[[release_notes_80]]
+=== 8.0.0 Release notes
+
+[discrete]
+==== General
+
+First release in the `8.x` branch of the client.
+
+- Tested with Elastic Enterprise Search API version 8.0-SNAPSHOT.
+- Tested with Ruby 2.7, 3.0, 3.1, JRuby 9.3. Older versions of Ruby have reached end of life and been removed from the testing matrices. Minimum required Ruby version is Ruby 2.6 to keep compatibility with JRuby 9.3, but it may be upgraded to 2.7 once JRuby 9.4 comes out.
+- API: Updated endpoints that make a `GET` or `DELETE` requests to not have a `body`. Requests with `PUT` and `POST` now expect most parameters to be in the request body. Parameters that were available as both arguments and in the body are now just in the body.
+- API: An updated generator is being used to generate the endpoint code. The source code documentation has better typing hints for parameters.
+
+[discrete]
+==== Response Object
+
+* Requests now return an `Elastic::API::Response` object. This behaves exactly the same as the previous response (`Elastic::Transport::Transport::Response`) but expands its functionality. With the previous response object, the body of the response had to be accessed calling the `body` method on the response. This new object behaves like the response.body Hash object, except when the `status` or `headers` are sent to it. This makes it easier to access the response data. Example:
+
++
+[source,rb]
+----------------------------
+client = Elastic::EnterpriseSearch::Client.new(
+  host: 'http://localhost:3002',
+  http_auth: {user: 'elastic', password: 'changeme'}
+)
+response = client.health
+response.class
+# => Elastic::API::Response
+response['version']['number']
+# => "8.1.4"
+response.body['version']['number']
+# => "8.1.4"
+response.status
+# => 200
+response.headers
+# =>
+{"date"=>"Tue, 10 May 2022 09:01:10 GMT",
+ "content-type"=>"application/json;charset=utf-8",
+ "etag"=>"W/\"etag--gzip\"",
+ "cache-control"=>"max-age=0, private, must-revalidate",
+ "x-request-id"=>"id",
+ "x-runtime"=>"0.023468",
+ "vary"=>"Accept-Encoding, User-Agent",
+ "content-length"=>"755",
+ "server"=>"Jetty(9.4.43.v20210629)"}
+----------------------------
+
+[discrete]
+==== App Search
+
+[discrete]
+===== API Changes
+
+- API Logs: Removes `date` parameters for filters. This API requires a nested date object under `filters` (now passed in via the body) containing `from` and `to` keys formatted in accordance with RFC3339. The App Search client provides the helper function `date_to_rfc3339` which receives a date String and converts it to the right format.
+- Crawler API : Internal Url updated from `v0` to `v1`. `create_crawler_crawl_rule` body is a required parameter (`order`, `policy`, `rule`, `pattern`). `create_crawler_entry_point` body is required (for `value`). `create_crawler_sitemap` body is required (for `url`). `put_crawler_crawl_rule` body is required (`order`, `policy`, `rule`, `pattern`). `put_crawler_crawl_schedule` body is required (`frequency`, `unit`). `put_crawler_entry_point` body is required (for `value`). `put_crawler_sitemap` body is required (`url`).
+- Curations API: parameters for `create_curation` and `put_curation` must be passed in inside the body parameter now. 
+- Engine APIs: `create_engine` removes the `name` parameter. It must be passed in inside the body parameter now.
+- Log Click: `log_clickthrough` now requires `body`, the parameter `query` and `document_id` are required.
+- Search: When using `search`, query can no longer be sent as an argument. The method will raise `ArgumentError` if no body is sent, since `query` is a required parameter in the body.
+- APIs where `body` has been removed since it's not used: `delete_engine`, `engine`, `list_engines`, `curation`, `delete_curation`, `schema`, `api_key`, `delete_api_key`, `list_api_keys`, `delete_synonym_set`, `list_synonym_set`, `synonym_set`, `list_documents`, `reset_search_settings`, `search_settings`, `crawler_active_crawl_request`, `crawler_crawl_request`, `crawler_crawl_schedule`, `crawler_domain`, `crawler_metrics`, `crawler_overview`, `crawler_process_crawl`, `crawler_process_crawl_denied_urls`, `crawler_user_agent`, `delete_crawler_active_crawl_request`, `delete_crawler_crawl_rule`, `delete_crawler_crawl_schedule`, `delete_crawler_domain`, `delete_crawler_entry_point`, `delete_crawler_sitemap`, `list_crawler_crawl_requests`, `list_crawler_process_crawls`.
+
+[discrete]
+===== New APIs
+
+* `list_crawler_domain`: Lists crawler domains given an engine.
+* Adaptive Relevance Suggestion APIs:
+** `adaptive_relevance_suggestions` - Retrieves adaptive relevance for a single query.
+** `list_adaptive_relevance_suggestions` - List the adaptive relevance suggestions for a given engine.
+** `put_adaptive_relevance_suggestions` - Update adaptive relevance.
+* Adaptive Relevance Settings APIs:
+** `adaptive_relevance_settings` - Retrieve adaptive relevance settings.
+** `put_adaptive_relevance_settings` - Update adaptive relevance settings.
+** `refresh_adaptive_relevance_update_process` - Update suggestions process refresh.
+
+[discrete]
+==== Enterprise Search
+
+- Read-Only API: `put_read_only` body is now required with the enabled object: `{enabled: true|false}`.
+- APIs where `body` has been removed since it's not used: `health`, `read_only`, `stats`, `version`.
+
+[discrete]
+==== Workplace Search
+
+[discrete]
+===== API Changes
+
+* Permissions APIs have been removed: `add_user_permissions`, `list_permissions`, `put_user_permissions`, `remove_user_permissions`, `user_permissions`.
+* `current_user` removed `get_token` parameter.
+* Analytics: `create_analytics_events` will raise ArgumentError if body is missing (Required: type, query_id, page, content_source_id, document_id, rank)
+* Content Sources: `create_content_source` will raise ArgumentError if body is missing (Required: name). `name` cannot be passed in as a parameter anymore, needs to be in the body. `put_content_source` will raise ArgumentError if body is missing (Required: name, is_searchable). `put_content_source_icons` will raise ArgumentError if body is missing.
+* External Identities: `create_external_identity` will raise ArgumentError if body is missing (Required: external_user_id, external_user_properties, permissions). Body parameters have changed:
+
++
+[source,rb]
+----------------------------
+body = {
+  external_user_id: external_user_id,
+  permissions: [],
+  external_user_properties: [
+    'attribute_name' => '_elasticsearch_username',
+    'attribute_value' => 'fernando'
+  ]
+}
+client.create_external_identity(content_source_id, body: body)
+----------------------------
++
+In `delete_external_identity`, `external_identity` and `put_external_identity` the required parameter changed from `user` to `external_user_id`.
+See https://www.elastic.co/guide/en/workplace-search/current/workplace-search-external-identities-api.html
+* Search: Parameters need to be passed in via body to `search`. It will raise ArgumentError if body is missing.
+* Documents: `delete_documents` will raise ArgumentError if body is missing (Required document_ids).
+* Sync Jobs: `command_sync_jobs` will raise ArgumentError if body is missing.
+* Synonyms: `create_batch_synonym_sets`, `put_synonym_set` will raise ArgumentError if body is missing.
+* APIs where `body` has been removed since it's not used: `auto_query_refinement_details`, `content_source`, `current_user`, `delete_content_source`, `delete_external_identity`, `delete_synonym_set`, `document`, `external_identity`, `list_content_sources`, `list_external_identities`, `put_triggers_blocklist`, `synonym_set`, `triggers_blocklist`.
+
+[discrete]
+===== New APIs
+- `list_documents`: Lists documents from a custom content source.
