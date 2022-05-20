@@ -1,4 +1,15 @@
 [[release_notes_81]]
+=== 8.1 Release notes
+
+[discrete]
+[[release_notes_811]]
+=== 8.1.1 Release notes
+
+- Adds tracer parameters to enable tracing in elastic-transport. See https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/overview.html#_logging[logging] for more information.
+- Updates Workplace Search OAuth implementation. See https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/workplace-search-api.html#ws-oauth-authentication[OAuth Authentication] for changes in the OAuth process.
+
+[discrete]
+[[release_notes_810]]
 === 8.1.0 Release notes
 
 [discrete]
