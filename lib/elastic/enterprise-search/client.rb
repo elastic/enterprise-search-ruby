@@ -58,6 +58,8 @@ module Elastic
       # @option options [String] :proxy url of proxy to use, ex: "http://localhost:8888"
       # @option options [Boolean] :log Use the default logger (disabled by default)
       # @option arguments [Object] :logger An instance of a Logger-compatible object
+      # @option arguments [Boolean] :trace Use the default tracer (disabled by default)
+      # @option arguments [Object] :tracer An instance of a Logger-compatible object
       # @option arguments [Symbol] :adapter A specific adapter for Faraday (e.g. `:patron`)
       # @option enable_meta_header [Boolean] :enable_meta_header Enable sending the meta data header to Cloud.
       #                                                          (Default: true)
@@ -77,7 +79,9 @@ module Elastic
             transport_options: {
               request: { open_timeout: open_timeout }
             },
-            enable_meta_header: @options[:enable_meta_header] || true
+            enable_meta_header: @options[:enable_meta_header] || true,
+            trace: trace,
+            tracer: tracer
           )
       end
 
@@ -107,6 +111,14 @@ module Elastic
 
       def adapter
         @options[:adapter]
+      end
+
+      def tracer
+        @options[:tracer]
+      end
+
+      def trace
+        @options[:trace]
       end
 
       def host
