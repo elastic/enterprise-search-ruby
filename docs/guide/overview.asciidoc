@@ -14,6 +14,7 @@ For **Elastic Enterprise Search 7.0** and later, use the major version 7 (`7.x.y
 
 [discrete]
 === HTTP Library
+
 This library uses https://github.com/elastic/elastic-transport-ruby[elastic-transport], the low-level Ruby client for connecting to an Elastic clusters - also used in the official https://github.com/elastic/elasticsearch-ruby[Elasticsearch Ruby Client]. It uses https://rubygems.org/gems/faraday[Faraday], which supports several https://lostisland.github.io/faraday/adapters/[adapters] and will use `Net::HTTP` by default. For optimal performance with the Enterprise Search API, we suggest using an HTTP library which supports persistent ("keep-alive") connections. For the standard Ruby implementation, this could be https://github.com/drbrain/net-http-persistent[Net::HTTP::Persistent], https://github.com/toland/patron[patron] or https://github.com/typhoeus/typhoeus[Typhoeus]. For JRuby, https://github.com/cheald/manticore[Manticore] is a great option as well. Require the library for the adapter in your code and then pass in the `:adapter` parameter to the client when you initialize it:
 
 [source,ruby]
@@ -38,12 +39,26 @@ If you don't specify a host and port, the client will default to `http://localho
 [discrete]
 === Logging
 
-You can enable logging with the default logger by passing `log: true` as a parameter to the client's initializer, or pass in a Logger object with the `:logger` parameter:
+You can enable logging with the default logger by passing `log: true` as a parameter to the client's initializer, or pass in a Logger object with the `:logger` parameter, any confoming logger implementation:
 
 [source,rb]
 ----------------------------
 logger = MyLogger.new
 client = Elastic::EnterpriseSearch::Client.new(logger: logger)
+----------------------------
+
+To trace requests and responses in the _Curl_ format, set the `trace` argument:
+
+[source,rb]
+----------------------------
+client = Elastic::EnterpriseSearch::Client.new(trace: true)
+----------------------------
+
+This will use the `elastic-transport` default logger. But you can pass in a custom logger with:
+
+[source,rb]
+----------------------------
+client = Elastic::EnterpriseSearch::Client.new(tracer: my_tracer)
 ----------------------------
 
 [discrete]
