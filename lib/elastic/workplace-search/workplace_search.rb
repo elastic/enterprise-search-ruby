@@ -27,12 +27,17 @@ module Elastic
         include Elastic::EnterpriseSearch::WorkplaceSearch::Actions
         include Elastic::EnterpriseSearch::Utils
 
+        attr_accessor :kibana_url
+
         # Create a new Elastic::EnterpriseSearch::WorkplaceSearch::Client client
         #
         # @param options [Hash] a hash of configuration options
         # @option options [String] :access_token the access token for workplace search
         # @option options [String] :endpoint the endpoint Workplace Search
+        # @option options [String] :kibana_url The base URL of your Kibana instance
+        #
         def initialize(options = {})
+          @kibana_url = options[:kibana_url]
           super(options)
         end
 
@@ -45,9 +50,11 @@ module Elastic
         end
 
         def authorization_url(client_id, redirect_uri)
+          raise ArgumentError, 'kibana_url The base URL of your Kibana instance must be set in the client' unless kibana_url
+
           [
-            host,
-            '/ws/oauth/authorize?',
+            kibana_url,
+            '/app/enterprise_search/workplace_search/p/oauth/authorize?',
             'response_type=code&',
             "client_id=#{client_id}&",
             "redirect_uri=#{CGI.escape(redirect_uri)}"

@@ -91,9 +91,17 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
   context 'OAuth' do
     let(:client) { Elastic::EnterpriseSearch::WorkplaceSearch::Client.new(host: host) }
 
-    it 'generates an authorization url' do
-      authorization_url = 'http://localhost:3002/ws/oauth/authorize?response_type=code&client_id=client_id&redirect_uri=https%3A%2F%2Flocalhost%3A3002'
+    it 'generates an authorization url when kibana url has been set' do
+      client.kibana_url = 'http://localhost:5601'
+      authorization_url = "#{client.kibana_url}/app/enterprise_search/workplace_search/p/oauth/authorize?" \
+                          'response_type=code&client_id=client_id&redirect_uri=https%3A%2F%2Flocalhost%3A3002'
       expect(client.authorization_url('client_id', 'https://localhost:3002')).to eq authorization_url
+    end
+
+    it 'raises an error when kibana url is not set' do
+      expect do
+        client.authorization_url('client_id', 'https://localhost:3002')
+      end.to raise_exception(ArgumentError)
     end
   end
 
