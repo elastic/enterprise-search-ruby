@@ -3,6 +3,8 @@
 
 === Health API
 
+Get information on the health of a deployment and basic statistics around resource usage.
+
 [source,rb]
 ----------------------------
 > response = ent_client.health
@@ -17,6 +19,8 @@
 
 === Version API
 
+Get version information for the server.
+
 [source,rb]
 ----------------------------
 > response = ent_client.version
@@ -29,13 +33,15 @@
 [source,rb]
 ----------------------------
 # Set read-only flag state
-ent_client.put_read_only(body: { enabled: false })
+> ent_client.put_read_only(body: { enabled: false })
 
 # Get read-only flag state
-ent_client.read_only
+> ent_client.read_only
 ----------------------------
 
 === Stats API
+
+Get information about the resource usage of the application, the state of different internal queues, etc.
 
 [source,rb]
 ----------------------------
@@ -43,4 +49,13 @@ ent_client.read_only
  => {"app"=>{"pid"=>1, "start"=>"...", "end"=>"", "metrics"=>{...}},
      "queues"=>{"connectors"=>{...}, "document_destroyer"=>{...}, "engine_destroyer"=>{...}, "index_adder"=>{...}, ...},
      "connectors"=>{"alive"=>true, "pool"=>{...}, "job_store"=>{...}}}}
+----------------------------
+
+=== Search Engines
+
+Retrieve information about search engines
+
+[source,rb]
+----------------------------
+> ent_client.search_engines
 ----------------------------
