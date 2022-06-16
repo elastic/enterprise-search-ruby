@@ -97,4 +97,15 @@ describe Elastic::EnterpriseSearch::Client do
       end
     end
   end
+
+  context 'unversioned API' do
+    context 'search_engines' do
+      it 'makes GET request' do
+        response = client.search_engines
+
+        expect(response.status).to eq 200
+        expect(response.body['results'])
+      end
+    end
+  end
 end
