@@ -21,22 +21,23 @@ module Elastic
   module EnterpriseSearch
     module AppSearch
       module Actions
-        # Search - Run several search in the same request
+        # MultiSearch - Submit a multi search
+        # Submit a multi search query and receive a set of results with meta data
         #
-        # @param engine_name [String]  (*Required*)
-        # @param arguments [Hash] endpoint arguments
-        # @option arguments [Object] :body One or more queries to execute in parallel (*Required*)
+        # @param [String] engine_name Name of the engine (*Required*)
+        # @param [Hash] arguments endpoint arguments
+        # @option arguments [Hash] :body (Required: queries)
+        # @option body :queries
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/multi-search.html
         #
         def multi_search(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
-          raise ArgumentError, "Required parameter 'body' missing" unless arguments[:body]
+          raise ArgumentError, "Required parameter 'body (queries)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
-
           request(
             :post,
             "api/as/v1/engines/#{engine_name}/multi_search/",
