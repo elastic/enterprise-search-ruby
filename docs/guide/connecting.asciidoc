@@ -7,6 +7,7 @@ This page contains the information you need to connect and use the Client with E
 
 * <<authentication>>
 * <<custom_headers>>
+* <<transport>>
 
 
 [discrete]
@@ -168,3 +169,16 @@ workplace_search_client.index_documents(
   { body: documents, headers: headers }
 )
 ----------------------------
+
+[discrete]
+[[transport]]
+=== Transport
+
+The Enterprise Search Ruby client is powered by the https://github.com/elastic/elastic-transport-ruby/[`elastic-transport`] gem. You can read more about it https://www.elastic.co/guide/en/elasticsearch/client/ruby-api/current/transport.html[here]. The client accepts a transport object as an initializer:
+
+[source,rb]
+----------------------------
+transport = Elastic::Transport::Transport::HTTP::Curb.new
+ent_client = Elastic::EnterpriseSearch::Client.new(transport: transport)
+----------------------------
+
