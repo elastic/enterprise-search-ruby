@@ -10,7 +10,9 @@ Current development happens in the main branch.
 
 The library is compatible with all Elastic Enterprise Search versions since `7.x` but you **have to use a matching major version**:
 
-For **Elastic Enterprise Search 7.0** and later, use the major version 7 (`7.x.y`) of the library.
+* For **Elastic Enterprise Search 7.0** and later, use the major version 7 (`7.x.y`) of the library.
+* For **Elastic Enterprise Search 8.0** and later, use the major version 8 (`8.x.y`) of the library.
+
 
 [discrete]
 === HTTP Library
@@ -27,7 +29,7 @@ client = Elastic::EnterpriseSearch::Client.new(adapter: :net_http_persistent)
 
 All requests, if successful, will return an `Elastic::Transport::Transport::Response` instance. You can access the response `body`, `headers` and `status`.
 
-`elastic-transport` defines a https://github.com/elastic/elastic-transport-ruby/blob/main/lib/elastic/transport/transport/errors.rb[number of exception classes] for various client and server errors, as well as unsuccessful HTTP responses, making it possible to rescue specific exceptions with desired granularity. More details https://github.com/elastic/elastic-transport-ruby#exception-handling[here]. You can find the full documentation for `elastic-transport` at https://rubydoc.info/gems/elastic-transport[RubyDoc].
+`elastic-transport` defines a https://github.com/elastic/elastic-transport-ruby/blob/main/lib/elastic/transport/transport/errors.rb[number of exception classes] for various client and server errors, as well as unsuccessful HTTP responses, making it possible to rescue specific exceptions with desired granularity. More details https://github.com/elastic/elastic-transport-ruby#exception-handling[here]. You can find the full documentation for `elastic-transport` at https://www.elastic.co/guide/en/elasticsearch/client/ruby-api/current/transport.html[our official documentation] and  https://rubydoc.info/gems/elastic-transport[RubyDoc].
 
 The clients pass different options to transport, you can check them out https://rubydoc.info/github/elastic/enterprise-search-ruby/Elastic/EnterpriseSearch/Client[on RubyDocs].
 
