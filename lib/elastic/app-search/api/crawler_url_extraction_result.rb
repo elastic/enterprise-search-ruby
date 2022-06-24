@@ -20,6 +20,7 @@
 module Elastic
   module EnterpriseSearch
     module AppSearch
+      # Generated from build hash 835a1a87f357f7b7cfd3453b5c5a937c47995772
       module Actions
         # Crawler - Extract content from a URL
         # Performs an HTTP request to a given URL and extracts content from the page using standard App Search Crawler extraction pipeline.
