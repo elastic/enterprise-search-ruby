@@ -20,6 +20,7 @@
 module Elastic
   module EnterpriseSearch
     module AppSearch
+      # Generated from build hash 835a1a87f357f7b7cfd3453b5c5a937c47995772
       module Actions
         # Search - Submit a search
         # Submit a search and receive a set of results with meta data
