@@ -1,0 +1,14 @@
+[[release_notes_83]]
+=== 8.3 Release notes
+
+[discrete]
+[[release_notes_830]]
+=== 8.3.0 Release notes
+
+- Tested versions of Ruby for 8.3.0: Ruby (MRI) 2.7, 3.0 and 3.1, JRuby 9.3.
+- General small improvements in documentation.
+- Updated for compatibility with Elastic Enterprise Search 8.3's API.
+
+[discrete]
+==== Enterprise Search
+New API: `search_engines` - Retrieve information about search engines
