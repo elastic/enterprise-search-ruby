@@ -5,7 +5,7 @@ You can install Enterprise Search Client from Rubygems:
 
 [source,sh]
 ---------------------------------------------------
-$ gem install elastic-enterprise-search --pre
+$ gem install elastic-enterprise-search
 ---------------------------------------------------
 
 Or add it to your project's Gemfile:
@@ -15,4 +15,4 @@ Or add it to your project's Gemfile:
 gem 'elastic-enterprise-search'
 ---------------------------------------------------
 
-The version follows the Elastic Stack version so 7.10.0 is compatible with Enterprise Search released in Elastic Stack 7.10.0.
+The version follows the Elastic Stack version so 7.10.0 is compatible with Enterprise Search released in Elastic Stack 7.10.0, 8.1.0 is compatible with Enterprise Search released in Elastic Stack 8.1.0, and so on.
