@@ -43,4 +43,23 @@ namespace :unified_release do
   rescue StandardError => e
     abort "[!!!] #{e.class} : #{e.message}"
   end
+
+  desc 'Update Stack Versions in test matrices (.github/workflows and .ci/test-matrix.yml)'
+  task :update_matrices, :version do |_, args|
+    @version = args[:version]
+    error = 'Error: version must be passed in and needs to be a version format: 9.1.0, 8.7.15.'
+    raise ArgumentError, error unless @version&.match?(/[0-9.]/)
+
+    # Replace in test-matrix.yml
+    file = File.expand_path('./.ci/test-matrix.yml')
+    regex = /(STACK_VERSION:\s+- )([0-9.]+(-SNAPSHOT)?)/
+    replace_version(regex, file)
+  end
+
+  def replace_version(regex, file)
+    content = File.read(file)
+    match = content.match(regex)
+    content = content.gsub(regex, "#{match[1]}#{@version}")
+    File.open(file, 'w') { |f| f.puts content }
+  end
 end
