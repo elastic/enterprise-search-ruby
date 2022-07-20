@@ -17,6 +17,7 @@
 
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 namespace :unified_release do
   desc <<-DESC
   Update Rubygems versions in version.rb and *.gemspec files
@@ -63,3 +64,4 @@ namespace :unified_release do
     File.open(file, 'w') { |f| f.puts content }
   end
 end
+# rubocop:enable Metrics/BlockLength
