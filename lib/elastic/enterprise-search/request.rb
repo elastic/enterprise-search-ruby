@@ -25,7 +25,7 @@ require 'base64'
 
 module Elastic
   module EnterpriseSearch
-    CLIENT_NAME = 'elastic-enteprise-search-ruby'
+    CLIENT_NAME = 'elastic-enterprise-search-ruby'
     CLIENT_VERSION = Elastic::EnterpriseSearch::VERSION
 
     # Module included in Elastic::Enterprise::Client for http requests.

@@ -34,7 +34,7 @@ If an adapter is not specified, the client will try to auto-detect available lib
 
 [See the documentation](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/index.html) for usage, code examples, configuring the client, and an API reference.
 
-See code examples of usage for the [Enteprise Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/enterprise-search-api.html), [App Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/app-search-api.html) and [Workplace Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/workplace-search-api.html) APIs.
+See code examples of usage for the [Enterprise Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/enterprise-search-api.html), [App Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/app-search-api.html) and [Workplace Search](https://www.elastic.co/guide/en/enterprise-search-clients/ruby/current/workplace-search-api.html) APIs.
 
 ## Compatibility
 
