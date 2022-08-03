@@ -51,12 +51,14 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'performs an ES search' do
-      es_request = { body: { query: { bool: { must: { term: { author: 'panciroli' } } } } } }
-      response = client.search_es_search(engine_name, body: { request: es_request })
+      es_request = { query: { bool: { must: { term: { author: 'panciroli' } } } } }
+      response = client.search_es_search(engine_name, body: es_request)
       expect(response.status).to eq 200
       expect(response.body['hits']['hits'].count).to eq 2
       expect do
-        response.body['hits']['hits'].map { |a| a['_source']['author'] } == ['Elsa Panciroli', 'Dr. Elsa Panciroli']
+        response.body['hits']['hits'].map do |a|
+          a['_source']['author']
+        end == ['Elsa Panciroli', 'Dr. Elsa Panciroli']
       end
     end
   end
