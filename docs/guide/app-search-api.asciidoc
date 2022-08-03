@@ -342,8 +342,8 @@ Utilize the API to passthrough and execute raw Elasticsearch queries against the
 
 [source,rb]
 ----------------------------
-es_request = { body: { query: { bool: { must: { term: { title: 'test' } } } } } }
-client.search_es_search(engine_name, body: { request: es_request })
+es_request = { query: { bool: { must: { term: { title: 'test' } } } } }
+client.search_es_search(engine_name, body: es_request)
 ----------------------------
 
 === Search Explain
