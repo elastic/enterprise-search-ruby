@@ -338,7 +338,8 @@ client.refresh_adaptive_relevance_update_process(engine_name, adaptive_relevance
 
 === Elasticsearch Search
 
-Utilize the API to passthrough and execute raw Elasticsearch queries against the indices that power Enterprise Search engines.
+Submit an Elasticsearch search request to the document indices that power an App Search engine and retrieve the results. You can use this API with regular engines and meta engines. See https://www.elastic.co/guide/en/app-search/current/elasticsearch-search-api-reference.html[Elasticsearch search API for App Search] for more information and requirements for using this API.
+
 
 [source,rb]
 ----------------------------

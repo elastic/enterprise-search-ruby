@@ -26,16 +26,15 @@ module Elastic
         #
         # @param [String] engine_name Name of the engine (*Required*)
         # @param [Hash] arguments endpoint arguments
-        # @option arguments [Hash] :body (Required: request)
-        # @option body :request
-        # @option body :analytics
+        # @option arguments [Hash] :body Query parameters to be passed to Elasticsearch _search API
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
+        # @option headers [String] :X-Enterprise-Search-Analytics The search query associated with this request when recording search analytics
+        # @option headers [String] :X-Enterprise-Search-Analytics-Tags Analytics tags to be applied with this search request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/elasticsearch-search-api-reference.html
         #
         def search_es_search(engine_name, arguments = {})
           raise ArgumentError, "Required parameter 'engine_name' missing" unless engine_name
-          raise ArgumentError, "Required parameter 'body (request)' missing" unless arguments[:body]
 
           body = arguments.delete(:body) || {}
           headers = arguments.delete(:headers) || {}
