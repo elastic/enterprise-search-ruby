@@ -61,5 +61,17 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
         end == ['Elsa Panciroli', 'Dr. Elsa Panciroli']
       end
     end
+
+    it 'performs an ES search with query parameters' do
+      es_request = { query: { bool: { must: { term: { author: 'panciroli' } } } } }
+      response = client.search_es_search(engine_name, body: es_request, sort: "{ 'author': 'desc' }")
+      expect(response.status).to eq 200
+      expect(response.body['hits']['hits'].count).to eq 2
+      expect do
+        response.body['hits']['hits'].map do |a|
+          a['_source']['author']
+        end == ['Dr. Elsa Panciroli', 'Elsa Panciroli']
+      end
+    end
   end
 end
