@@ -56,5 +56,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '~> 1'
   s.add_development_dependency 'vcr', '~> 3.0.3'
   s.add_development_dependency 'webmock'
+  # Adapters
+  s.add_development_dependency 'faraday-httpclient'
+  s.add_development_dependency 'faraday-net_http_persistent'
+  s.add_development_dependency 'faraday-patron' unless defined? JRUBY_VERSION
+  s.add_development_dependency 'faraday-typhoeus'
 end
 # rubocop:enable Metrics/BlockLength

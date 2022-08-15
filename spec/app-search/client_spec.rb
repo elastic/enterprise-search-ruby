@@ -96,20 +96,30 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       end
     end
 
-    context 'when the adapter is patron' do
-      let(:client) { described_class.new(adapter: :patron) }
-
-      it 'uses Faraday with the adapter' do
-        expect(adapter).to eq Faraday::Adapter::Patron
-      end
-    end
-
     unless defined?(JRUBY_VERSION)
-      context 'when the adapter is typhoeus' do
-        let(:client) { described_class.new(adapter: :patron) }
+      context 'when the adapter is patron' do
+        fork do
+          let(:client) do
+            require 'faraday/patron'
+            described_class.new(adapter: :patron)
+          end
 
-        it 'uses Faraday with the adapter' do
-          expect(adapter).to eq Faraday::Adapter::Patron
+          it 'uses Faraday with the adapter' do
+            expect(adapter).to eq Faraday::Adapter::Patron
+          end
+        end
+      end
+
+      context 'when the adapter is typhoeus' do
+        fork do
+          let(:client) do
+            require 'faraday/typhoeus'
+            described_class.new(adapter: :typhoeus)
+          end
+
+          it 'uses Faraday with the adapter' do
+            expect(adapter).to eq Faraday::Adapter::Typhoeus
+          end
         end
       end
     end
