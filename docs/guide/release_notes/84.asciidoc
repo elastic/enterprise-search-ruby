@@ -1,0 +1,36 @@
+[[release_notes_84]]
+=== 8.4 Release notes
+
+[discrete]
+[[release_notes_840]]
+=== 8.4.0 Release notes
+
+- Tested versions of Ruby for 8.4.0: Ruby (MRI) 2.7, 3.0 and 3.1, JRuby 9.3.
+- Updated for compatibility with Elastic Enterprise Search 8.4's API.
+- Fixed client name String in meta header
+
+==== Changes to Elasticsearch Search in App Search
+
+[CAUTION]
+====
+The Elasticsearch search API for App Search is a beta feature. Beta features are subject to change and are not covered by the support SLA of generally available (GA) features. Elastic plans to promote this feature to GA in a future release.
+====
+
+The Elasticsearch Search API `search_es_search` has been updated to be more consistent with the Elasticsearch `_search` API.
+
+In the previous version, a `request` object was required in the request:
+
+[source,rb]
+----------------------------
+# DEPRECATED - This worked for 8.3 but has been updated in 8.4:
+es_request = { body: { query: { bool: { must: { term: { title: 'test' } } } } } }
+client.search_es_search(engine_name, body: { request: es_request })
+----------------------------
+
+This has been simplified to:
+
+[source,rb]
+----------------------------
+es_request = { query: { bool: { must: { term: { title: 'test' } } } } }
+client.search_es_search(engine_name, body: es_request)
+----------------------------
