@@ -39,3 +39,37 @@ RSpec.configure do |config|
     c.allow_http_connections_when_no_cassette = true
   end
 end
+
+def is_faraday2?
+  return false unless defined?(Faraday::VERSION)
+
+  Gem::Version.new(Faraday::VERSION) >= Gem::Version.new(2)
+end
+
+def hide_constants
+  hide_const('Faraday::Adapter::Patron')
+  hide_const('Patron')
+  hide_const('Faraday::Adapter::Typhoeus')
+  hide_const('Typhoeus')
+end
+
+shared_examples 'adapters compatibility' do
+  let(:transport_client) { instance_double(Elastic::Transport::Client) }
+  let(:adapter) { client.transport.transport.connections.all.first.connection.builder.adapter }
+  let(:client) { described_class.new }
+
+  context 'default ' do
+    it 'uses default NetHttp Faraday adapter' do
+      hide_constants
+      expect(adapter).to eq Faraday::Adapter::NetHttp
+    end
+  end
+
+  context 'selecting adapter' do
+    it 'uses Typhoeus when specified' do
+      allow(Elastic::Transport::Client).to receive(:new).and_return({})
+      described_class.new(adapter: :typhoeus)
+      expect(Elastic::Transport::Client).to have_received(:new).with(hash_including(adapter: :typhoeus))
+    end
+  end
+end
