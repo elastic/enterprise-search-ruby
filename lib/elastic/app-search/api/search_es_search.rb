@@ -27,6 +27,7 @@ module Elastic
         # @param [String] engine_name Name of the engine (*Required*)
         # @param [Hash] arguments endpoint arguments
         # @option arguments [Hash] :body Query parameters to be passed to Elasticsearch _search API
+        # @option arguments [Object] :es_search_query_params Query parameters to be passed to Elasticsearch _search API
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         # @option headers [String] :X-Enterprise-Search-Analytics The search query associated with this request when recording search analytics
         # @option headers [String] :X-Enterprise-Search-Analytics-Tags Analytics tags to be applied with this search request
@@ -40,7 +41,7 @@ module Elastic
           headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/elasticsearch/_search/",
+            "api/as/v1/engines/#{engine_name}/elasticsearch/_search/",
             arguments,
             body,
             headers
