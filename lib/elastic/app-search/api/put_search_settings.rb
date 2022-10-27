@@ -31,6 +31,7 @@ module Elastic
         # @option body :search_fields
         # @option body :result_fields
         # @option body [integer] :precision
+        # @option body [boolean] :precision_enabled
         # @option arguments [Hash] :headers optional HTTP headers to send with the request
         #
         # @see https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update
