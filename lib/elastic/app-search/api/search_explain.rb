@@ -49,7 +49,7 @@ module Elastic
           headers = arguments.delete(:headers) || {}
           request(
             :post,
-            "api/as/v0/engines/#{engine_name}/search_explain/",
+            "api/as/v1/engines/#{engine_name}/search_explain/",
             arguments,
             body,
             headers
