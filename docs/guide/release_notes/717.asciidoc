@@ -2,6 +2,18 @@
 === 7.17 Release notes
 
 [discrete]
+[[release_notes_7171]]
+=== 7.17.1 Release notes
+
+- Updates in Documentation: CHANGELOG, CODE_OF_CONDUCT, CONTRIBUTING, NOTICE, README
+- Adds the option to specify an adapter for Faraday when initializing a client. See https://github.com/elastic/enterprise-search-ruby/blob/main/README.md#elastic-enterprise-search-client[README]
+- Fixes typo in meta data for CLIENT_NAME.
+
+[discrete]
+[[release_notes_7170]]
+=== 7.17.0 Release notes
+
+[discrete]
 ==== General
 
 - Tested with Elastic Enterprise Search API version 7.17.0.
