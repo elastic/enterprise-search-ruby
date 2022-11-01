@@ -1,0 +1,40 @@
+[[release_notes_85]]
+=== 8.5 Release notes
+
+[discrete]
+[[release_notes_850]]
+=== 8.5.0 Release notes
+
+==== Client
+- Updates dependency on `elastic-transport`.  With the latest release of `elastic-transport` - `v8.1.0` - this gem now supports Faraday v2. When you upgrade your gems, `8.1.0` will be installed. This supports both Faraday v1 and Faraday v2. The main change on dependencies when using Faraday v2 is all adapters, except for the default `net_http` one, have been moved out of Faraday into separate gems. This means if you're not using the default adapter and you migrate to Faraday v2, you'll need to add the adapter gems to your Gemfile.
+
+These are the gems required for the different adapters with Faraday 2, instead of the libraries on which they were based:
+
+[source,rb]
+----------------------------
+# HTTPCLient
+gem 'faraday-httpclient'
+# NetHTTPPersistent
+gem 'faraday-net_http_persistent'
+# Patron
+gem 'faraday-patron'
+# Typhoeus
+gem 'faraday-typhoeus'
+----------------------------
+
+Things should work fine if you migrate to Faraday 2 as long as you include the adapter (unless you're using the default one `net-http`), but worst case scenario, you can always lock the version of Faraday in your project to 1.x:
+`gem 'faraday', '~> 1'`
+
+*Troubleshooting*
+
+If you see a message like:
+`:adapter is not registered on Faraday::Adapter (Faraday::Error)`
+Then you probably need to include the adapter library in your gemfile and require it.
+
+Please [submit an issue](https://github.com/elastic/enterprise-search-ruby/issues) if you encounter any problems.
+
+[discrete]
+==== App Search
+
+- Adds `precision_enabled` (Boolean) to `put_search_settings`. See https://www.elastic.co/guide/en/app-search/current/search-settings.html#search-settings-update[here] for more information.
+- `search_es_search` and `search_explain` changed the path to `api/as/v1` instead of `v0` and are now GA with version `8.5` of the stack.
