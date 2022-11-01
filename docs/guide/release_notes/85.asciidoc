@@ -31,7 +31,7 @@ If you see a message like:
 `:adapter is not registered on Faraday::Adapter (Faraday::Error)`
 Then you probably need to include the adapter library in your gemfile and require it.
 
-Please [submit an issue](https://github.com/elastic/enterprise-search-ruby/issues) if you encounter any problems.
+Please https://github.com/elastic/enterprise-search-ruby/issues[submit an issue] if you encounter any problems.
 
 [discrete]
 ==== App Search
