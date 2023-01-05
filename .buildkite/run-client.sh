@@ -27,6 +27,7 @@ docker run \
        --network ${network_name} \
        --name enterprise-search-ruby \
        --env "ELASTIC_ENTERPRISE_HOST=http://${CONTAINER_NAME}:3002" \
+       --env "SERVICE=${SERVICE}" \
        --rm \
        --volume `pwd`:/code/enterprise-search-ruby \
        elastic/enterprise-search-ruby \
