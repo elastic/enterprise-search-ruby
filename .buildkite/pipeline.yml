@@ -1,5 +1,5 @@
 steps:
-  - label: ":elastic-enterprise-search: :ruby: Enterprise Search Ruby ({{ matrix.ruby }})"
+  - label: ":elastic-enterprise-search: Enterprise Search :rspec: {{ matrix.service }} :ruby: v{{ matrix.ruby }}"
     agents:
       provider: "gcp"
     env:
