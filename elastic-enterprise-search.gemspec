@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.9.0'
   s.add_development_dependency 'rspec_junit_formatter'
   s.add_development_dependency 'rubocop', '~> 1'
-  s.add_development_dependency 'vcr', '~> 3.0.3'
+  s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
   # Adapters
   s.add_development_dependency 'faraday-httpclient'
