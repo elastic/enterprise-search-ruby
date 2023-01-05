@@ -32,6 +32,7 @@ RSpec.configure do |config|
 
   config.add_formatter('documentation')
   config.add_formatter('RspecJunitFormatter', 'enterprise-search-junit.xml')
+  config.add_formatter('RSpec::Core::Formatters::HtmlFormatter', "tmp/enterprise-search-#{ENV['SERVICE']}-tests.html")
 
   VCR.configure do |c|
     c.cassette_library_dir = 'spec/fixtures/vcr'
