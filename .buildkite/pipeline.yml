@@ -15,8 +15,8 @@ steps:
           # - "2.7"
         service:
           - enterprisesearch
-          # - appsearch
-          # - workplacesearch
+          - appsearch
+          - workplacesearch
     command: ./.buildkite/run-tests.sh
     artifact_paths: "tmp/*"
   - wait: ~
