@@ -1,0 +1,9 @@
+[[release_notes_86]]
+=== 8.6 Release notes
+
+[discrete]
+[[release_notes_860]]
+=== 8.6.0 Release notes
+
+- Tested versions of Ruby for 8.6.0: Ruby (MRI) 2.7, 3.0 and 3.1, JRuby 9.3 and JRuby 9.4.
+- Updated for compatibility with Elastic Enterprise Search 8.6's API.
