@@ -29,7 +29,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
-
+  config.color = true
   config.add_formatter('documentation')
   config.add_formatter('RspecJunitFormatter', 'enterprise-search-junit.xml')
   config.add_formatter(

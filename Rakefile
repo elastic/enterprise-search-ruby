@@ -40,7 +40,13 @@ namespace :spec do
 
   desc 'Run integration tests'
   task :integration do
-    sh 'rspec spec/integration'
+    buildkite = ENV['BUILDKITE']
+    puts '--- :rspec: Running Enteprise Search API Tests' if buildkite
+    sh 'rspec spec/integration/enterprise_search_api_spec.rb'
+    puts '--- :rspec: Running Workplace Search API Tests' if buildkite
+    sh 'rspec spec/integration/workplace-search'
+    puts '--- :rspec: Running App Search API Tests' if buildkite
+    sh 'rspec spec/integration/app-search'
   end
 
   desc 'Run all tests'
