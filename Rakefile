@@ -28,7 +28,7 @@ end
 
 desc 'Run Elastic Enterprise Search stack'
 task :stack, [:version] do |_, params|
-  sh "STACK_VERSION=#{params[:version]} ./.ci/run-local.sh"
+  sh "STACK_VERSION=#{params[:version]} ./.buildkite/run-local.sh"
 end
 
 # rubocop:disable Metrics/BlockLength
