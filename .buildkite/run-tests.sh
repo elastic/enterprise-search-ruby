@@ -14,11 +14,11 @@ set -euo pipefail
 echo "--- Create the elastic network"
 docker network create elastic
 
-echo "--- :elasticsearch: Starting Elasticsearch"
+echo "--- :docker: :elasticsearch: Starting Elasticsearch"
 DETACH=true bash $script_path/run-elasticsearch.sh
 
-echo "--- :elastic-enterprise-search: Starting Enterprise Search"
+echo "--- :docker: :elastic-enterprise-search: Starting Enterprise Search"
 DETACH=true bash $script_path/run-enterprise-search.sh
 
-echo "+++ :ruby: Run Client"
+echo "--- :ruby: Run Client"
 bash $script_path/run-client.sh
