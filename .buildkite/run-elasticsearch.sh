@@ -29,6 +29,9 @@ set -euo pipefail
 echo -e "\033[34;1mINFO:\033[0m Take down node if called twice with the same arguments (DETACH=true) or on seperate terminals \033[0m"
 cleanup_node $es_node_name
 
+# Set vm.max_map_count kernel setting to 262144
+sudo sysctl -w vm.max_map_count=262144
+
 master_node_name=${es_node_name}
 cluster_name=${moniker}${suffix}
 
