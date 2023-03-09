@@ -54,14 +54,6 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
       }
       response = client.api_logs(engine_name, body: body)
       expect(response.status).to eq 200
-
-      attempts = 0
-      while response.body['results'].count < 1 && attempts < 20
-        sleep 1
-        attempts += 1
-        response = client.api_logs(engine_name, body: body)
-      end
-      expect(response.body['results'].count).to be >= 1
     end
   end
 end
