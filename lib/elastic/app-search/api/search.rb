@@ -29,7 +29,7 @@ module Elastic
         # @option arguments [Hash] :body (Required: query)
         # @option body [string] :query
         # @option body :analytics
-        # @option body :boost
+        # @option body :boosts
         # @option body :facets
         # @option body :filters
         # @option body :group
