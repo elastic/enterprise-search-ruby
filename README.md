@@ -1,8 +1,9 @@
 # Elastic Enterprise Search Client
 
-![build](https://github.com/elastic/enterprise-search-ruby/workflows/main/badge.svg)
 ![rubocop](https://github.com/elastic/enterprise-search-ruby/workflows/rubocop/badge.svg)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
+![build](https://github.com/elastic/enterprise-search-ruby/workflows/main/badge.svg)
+[![Build status](https://badge.buildkite.com/a6c44f2af741c866381fb3c845e8d4b0e9b5c5883ef84ac30e.svg)](https://buildkite.com/elastic/enterprise-search-ruby)
 
 Official Ruby API client for [Elastic Enterprise Search](https://www.elastic.co/enterprise-search). Use this gem to integrate App Search and Workplace Search into your Ruby code.
 
