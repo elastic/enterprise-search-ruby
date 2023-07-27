@@ -77,7 +77,8 @@ module Elastic
             request_timeout: overall_timeout,
             adapter: adapter,
             transport_options: {
-              request: { open_timeout: open_timeout }
+              request: { open_timeout: open_timeout },
+              headers: { user_agent: user_agent }
             },
             enable_meta_header: @options[:enable_meta_header] || true,
             trace: trace,
@@ -127,6 +128,19 @@ module Elastic
         raise URI::InvalidURIError unless @options[:host] =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/
 
         @options[:host]
+      end
+
+      private
+
+      def user_agent
+        ua = "#{CLIENT_NAME}/#{CLIENT_VERSION}"
+        meta = ["RUBY_VERSION: #{RUBY_VERSION}"]
+        if RbConfig::CONFIG && RbConfig::CONFIG['host_os']
+          meta << "#{RbConfig::CONFIG['host_os'].split('_').first[/[a-z]+/i].downcase} " \
+                  "#{RbConfig::CONFIG['target_cpu']}"
+        end
+        meta << "elastic-transport: #{Elastic::Transport::VERSION}"
+        "#{ua} (#{meta.join('; ')})"
       end
     end
   end
