@@ -1,0 +1,10 @@
+[[release_notes_89]]
+=== 8.9 Release notes
+
+[discrete]
+[[release_notes_890]]
+=== 8.9.0 Release notes
+
+- Refactored User-Agent code, it is now set up on initializing the client instead of every request.
+- Tested versions of Ruby for 8.9.0: Ruby (MRI) 3.0, 3.1 and 3.2, JRuby 9.3 and JRuby 9.4.
+- Updated for compatibility with Elastic Enterprise Search 8.9's API.
