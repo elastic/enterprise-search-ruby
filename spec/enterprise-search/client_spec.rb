@@ -104,5 +104,16 @@ describe Elastic::EnterpriseSearch::Client do
     end
   end
 
+  context 'user-agent' do
+    context 'default' do
+      let(:transport) { Elastic::EnterpriseSearch::Client.new.instance_variable_get('@transport') }
+      let(:subject) { transport.transport.connections.first.connection.headers }
+
+      it 'includes the user-agent in transport' do
+        expect(subject['user-agent']).to match("elastic-enterprise-search-ruby/#{Elastic::EnterpriseSearch::VERSION}")
+      end
+    end
+  end
+
   include_examples 'adapters compatibility'
 end

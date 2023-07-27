@@ -48,7 +48,7 @@ module Elastic
 
       # Construct and send a request to the API.
       def request(method, path, params = {}, body = {}, headers = {})
-        meta_headers = { authorization: decide_authorization(params), user_agent: request_user_agent }
+        meta_headers = { authorization: decide_authorization(params) }
         headers = if !headers.is_a?(Hash)
                     meta_headers
                   else
@@ -78,17 +78,6 @@ module Elastic
       end
 
       private
-
-      def request_user_agent
-        ua = "#{CLIENT_NAME}/#{CLIENT_VERSION}"
-        meta = ["RUBY_VERSION: #{RUBY_VERSION}"]
-        if RbConfig::CONFIG && RbConfig::CONFIG['host_os']
-          meta << "#{RbConfig::CONFIG['host_os'].split('_').first[/[a-z]+/i].downcase} " \
-                  "#{RbConfig::CONFIG['target_cpu']}"
-        end
-        meta << "elastic-transport: #{Elastic::Transport::VERSION}"
-        "#{ua} (#{meta.join('; ')})"
-      end
 
       def decide_authorization(params)
         if params[:grant_type] == 'authorization_code'
