@@ -55,15 +55,6 @@ case $CMD in
         echo -e "\033[32;1mdone.\033[0m"
         exit 0
         ;;
-    assemble)
-        if [ -v $VERSION ]; then
-            echo -e "\033[31;1mTARGET: assemble -> missing version parameter\033[0m"
-            exit 1
-        fi
-        echo -e "\033[36;1mTARGET: assemble artefact $VERSION\033[0m"
-        TASK=assemble
-        TASK_ARGS=("$VERSION" "$output_folder")
-        ;;
     codegen)
         if [ -v $VERSION ]; then
             echo -e "\033[31;1mTARGET: codegen -> missing version parameter\033[0m"
@@ -112,11 +103,7 @@ esac
 
 echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-docker build --file .ci/Dockerfile --tag ${product} \
-  --build-arg BUILDER_UID="$(id -u)" \
-  --build-arg USER_ID="$(id -u)" \
-  --build-arg GROUP_ID="$(id -g)" .
-
+docker build --file .buildkite/Dockerfile --tag ${product}
 
 # ------------------------------------------------------- #
 # Run the Container
@@ -141,15 +128,6 @@ docker run \
 # ------------------------------------------------------- #
 # Post Command tasks & checks
 # ------------------------------------------------------- #
-
-if [[ "$CMD" == "assemble" ]]; then
-	if compgen -G ".ci/output/*" > /dev/null; then
-		echo -e "\033[32;1mTARGET: successfully assembled client v$VERSION\033[0m"
-	else
-		echo -e "\033[31;1mTARGET: assemble failed, empty workspace!\033[0m"
-		exit 1
-	fi
-fi
 
 if [[ "$CMD" == "codegen" ]]; then
     echo "TODO"
