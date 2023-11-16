@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: buildkite-pipeline-enterprise-search-ruby
+spec:
+  implementation:
+    apiVersion: buildkite.elastic.dev/v1
+    kind: Pipeline
+    metadata:
+      description: Enterprise Search Ruby Client
+      name: enterprise-search-ruby
+    spec:
+      repository: elastic/enterprise-search-ruby
+      teams:
+        clients-team: {}
+        everyone:
+          access_level: READ_ONLY
+  owner: group:clients-team
+  type: buildkite-pipeline
