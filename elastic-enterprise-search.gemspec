@@ -53,7 +53,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'byebug' unless defined?(JRUBY_VERSION)
   s.add_development_dependency 'rspec', '~> 3.9.0'
   s.add_development_dependency 'rspec_junit_formatter'
-  s.add_development_dependency 'rubocop', '~> 1'
+  s.add_development_dependency 'rubocop', '>= 1.51' unless defined?(JRUBY_VERSION) &&
+                                                           Gem::Version.new(JRUBY_VERSION) < Gem::Version.new('9.4')
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
   # Adapters
