@@ -4,7 +4,7 @@ steps:
       provider: "gcp"
     env:
       RUBY_VERSION: "{{ matrix.ruby }}"
-      STACK_VERSION: 8.15.0-SNAPSHOT
+      STACK_VERSION: 8.16.0-SNAPSHOT
     matrix:
       setup:
         ruby:
