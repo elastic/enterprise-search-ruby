@@ -103,24 +103,22 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     context 'when no adapter is specified' do
       it 'uses Faraday NetHttp' do
+        Object.send(:remove_const, :Typhoeus) if defined?(Typhoeus)
         expect(adapter).to eq Faraday::Adapter::NetHttp
-      end
-    end
-
-    context 'when the adapter is patron' do
-      let(:client) { described_class.new(adapter: :patron) }
-
-      it 'uses Faraday with the adapter' do
-        expect(adapter).to eq Faraday::Adapter::Patron
+        if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new(2)
+          require 'faraday/typhoeus'
+        else
+          require 'typhoeus'
+        end
       end
     end
 
     unless defined?(JRUBY_VERSION)
       context 'when the adapter is typhoeus' do
-        let(:client) { described_class.new(adapter: :patron) }
+        let(:client) { described_class.new(adapter: :typhoeus) }
 
         it 'uses Faraday with the adapter' do
-          expect(adapter).to eq Faraday::Adapter::Patron
+          expect(adapter).to eq Faraday::Adapter::Typhoeus
         end
       end
     end
