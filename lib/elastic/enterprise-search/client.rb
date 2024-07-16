@@ -120,11 +120,12 @@ module Elastic
       private
 
       def transport_klass
-        case Elasticsearch::Transport::VERSION
-        when /7\.1[123]/
-          Elasticsearch::Client
-        else
+        if defined?(Elasticsearch::Transport::Client)
           Elasticsearch::Transport::Client
+        elsif defined?(Elastic::Transport::Client)
+          Elastic::Transport::Client
+        elsif defined?(Elasticsearch::Client)
+          Elasticsearch::Client
         end
       end
     end
