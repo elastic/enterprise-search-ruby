@@ -28,7 +28,7 @@ describe Elastic::EnterpriseSearch::Client do
     }
   end
   let(:client) do
-    Elastic::EnterpriseSearch::Client.new(host: host, http_auth: http_auth)
+    Elastic::EnterpriseSearch::Client.new(host: host, http_auth: http_auth, adapter: :net_http)
   end
 
   after do
