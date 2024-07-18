@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '>= 1.51' unless defined?(JRUBY_VERSION) &&
                                                            Gem::Version.new(JRUBY_VERSION) < Gem::Version.new('9.4')
   s.add_development_dependency 'vcr'
-  s.add_development_dependency 'webmock'
+  s.add_development_dependency 'webmock', '>= 3.23.1'
   # Adapters
   s.add_development_dependency 'faraday-httpclient'
   s.add_development_dependency 'faraday-net_http_persistent'
