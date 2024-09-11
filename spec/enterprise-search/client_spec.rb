@@ -18,6 +18,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'faraday/patron'
 
 describe Elastic::EnterpriseSearch::Client do
   let(:host) { 'https://localhost:8080' }

@@ -24,6 +24,7 @@ gemspec
 
 gem 'awesome_print'
 gem 'byebug' unless defined?(JRUBY_VERSION)
+gem 'faraday-patron'
 gem 'rake'
 gem 'rspec', '~> 3.9.0'
 gem 'rspec_junit_formatter'

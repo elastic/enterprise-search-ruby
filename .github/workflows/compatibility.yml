@@ -1,5 +1,5 @@
 name: Compatibility with Elasticsearch
-on: [push, pull_request]
+on: [push]
 
 jobs:
   elasticsearch:

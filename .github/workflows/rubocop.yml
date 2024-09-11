@@ -1,5 +1,5 @@
 name: rubocop
-on: [push, pull_request]
+on: [push]
 
 jobs:
   rubocop:
@@ -11,5 +11,6 @@ jobs:
         ruby-version: 2.7
     - name: Run Rubocop
       run: |
+        sudo apt-get install libcurl4-openssl-dev
         bundle install
         bundle exec rubocop
