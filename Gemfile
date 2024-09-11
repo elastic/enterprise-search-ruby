@@ -22,5 +22,13 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in elastic-enterprise-search.gemspec
 gemspec
 
+gem 'awesome_print'
+gem 'byebug' unless defined?(JRUBY_VERSION)
+gem 'faraday-patron'
 gem 'rake'
+gem 'rspec', '~> 3.9.0'
+gem 'rspec_junit_formatter'
+gem 'rubocop', '~> 1.0'
 gem 'simplecov', require: false, group: :test
+gem 'vcr'
+gem 'webmock'

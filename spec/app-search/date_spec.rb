@@ -22,7 +22,7 @@ require 'spec_helper'
 describe Elastic::EnterpriseSearch::AppSearch::Client do
   let(:host) { 'https://localhost:8080' }
   let(:api_key) { 'api_key' }
-  let(:client) { Elastic::EnterpriseSearch::AppSearch::Client.new(host: host) }
+  let(:client) { Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, adapter: :net_http) }
   let(:subject) { client.date_to_rfc3339(date) }
 
   context 'Date (year=2020, month=1, day=2)' do

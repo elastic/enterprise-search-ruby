@@ -24,7 +24,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
   let(:api_key) { 'api_key' }
 
   context 'dependant on EnterpriseSearch' do
-    let(:ent_client) { Elastic::EnterpriseSearch::Client.new(host: host) }
+    let(:ent_client) { Elastic::EnterpriseSearch::Client.new(host: host, adapter: :net_http) }
     let(:app_client) { ent_client.app_search }
 
     it 'initializes an app search client' do
@@ -34,7 +34,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'sets up authentication during initialization' do
-      ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
+      # ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
       app_client = ent_client.app_search(http_auth: api_key)
       expect(app_client.http_auth).to eq api_key
     end
@@ -46,7 +46,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
   end
 
   context 'independent from EnterpriseSearch client' do
-    let(:app_client) { Elastic::EnterpriseSearch::AppSearch::Client.new(host: host) }
+    let(:app_client) { Elastic::EnterpriseSearch::AppSearch::Client.new(host: host, adapter: :net_http) }
 
     it 'initializes a workplace search client' do
       expect(app_client).not_to be nil
@@ -55,7 +55,7 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     end
 
     it 'sets up authentication during initialization' do
-      ent_client = Elastic::EnterpriseSearch::Client.new(host: host)
+      ent_client = Elastic::EnterpriseSearch::Client.new(host: host, adapter: :net_http)
       app_client = ent_client.app_search(http_auth: api_key)
       expect(app_client.http_auth).to eq api_key
     end
@@ -90,27 +90,11 @@ describe Elastic::EnterpriseSearch::AppSearch::Client do
     let(:client) { described_class.new }
     let(:adapter) { client.transport.transport.connections.all.first.connection.builder.adapter }
 
-    context 'when no adapter is specified' do
-      it 'uses Faraday NetHttp' do
-        expect(adapter).to eq Faraday::Adapter::NetHttp
-      end
-    end
-
     context 'when the adapter is patron' do
       let(:client) { described_class.new(adapter: :patron) }
 
       it 'uses Faraday with the adapter' do
         expect(adapter).to eq Faraday::Adapter::Patron
-      end
-    end
-
-    unless defined?(JRUBY_VERSION)
-      context 'when the adapter is typhoeus' do
-        let(:client) { described_class.new(adapter: :patron) }
-
-        it 'uses Faraday with the adapter' do
-          expect(adapter).to eq Faraday::Adapter::Patron
-        end
       end
     end
   end

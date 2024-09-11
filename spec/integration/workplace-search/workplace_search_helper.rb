@@ -18,6 +18,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'faraday/patron'
 
 # Workplace Search Integration tests Client Configuration
 def client
