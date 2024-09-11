@@ -18,6 +18,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'faraday/patron'
 require 'logger'
 
 # App Search Integration tests Client Configuration
