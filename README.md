@@ -5,11 +5,12 @@
 ![build](https://github.com/elastic/enterprise-search-ruby/workflows/main/badge.svg)
 [![Build status](https://badge.buildkite.com/a6c44f2af741c866381fb3c845e8d4b0e9b5c5883ef84ac30e.svg)](https://buildkite.com/elastic/enterprise-search-ruby)
 
-> [!WARNING] **Enterprise Search will be discontinued in 9.0.**
-
+> [!WARNING]
+> **Enterprise Search will be discontinued in 9.0.**
+>
 > Starting with Elastic version 9.0, the standalone Enterprise Search products, will no longer be included in our offering. They remain supported in their current form in version 8.x and will only receive security upgrades and fixes. Enterprise Search clients will continue to be supported in their current form throughout 8.x versions, according to our EOL policy: https://www.elastic.co/support/eol
 > We recommend transitioning to our actively developed Elastic Stack (https://www.elastic.co/elastic-stack) tools for your search use cases. However, if you're still using any Enterprise Search products, we recommend using the latest stable release of the clients.
-
+>
 > Here are some useful links with more information:
 > * Enterprise Search FAQ: https://www.elastic.co/resources/enterprise-search/enterprise-search-faq
 > * Migrating to 9.x from Enterprise Search 8.x versions: https://www.elastic.co/guide/en/enterprise-search/current/upgrading-to-9-x.html
