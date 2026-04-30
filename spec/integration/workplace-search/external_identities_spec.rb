@@ -27,7 +27,7 @@ describe Elastic::EnterpriseSearch::WorkplaceSearch::Client do
 
     let(:content_source_id) { client.create_content_source(body: { name: 'my_content' }).body['id'] }
     let(:external_user_id) { 'elastic_user' }
-    let(:user_properties) { ['attribute_name' => '_elasticsearch_username', 'attribute_value' => 'fernando'] }
+    let(:user_properties) { [{ 'attribute_name' => '_elasticsearch_username', 'attribute_value' => 'fernando' }] }
     let(:body) do
       { external_user_id: external_user_id, permissions: [], external_user_properties: user_properties }
     end
