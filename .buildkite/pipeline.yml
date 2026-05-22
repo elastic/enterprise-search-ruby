@@ -4,14 +4,13 @@ steps:
       provider: "gcp"
     env:
       RUBY_VERSION: "{{ matrix.ruby }}"
-      STACK_VERSION: 8.18.0-SNAPSHOT
+      STACK_VERSION: 8.19.16-SNAPSHOT
     matrix:
       setup:
         ruby:
+          - "4.0"
           - "3.4"
           - "3.3"
-          - "3.2"
-          - "3.1"
     command: ./.buildkite/run-tests.sh
     artifact_paths: "tmp/*"
   - wait: ~
