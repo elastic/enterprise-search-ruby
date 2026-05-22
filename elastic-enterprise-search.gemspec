@@ -48,9 +48,10 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'elastic-transport', '~> 8.1'
-  s.add_runtime_dependency 'jwt', '>= 1.5', '< 3.0'
+  s.add_runtime_dependency 'jwt', '>= 3.2.0'
   s.add_development_dependency 'awesome_print'
   s.add_development_dependency 'byebug' unless defined?(JRUBY_VERSION)
+  s.add_development_dependency 'ostruct'
   s.add_development_dependency 'rspec', '~> 3.9.0'
   s.add_development_dependency 'rspec_junit_formatter'
   s.add_development_dependency 'rubocop', '>= 1.51' unless defined?(JRUBY_VERSION) &&
