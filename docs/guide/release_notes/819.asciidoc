@@ -1,0 +1,22 @@
+[[release_notes_819]]
+=== 8.19 Release notes
+
+[discrete]
+[[release_notes_8190]]
+=== 8.19.0 Release notes
+
+- Updates `jwt` dependency to `>= 3.2.0` for https://github.com/advisories/GHSA-c32j-vqhx-rx3x[CVE-2026-45363]
+- Gem `ostruct` required in development for Ruby >= 4.
+- Tested versions of Ruby MRI: `3.3`, `3.4`, `4.0`.
+- Tested versions of JRuby: `9.3`, `9.4`, `10.0`.
+
+*Warning - Enterprise Search was discontinued in 9.0*
+
+Starting with Elastic version 9.0, the standalone Enterprise Search products, will no longer be included in our offering. They remain supported in their current form in version 8.x and will only receive security upgrades and fixes. Enterprise Search clients will continue to be supported in their current form throughout 8.x versions, according to our EOL policy: https://www.elastic.co/support/eol
+
+We recommend transitioning to our actively developed Elastic Stack (https://www.elastic.co/elastic-stack) tools for your search use cases. However, if you're still using any Enterprise Search products, we recommend using the latest stable release of the clients.
+Here are some useful links with more information:
+
+* Enterprise Search FAQ: https://www.elastic.co/resources/enterprise-search/enterprise-search-faq
+* Migrating to 9.x from Enterprise Search 8.x versions: https://www.elastic.co/guide/en/enterprise-search/current/upgrading-to-9-x.html
+
